@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Silent VPN — скачать</title>
+  <meta name="description" content="Silent VPN — защищённое соединение для работы, учёбы и отдыха. Windows и Android, trial 3 дня бесплатно.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --fg: #000000;
+      --muted: #666666;
+      --line: rgba(0, 0, 0, 0.08);
+      --accent: #1a1a1a;
+      --card: rgba(255, 255, 255, 0.72);
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.08);
+      --radius: 20px;
+      --font-display: "Instrument Sans", system-ui, sans-serif;
+      --font-body: "Inter", system-ui, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: var(--font-body);
+      color: var(--fg);
+      background: var(--bg);
+      overflow-x: hidden;
+    }
+
+    .canvas-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .grain {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0.045;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      animation: grainShift 8s steps(10) infinite;
+    }
+
+    @keyframes grainShift {
+      0%, 100% { transform: translate(0, 0); }
+      10% { transform: translate(-2%, -3%); }
+      30% { transform: translate(1%, 2%); }
+      50% { transform: translate(-1%, 1%); }
+      70% { transform: translate(2%, -1%); }
+      90% { transform: translate(-2%, 2%); }
+    }
+
+    .page {
+      position: relative;
+      z-index: 2;
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 32px 24px 40px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      animation: fadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .logo {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: #000;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.35rem;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+      animation: logoFloat 6s ease-in-out infinite;
+    }
+
+    @keyframes logoFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+
+    .brand-name {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 1.05rem;
+      letter-spacing: -0.02em;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--muted);
+      backdrop-filter: blur(8px);
+      background: rgba(255, 255, 255, 0.6);
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #000;
+      animation: pulse 2.4s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.35; transform: scale(0.85); }
+    }
+
+    main {
+      display: grid;
+      align-content: center;
+      gap: 56px;
+      padding: 48px 0 64px;
+    }
+
+    .hero {
+      display: grid;
+      gap: 24px;
+      max-width: 680px;
+    }
+
+    .eyebrow {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      animation: fadeUp 0.9s 0.08s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 8vw, 5.2rem);
+      line-height: 0.95;
+      letter-spacing: -0.045em;
+      font-weight: 700;
+    }
+
+    .title-line {
+      display: block;
+      overflow: hidden;
+    }
+
+    .title-line span {
+      display: inline-block;
+      animation: slideUp 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .title-line:nth-child(1) span { animation-delay: 0.12s; }
+    .title-line:nth-child(2) span { animation-delay: 0.22s; }
+
+    @keyframes slideUp {
+      from { transform: translateY(110%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes fadeUp {
+      from { transform: translateY(18px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .hero-desc {
+      max-width: 520px;
+      font-size: 1.05rem;
+      line-height: 1.65;
+      color: var(--muted);
+      animation: fadeUp 0.9s 0.32s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .downloads {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      animation: fadeUp 0.9s 0.42s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    @media (max-width: 720px) {
+      .downloads { grid-template-columns: 1fr; }
+    }
+
+    .dl-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--card);
+      backdrop-filter: blur(16px);
+      text-decoration: none;
+      color: inherit;
+      overflow: hidden;
+      transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+                  border-color 0.35s ease,
+                  box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .dl-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0,0,0,0.04) 0%, transparent 55%);
+      opacity: 0;
+      transition: opacity 0.35s ease;
+    }
+
+    .dl-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(0, 0, 0, 0.18);
+      box-shadow: var(--shadow);
+    }
+
+    .dl-card:hover::before { opacity: 1; }
+
+    .dl-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .dl-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      display: grid;
+      place-items: center;
+      background: #fff;
+    }
+
+    .dl-icon svg {
+      width: 22px;
+      height: 22px;
+      stroke: #000;
+      fill: none;
+      stroke-width: 1.6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .version-badge {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #000;
+      color: #fff;
+    }
+
+    .version-badge.loading {
+      background: #eee;
+      color: #999;
+    }
+
+    .dl-title {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    .dl-meta {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .dl-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: auto;
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    .dl-action svg {
+      width: 18px;
+      height: 18px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .dl-card:hover .dl-action svg {
+      transform: translateY(3px);
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      animation: fadeUp 0.9s 0.52s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    @media (max-width: 720px) {
+      .features { grid-template-columns: 1fr; }
+    }
+
+    .feature {
+      padding: 20px 22px;
+      border-top: 1px solid var(--line);
+    }
+
+    .feature-num {
+      font-family: var(--font-display);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .feature-title {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      letter-spacing: -0.01em;
+    }
+
+    .feature-text {
+      font-size: 0.86rem;
+      line-height: 1.55;
+      color: var(--muted);
+    }
+
+    footer {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+      font-size: 0.82rem;
+      color: var(--muted);
+      animation: fadeUp 0.9s 0.62s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    footer a {
+      color: inherit;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.25s ease, color 0.25s ease;
+    }
+
+    footer a:hover {
+      color: #000;
+      border-bottom-color: rgba(0, 0, 0, 0.35);
+    }
+
+    .cursor-glow {
+      position: fixed;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 1;
+      background: radial-gradient(circle, rgba(0,0,0,0.04) 0%, transparent 70%);
+      transform: translate(-50%, -50%);
+      transition: opacity 0.3s ease;
+      opacity: 0;
+    }
+
+    body:hover .cursor-glow { opacity: 1; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      .cursor-glow { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <canvas class="canvas-bg" id="gridCanvas" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+
+  <div class="page">
+    <header>
+      <div class="brand">
+        <div class="logo" aria-hidden="true">S</div>
+        <span class="brand-name">Silent VPN</span>
+      </div>
+      <div class="status-pill">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span>Сервис активен</span>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <p class="eyebrow">Защита · Скорость · Простота</p>
+        <h1>
+          <span class="title-line"><span>Ваша сеть.</span></span>
+          <span class="title-line"><span>Ваши правила.</span></span>
+        </h1>
+        <p class="hero-desc">
+          Защищённое соединение для работы, учёбы и отдыха. Один аккаунт — компьютер и телефон.
+          После установки: регистрация и 3 дня trial бесплатно.
+        </p>
+      </section>
+
+      <section class="downloads" aria-label="Скачать приложение">
+        <a class="dl-card" id="pcDownload" href="https://132-243-234-162.nip.io/update/pc/Silent%20VPN%20Setup%201.0.144.exe" download>
+          <div class="dl-top">
+            <div class="dl-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+            </div>
+            <span class="version-badge loading" id="pcVersion">…</span>
+          </div>
+          <div>
+            <div class="dl-title">Windows</div>
+            <p class="dl-meta" id="pcMeta">Windows · x64</p>
+          </div>
+          <span class="dl-action">
+            Скачать для ПК
+            <svg viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+          </span>
+        </a>
+
+        <a class="dl-card" id="androidDownload" href="https://132-243-234-162.nip.io/update/android/SilentVPN-release-1.0.144.apk" download>
+          <div class="dl-top">
+            <div class="dl-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg>
+            </div>
+            <span class="version-badge loading" id="androidVersion">…</span>
+          </div>
+          <div>
+            <div class="dl-title">Android</div>
+            <p class="dl-meta" id="androidMeta">Android</p>
+          </div>
+          <span class="dl-action">
+            Скачать для Android
+            <svg viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+          </span>
+        </a>
+      </section>
+
+      <section class="features">
+        <article class="feature">
+          <div class="feature-num">01</div>
+          <h2 class="feature-title">Без лишних настроек</h2>
+          <p class="feature-text">Включили тумблер — VPN работает. Не нужно разбираться в протоколах и технических деталях.</p>
+        </article>
+        <article class="feature">
+          <div class="feature-num">02</div>
+          <h2 class="feature-title">До 3 устройств</h2>
+          <p class="feature-text">ПК, ноутбук и смартфон на одной подписке. Управление сессиями — в личном кабинете приложения.</p>
+        </article>
+        <article class="feature">
+          <div class="feature-num">03</div>
+          <h2 class="feature-title">Стабильное соединение</h2>
+          <p class="feature-text">Оптимизированная маршрутизация для повседневных задач: мессенджеры, браузер, стриминг и работа онлайн.</p>
+        </article>
+      </section>
+    </main>
+
+    <footer>
+      <span>© 2026 Silent VPN</span>
+    </footer>
+  </div>
+
+  <script>
+    const API_BASE = "https://132-243-234-162.nip.io";
+    const CACHE_KEY = "silentvpn_releases_v1";
+    const REFRESH_MS = 5 * 60 * 1000;
+    const FETCH_TIMEOUT_MS = 12000;
+    const MAX_RETRIES = 3;
+
+    function formatSize(bytes) {
+      if (!bytes) return "";
+      const mb = bytes / (1024 * 1024);
+      return mb >= 1 ? `${mb.toFixed(1)} MB` : `${Math.round(bytes / 1024)} KB`;
+    }
+
+    function buildDownloadUrl(platform, filename) {
+      return `${API_BASE}/update/${platform}/${encodeURIComponent(filename)}`;
+    }
+
+    function applyRelease(platform, data, versionEl, metaEl, linkEl) {
+      if (!data?.version || !data?.filename) return false;
+      linkEl.href = data.download_url || buildDownloadUrl(platform, data.filename);
+      linkEl.style.pointerEvents = "";
+      linkEl.style.opacity = "";
+      versionEl.textContent = `v${data.version}`;
+      versionEl.classList.remove("loading");
+      metaEl.textContent = formatSize(data.size);
+      return true;
+    }
+
+    function saveCache(platform, data) {
+      try {
+        const all = JSON.parse(localStorage.getItem(CACHE_KEY) || "{}");
+        all[platform] = { ...data, saved_at: Date.now() };
+        localStorage.setItem(CACHE_KEY, JSON.stringify(all));
+      } catch { /* ignore */ }
+    }
+
+    function loadCache(platform) {
+      try {
+        const all = JSON.parse(localStorage.getItem(CACHE_KEY) || "{}");
+        return all[platform] || null;
+      } catch {
+        return null;
+      }
+    }
+
+    async function fetchWithTimeout(url, ms) {
+      const ctrl = new AbortController();
+      const timer = setTimeout(() => ctrl.abort(), ms);
+      try {
+        return await fetch(url, { signal: ctrl.signal, cache: "no-store" });
+      } finally {
+        clearTimeout(timer);
+      }
+    }
+
+    async function fetchFromApi(platform) {
+      const res = await fetchWithTimeout(
+        `${API_BASE}/api/updates/check?platform=${platform}&version=0.0.0`,
+        FETCH_TIMEOUT_MS
+      );
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      if (!data.available || !data.download_url) throw new Error("No release");
+      const path = data.download_url.startsWith("http")
+        ? data.download_url
+        : `${API_BASE}${data.download_url.replace(/ /g, "%20")}`;
+      return {
+        version: data.version,
+        filename: data.filename,
+        size: data.size,
+        download_url: path,
+      };
+    }
+
+    async function fetchFromFallback() {
+      const res = await fetchWithTimeout("releases.json", FETCH_TIMEOUT_MS);
+      if (!res.ok) throw new Error("releases.json missing");
+      return res.json();
+    }
+
+    function showError(versionEl, metaEl, linkEl) {
+      versionEl.textContent = "—";
+      versionEl.classList.remove("loading");
+      metaEl.textContent = "Повторная попытка…";
+      linkEl.style.opacity = "0.7";
+    }
+
+    async function loadRelease(platform, versionEl, metaEl, linkEl, fallbackAll) {
+      let applied = false;
+
+      const cached = loadCache(platform);
+      if (cached && applyRelease(platform, cached, versionEl, metaEl, linkEl)) applied = true;
+
+      const fb = fallbackAll?.[platform];
+      if (!applied && fb && applyRelease(platform, {
+        version: fb.version,
+        filename: fb.filename,
+        size: fb.size,
+        download_url: buildDownloadUrl(platform, fb.filename),
+      }, versionEl, metaEl, linkEl)) applied = true;
+
+      for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+        try {
+          const data = await fetchFromApi(platform);
+          applyRelease(platform, data, versionEl, metaEl, linkEl);
+          saveCache(platform, data);
+          return;
+        } catch {
+          if (attempt < MAX_RETRIES) await new Promise((r) => setTimeout(r, attempt * 1500));
+        }
+      }
+
+      if (!applied) showError(versionEl, metaEl, linkEl);
+    }
+
+    async function initDownloads() {
+      let fallbackAll = null;
+      try { fallbackAll = await fetchFromFallback(); } catch { /* optional */ }
+
+      await Promise.all([
+        loadRelease("pc", document.getElementById("pcVersion"), document.getElementById("pcMeta"), document.getElementById("pcDownload"), fallbackAll),
+        loadRelease("android", document.getElementById("androidVersion"), document.getElementById("androidMeta"), document.getElementById("androidDownload"), fallbackAll),
+      ]);
+    }
+
+    initDownloads();
+    setInterval(initDownloads, REFRESH_MS);
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "visible") initDownloads();
+    });
+
+    // Animated grid background
+    const canvas = document.getElementById("gridCanvas");
+    const ctx = canvas.getContext("2d");
+    let w, h, t = 0;
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    function resize() {
+      w = canvas.width = window.innerWidth * devicePixelRatio;
+      h = canvas.height = window.innerHeight * devicePixelRatio;
+      canvas.style.width = window.innerWidth + "px";
+      canvas.style.height = window.innerHeight + "px";
+      ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+    }
+
+    function drawGrid() {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      ctx.clearRect(0, 0, width, height);
+
+      const spacing = 56;
+      const offset = (t * 0.25) % spacing;
+
+      ctx.strokeStyle = "rgba(0,0,0,0.045)";
+      ctx.lineWidth = 1;
+
+      for (let x = -spacing; x < width + spacing; x += spacing) {
+        const sx = x + offset;
+        ctx.beginPath();
+        ctx.moveTo(sx, 0);
+        ctx.lineTo(sx, height);
+        ctx.stroke();
+      }
+
+      for (let y = -spacing; y < height + spacing; y += spacing) {
+        const sy = y + offset * 0.6;
+        ctx.beginPath();
+        ctx.moveTo(0, sy);
+        ctx.lineTo(width, sy);
+        ctx.stroke();
+      }
+
+      // Diagonal accent lines
+      ctx.strokeStyle = "rgba(0,0,0,0.025)";
+      for (let i = -height; i < width + height; i += 120) {
+        const shift = (t * 0.15) % 120;
+        ctx.beginPath();
+        ctx.moveTo(i + shift, 0);
+        ctx.lineTo(i + shift - height, height);
+        ctx.stroke();
+      }
+
+      // Radial vignette
+      const grad = ctx.createRadialGradient(width * 0.3, height * 0.2, 0, width * 0.5, height * 0.5, Math.max(width, height) * 0.75);
+      grad.addColorStop(0, "rgba(255,255,255,0)");
+      grad.addColorStop(1, "rgba(255,255,255,0.85)");
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, width, height);
+    }
+
+    function loop() {
+      if (!prefersReduced) t += 1;
+      drawGrid();
+      requestAnimationFrame(loop);
+    }
+
+    window.addEventListener("resize", resize);
+    resize();
+    loop();
+
+    // Cursor glow
+    const glow = document.getElementById("cursorGlow");
+    window.addEventListener("pointermove", (e) => {
+      glow.style.left = e.clientX + "px";
+      glow.style.top = e.clientY + "px";
+    });
+  </script>
+</body>
+</html>
