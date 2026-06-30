@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Silent VPN — скачать</title>
   <meta name="description" content="Silent VPN — защищённое соединение для работы, учёбы и отдыха. Windows и Android, trial 3 дня бесплатно.">
-  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <!-- site-build: 20260630-1532 -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -511,10 +511,24 @@
 
   <script>
     const API_BASE = "https://132-243-234-162.nip.io";
-    const CACHE_KEY = "silentvpn_releases_v2";
+    const CACHE_KEY = "silentvpn_releases_v3";
     const REFRESH_MS = 5 * 60 * 1000;
     const FETCH_TIMEOUT_MS = 12000;
     const MAX_RETRIES = 3;
+
+    // Вшито при деплое (sync-releases.ps1) — работает даже если API/CDN недоступны
+        const INLINE_FALLBACK = {
+      pc: {
+        version: "1.0.146",
+        size: 82800463,
+        filename: "Silent VPN Setup 1.0.146.exe",
+      },
+      android: {
+        version: "1.0.146",
+        size: 14382457,
+        filename: "SilentVPN-release-1.0.146.apk",
+      },
+    };
 
     function formatSize(bytes) {
       if (!bytes) return "";
@@ -526,15 +540,19 @@
       return String(v || "0").split(".").map((n) => parseInt(n, 10) || 0);
     }
 
-    function isNewerOrEqual(next, current) {
-      const a = parseVersion(next);
-      const b = parseVersion(current);
-      const len = Math.max(a.length, b.length);
+    function compareVersions(a, b) {
+      const va = parseVersion(a);
+      const vb = parseVersion(b);
+      const len = Math.max(va.length, vb.length);
       for (let i = 0; i < len; i++) {
-        const diff = (a[i] || 0) - (b[i] || 0);
-        if (diff !== 0) return diff > 0;
+        const diff = (va[i] || 0) - (vb[i] || 0);
+        if (diff !== 0) return diff;
       }
-      return true;
+      return 0;
+    }
+
+    function isNewerOrEqual(next, current) {
+      return compareVersions(next, current) >= 0;
     }
 
     function buildDownloadUrl(platform, filename) {
@@ -600,7 +618,32 @@
       };
     }
 
-    async function fetchFromFallback() {
+    function toRelease(platform, item) {
+      if (!item?.version || !item?.filename) return null;
+      return {
+        version: item.version,
+        filename: item.filename,
+        size: item.size,
+        download_url: buildDownloadUrl(platform, item.filename),
+      };
+    }
+
+    function bestFallback(platform, remoteFallback) {
+      const candidates = [];
+      const inline = toRelease(platform, INLINE_FALLBACK[platform]);
+      if (inline) candidates.push(inline);
+
+      const remote = toRelease(platform, remoteFallback?.[platform]);
+      if (remote) candidates.push(remote);
+
+      const cached = loadCache(platform);
+      if (cached?.version && cached?.filename) candidates.push(cached);
+
+      if (!candidates.length) return null;
+      return candidates.sort((a, b) => compareVersions(b.version, a.version))[0];
+    }
+
+    async function fetchRemoteFallback() {
       const res = await fetchWithTimeout(`releases.json?_=${Date.now()}`, FETCH_TIMEOUT_MS);
       if (!res.ok) throw new Error("releases.json missing");
       return res.json();
@@ -613,7 +656,7 @@
       linkEl.style.opacity = "0.7";
     }
 
-    async function loadRelease(platform, versionEl, metaEl, linkEl, fallbackAll) {
+    async function loadRelease(platform, versionEl, metaEl, linkEl, remoteFallback) {
       for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
         try {
           const data = await fetchFromApi(platform);
@@ -625,27 +668,19 @@
         }
       }
 
-      const cached = loadCache(platform);
-      if (cached && applyRelease(platform, cached, versionEl, metaEl, linkEl)) return;
-
-      const fb = fallbackAll?.[platform];
-      if (fb && applyRelease(platform, {
-        version: fb.version,
-        filename: fb.filename,
-        size: fb.size,
-        download_url: buildDownloadUrl(platform, fb.filename),
-      }, versionEl, metaEl, linkEl)) return;
+      const fallback = bestFallback(platform, remoteFallback);
+      if (fallback && applyRelease(platform, fallback, versionEl, metaEl, linkEl)) return;
 
       showError(versionEl, metaEl, linkEl);
     }
 
     async function initDownloads() {
-      let fallbackAll = null;
-      try { fallbackAll = await fetchFromFallback(); } catch { /* optional */ }
+      let remoteFallback = null;
+      try { remoteFallback = await fetchRemoteFallback(); } catch { /* optional */ }
 
       await Promise.all([
-        loadRelease("pc", document.getElementById("pcVersion"), document.getElementById("pcMeta"), document.getElementById("pcDownload"), fallbackAll),
-        loadRelease("android", document.getElementById("androidVersion"), document.getElementById("androidMeta"), document.getElementById("androidDownload"), fallbackAll),
+        loadRelease("pc", document.getElementById("pcVersion"), document.getElementById("pcMeta"), document.getElementById("pcDownload"), remoteFallback),
+        loadRelease("android", document.getElementById("androidVersion"), document.getElementById("androidMeta"), document.getElementById("androidDownload"), remoteFallback),
       ]);
     }
 
@@ -733,3 +768,4 @@
   </script>
 </body>
 </html>
+

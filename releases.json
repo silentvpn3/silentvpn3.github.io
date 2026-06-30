@@ -1,14 +1,15 @@
-{
-  "updated_at": "2026-06-30T12:21:06Z",
-  "api_base": "https://132-243-234-162.nip.io",
-  "pc": {
-    "version": "1.0.146",
-    "size": 82800463,
-    "filename": "Silent VPN Setup 1.0.146.exe"
-  },
-  "android": {
-    "version": "1.0.146",
-    "size": 14382457,
-    "filename": "SilentVPN-release-1.0.146.apk"
-  }
+﻿{
+    "api_base":  "https://132-243-234-162.nip.io",
+    "updated_at":  "2026-06-30T12:32:28Z",
+    "android":  {
+                    "filename":  "SilentVPN-release-1.0.146.apk",
+                    "version":  "1.0.146",
+                    "size":  14382457
+                },
+    "pc":  {
+               "filename":  "Silent VPN Setup 1.0.146.exe",
+               "version":  "1.0.146",
+               "size":  82800463
+           }
 }
+

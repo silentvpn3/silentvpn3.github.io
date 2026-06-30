@@ -11,6 +11,8 @@ if (-not $env:GITHUB_TOKEN) {
     Write-Error "Set GITHUB_TOKEN environment variable (fine-grained PAT: Contents + Pages on silentvpn3.github.io)."
 }
 
+& "$RepoDir\sync-releases.ps1"
+
 $remote = "https://silentvpn3:$($env:GITHUB_TOKEN)@github.com/silentvpn3/silentvpn3.github.io.git"
 git remote set-url origin $remote
 git push -u origin main
