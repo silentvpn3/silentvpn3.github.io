@@ -49,6 +49,23 @@ $html = [regex]::Replace(
     '(?s)const INLINE_FALLBACK = \{.*?\};',
     $inline.TrimEnd()
 )
+
+function Format-Size([int]$bytes) {
+    $mb = $bytes / 1MB
+    if ($mb -ge 1) { return "{0:N1} MB" -f $mb }
+    return "{0} KB" -f [math]::Round($bytes / 1KB)
+}
+
+$pcUrl = [uri]::EscapeUriString("$ApiBase/update/pc/$($pc.filename)")
+$androidUrl = [uri]::EscapeUriString("$ApiBase/update/android/$($android.filename)")
+
+$html = [regex]::Replace($html, 'id="pcDownload" href="[^"]*"', "id=`"pcDownload`" href=`"$pcUrl`"")
+$html = [regex]::Replace($html, 'id="androidDownload" href="[^"]*"', "id=`"androidDownload`" href=`"$androidUrl`"")
+$html = [regex]::Replace($html, 'id="pcVersion" data-version="[^"]*">v[^<]*</span>', "id=`"pcVersion`" data-version=`"$($pc.version)`">v$($pc.version)</span>")
+$html = [regex]::Replace($html, 'id="androidVersion" data-version="[^"]*">v[^<]*</span>', "id=`"androidVersion`" data-version=`"$($android.version)`">v$($android.version)</span>")
+$html = [regex]::Replace($html, 'id="pcMeta">[^<]*</p>', "id=`"pcMeta`">$(Format-Size $pc.size)</p>")
+$html = [regex]::Replace($html, 'id="androidMeta">[^<]*</p>', "id=`"androidMeta`">$(Format-Size $android.size)</p>")
+
 $buildTag = "<!-- site-build: $(Get-Date -Format 'yyyyMMdd-HHmm') -->"
 $html = [regex]::Replace($html, '<!-- site-build: \d+-[\d]+ -->', $buildTag)
 Set-Content -Path "index.html" -Value $html -Encoding utf8

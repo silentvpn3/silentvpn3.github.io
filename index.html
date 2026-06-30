@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Silent VPN — скачать</title>
   <meta name="description" content="Silent VPN — защищённое соединение для работы, учёбы и отдыха. Windows и Android, trial 3 дня бесплатно.">
-  <!-- site-build: 20260630-5 -->
+  <!-- site-build: 20260630-1546 -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -450,16 +450,16 @@
       </section>
 
       <section class="downloads" aria-label="Скачать приложение">
-        <a class="dl-card" id="pcDownload" href="#" download>
+        <a class="dl-card" id="pcDownload" href="https://132-243-234-162.nip.io/update/pc/Silent%20VPN%20Setup%201.0.146.exe" download>
           <div class="dl-top">
             <div class="dl-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
             </div>
-            <span class="version-badge loading" id="pcVersion">…</span>
+            <span class="version-badge" id="pcVersion" data-version="1.0.146">v1.0.146</span>
           </div>
           <div>
             <div class="dl-title">Windows</div>
-            <p class="dl-meta" id="pcMeta">Windows · x64</p>
+            <p class="dl-meta" id="pcMeta">79,0 MB</p>
           </div>
           <span class="dl-action">
             Скачать для ПК
@@ -467,16 +467,16 @@
           </span>
         </a>
 
-        <a class="dl-card" id="androidDownload" href="#" download>
+        <a class="dl-card" id="androidDownload" href="https://132-243-234-162.nip.io/update/android/SilentVPN-release-1.0.146.apk" download>
           <div class="dl-top">
             <div class="dl-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg>
             </div>
-            <span class="version-badge loading" id="androidVersion">…</span>
+            <span class="version-badge" id="androidVersion" data-version="1.0.146">v1.0.146</span>
           </div>
           <div>
             <div class="dl-title">Android</div>
-            <p class="dl-meta" id="androidMeta">Android</p>
+            <p class="dl-meta" id="androidMeta">13,7 MB</p>
           </div>
           <span class="dl-action">
             Скачать для Android
@@ -513,11 +513,25 @@
     const API_BASE = "https://132-243-234-162.nip.io";
     const CACHE_KEY = "silentvpn_releases_v3";
     const REFRESH_MS = 5 * 60 * 1000;
-    const FETCH_TIMEOUT_MS = 12000;
-    const MAX_RETRIES = 3;
+    const FETCH_TIMEOUT_MS = 6000;
+    const MAX_RETRIES = 2;
+    let refreshInFlight = false;
+
+    const DOWNLOADS = {
+      pc: {
+        versionEl: () => document.getElementById("pcVersion"),
+        metaEl: () => document.getElementById("pcMeta"),
+        linkEl: () => document.getElementById("pcDownload"),
+      },
+      android: {
+        versionEl: () => document.getElementById("androidVersion"),
+        metaEl: () => document.getElementById("androidMeta"),
+        linkEl: () => document.getElementById("androidDownload"),
+      },
+    };
 
     // Вшито при деплое (sync-releases.ps1) — работает даже если API/CDN недоступны
-    const INLINE_FALLBACK = {
+        const INLINE_FALLBACK = {
       pc: {
         version: "1.0.146",
         size: 82800463,
@@ -650,47 +664,74 @@
     }
 
     function showError(versionEl, metaEl, linkEl) {
+      if (versionEl.dataset.version) return;
       versionEl.textContent = "—";
       versionEl.classList.remove("loading");
       metaEl.textContent = "Повторная попытка…";
       linkEl.style.opacity = "0.7";
     }
 
-    async function loadRelease(platform, versionEl, metaEl, linkEl, remoteFallback) {
-      const initial = bestFallback(platform, remoteFallback);
-      if (initial) applyRelease(platform, initial, versionEl, metaEl, linkEl);
+    function bootstrapDownloads() {
+      for (const platform of ["pc", "android"]) {
+        const data = toRelease(platform, INLINE_FALLBACK[platform]);
+        if (!data) continue;
+        const els = DOWNLOADS[platform];
+        applyRelease(platform, data, els.versionEl(), els.metaEl(), els.linkEl());
+      }
+    }
+
+    async function refreshRelease(platform, remoteFallback) {
+      const els = DOWNLOADS[platform];
+      const vEl = els.versionEl();
+      const mEl = els.metaEl();
+      const lEl = els.linkEl();
 
       for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
         try {
           const data = await fetchFromApi(platform);
-          applyRelease(platform, data, versionEl, metaEl, linkEl);
+          applyRelease(platform, data, vEl, mEl, lEl);
           saveCache(platform, data);
           return;
         } catch {
-          if (attempt < MAX_RETRIES) await new Promise((r) => setTimeout(r, attempt * 1500));
+          if (attempt < MAX_RETRIES) await new Promise((r) => setTimeout(r, 800));
         }
       }
 
       const fallback = bestFallback(platform, remoteFallback);
-      if (fallback && applyRelease(platform, fallback, versionEl, metaEl, linkEl)) return;
-
-      showError(versionEl, metaEl, linkEl);
+      if (fallback) applyRelease(platform, fallback, vEl, mEl, lEl);
     }
 
-    async function initDownloads() {
-      let remoteFallback = null;
-      try { remoteFallback = await fetchRemoteFallback(); } catch { /* optional */ }
+    async function refreshDownloads() {
+      if (refreshInFlight) return;
+      refreshInFlight = true;
+      try {
+        let remoteFallback = null;
+        const remoteTask = fetchRemoteFallback()
+          .then((data) => { remoteFallback = data; })
+          .catch(() => {});
 
-      await Promise.all([
-        loadRelease("pc", document.getElementById("pcVersion"), document.getElementById("pcMeta"), document.getElementById("pcDownload"), remoteFallback),
-        loadRelease("android", document.getElementById("androidVersion"), document.getElementById("androidMeta"), document.getElementById("androidDownload"), remoteFallback),
-      ]);
+        await Promise.all([
+          refreshRelease("pc", null),
+          refreshRelease("android", null),
+        ]);
+
+        await remoteTask;
+        if (remoteFallback) {
+          await Promise.all([
+            refreshRelease("pc", remoteFallback),
+            refreshRelease("android", remoteFallback),
+          ]);
+        }
+      } finally {
+        refreshInFlight = false;
+      }
     }
 
-    initDownloads();
-    setInterval(initDownloads, REFRESH_MS);
+    bootstrapDownloads();
+    refreshDownloads();
+    setInterval(refreshDownloads, REFRESH_MS);
     document.addEventListener("visibilitychange", () => {
-      if (document.visibilityState === "visible") initDownloads();
+      if (document.visibilityState === "visible") refreshDownloads();
     });
 
     // Animated grid background
@@ -771,3 +812,4 @@
   </script>
 </body>
 </html>
+
