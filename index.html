@@ -450,7 +450,7 @@
       </section>
 
       <section class="downloads" aria-label="Скачать приложение">
-        <a class="dl-card" id="pcDownload" href="https://132-243-234-162.nip.io/update/pc/Silent%20VPN%20Setup%201.0.144.exe" download>
+        <a class="dl-card" id="pcDownload" href="#" download>
           <div class="dl-top">
             <div class="dl-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
@@ -467,7 +467,7 @@
           </span>
         </a>
 
-        <a class="dl-card" id="androidDownload" href="https://132-243-234-162.nip.io/update/android/SilentVPN-release-1.0.144.apk" download>
+        <a class="dl-card" id="androidDownload" href="#" download>
           <div class="dl-top">
             <div class="dl-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg>
@@ -511,7 +511,7 @@
 
   <script>
     const API_BASE = "https://132-243-234-162.nip.io";
-    const CACHE_KEY = "silentvpn_releases_v1";
+    const CACHE_KEY = "silentvpn_releases_v2";
     const REFRESH_MS = 5 * 60 * 1000;
     const FETCH_TIMEOUT_MS = 12000;
     const MAX_RETRIES = 3;
@@ -522,15 +522,34 @@
       return mb >= 1 ? `${mb.toFixed(1)} MB` : `${Math.round(bytes / 1024)} KB`;
     }
 
+    function parseVersion(v) {
+      return String(v || "0").split(".").map((n) => parseInt(n, 10) || 0);
+    }
+
+    function isNewerOrEqual(next, current) {
+      const a = parseVersion(next);
+      const b = parseVersion(current);
+      const len = Math.max(a.length, b.length);
+      for (let i = 0; i < len; i++) {
+        const diff = (a[i] || 0) - (b[i] || 0);
+        if (diff !== 0) return diff > 0;
+      }
+      return true;
+    }
+
     function buildDownloadUrl(platform, filename) {
       return `${API_BASE}/update/${platform}/${encodeURIComponent(filename)}`;
     }
 
     function applyRelease(platform, data, versionEl, metaEl, linkEl) {
       if (!data?.version || !data?.filename) return false;
+      const current = versionEl.dataset.version;
+      if (current && !isNewerOrEqual(data.version, current)) return false;
+
       linkEl.href = data.download_url || buildDownloadUrl(platform, data.filename);
       linkEl.style.pointerEvents = "";
       linkEl.style.opacity = "";
+      versionEl.dataset.version = data.version;
       versionEl.textContent = `v${data.version}`;
       versionEl.classList.remove("loading");
       metaEl.textContent = formatSize(data.size);
@@ -565,26 +584,24 @@
     }
 
     async function fetchFromApi(platform) {
+      const bust = Date.now();
       const res = await fetchWithTimeout(
-        `${API_BASE}/api/updates/check?platform=${platform}&version=0.0.0`,
+        `${API_BASE}/api/updates/check?platform=${platform}&version=0.0.0&_=${bust}`,
         FETCH_TIMEOUT_MS
       );
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
       if (!data.available || !data.download_url) throw new Error("No release");
-      const path = data.download_url.startsWith("http")
-        ? data.download_url
-        : `${API_BASE}${data.download_url.replace(/ /g, "%20")}`;
       return {
         version: data.version,
         filename: data.filename,
         size: data.size,
-        download_url: path,
+        download_url: buildDownloadUrl(platform, data.filename),
       };
     }
 
     async function fetchFromFallback() {
-      const res = await fetchWithTimeout("releases.json", FETCH_TIMEOUT_MS);
+      const res = await fetchWithTimeout(`releases.json?_=${Date.now()}`, FETCH_TIMEOUT_MS);
       if (!res.ok) throw new Error("releases.json missing");
       return res.json();
     }
@@ -597,19 +614,6 @@
     }
 
     async function loadRelease(platform, versionEl, metaEl, linkEl, fallbackAll) {
-      let applied = false;
-
-      const cached = loadCache(platform);
-      if (cached && applyRelease(platform, cached, versionEl, metaEl, linkEl)) applied = true;
-
-      const fb = fallbackAll?.[platform];
-      if (!applied && fb && applyRelease(platform, {
-        version: fb.version,
-        filename: fb.filename,
-        size: fb.size,
-        download_url: buildDownloadUrl(platform, fb.filename),
-      }, versionEl, metaEl, linkEl)) applied = true;
-
       for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
         try {
           const data = await fetchFromApi(platform);
@@ -621,7 +625,18 @@
         }
       }
 
-      if (!applied) showError(versionEl, metaEl, linkEl);
+      const cached = loadCache(platform);
+      if (cached && applyRelease(platform, cached, versionEl, metaEl, linkEl)) return;
+
+      const fb = fallbackAll?.[platform];
+      if (fb && applyRelease(platform, {
+        version: fb.version,
+        filename: fb.filename,
+        size: fb.size,
+        download_url: buildDownloadUrl(platform, fb.filename),
+      }, versionEl, metaEl, linkEl)) return;
+
+      showError(versionEl, metaEl, linkEl);
     }
 
     async function initDownloads() {
