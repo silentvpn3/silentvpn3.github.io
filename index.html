@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Silent VPN — скачать</title>
   <meta name="description" content="Silent VPN — защищённое соединение для работы, учёбы и отдыха. Windows и Android, trial 3 дня бесплатно.">
-  <!-- site-build: 20260630-1532 -->
+  <!-- site-build: 20260630-5 -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -517,7 +517,7 @@
     const MAX_RETRIES = 3;
 
     // Вшито при деплое (sync-releases.ps1) — работает даже если API/CDN недоступны
-        const INLINE_FALLBACK = {
+    const INLINE_FALLBACK = {
       pc: {
         version: "1.0.146",
         size: 82800463,
@@ -657,6 +657,9 @@
     }
 
     async function loadRelease(platform, versionEl, metaEl, linkEl, remoteFallback) {
+      const initial = bestFallback(platform, remoteFallback);
+      if (initial) applyRelease(platform, initial, versionEl, metaEl, linkEl);
+
       for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
         try {
           const data = await fetchFromApi(platform);
@@ -768,4 +771,3 @@
   </script>
 </body>
 </html>
-
