@@ -450,7 +450,7 @@
       </section>
 
       <section class="downloads" aria-label="Скачать приложение">
-        <a class="dl-card" id="pcDownload" href="https://132-243-234-162.nip.io/update/pc/Silent%20VPN%20Setup%201.0.146.exe" download>
+        <a class="dl-card" id="pcDownload" href="https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.146/Silent%20VPN%20Setup%201.0.146.exe" download>
           <div class="dl-top">
             <div class="dl-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
@@ -467,7 +467,7 @@
           </span>
         </a>
 
-        <a class="dl-card" id="androidDownload" href="https://132-243-234-162.nip.io/update/android/SilentVPN-release-1.0.146.apk" download>
+        <a class="dl-card" id="androidDownload" href="https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.146/SilentVPN-release-1.0.146.apk" download>
           <div class="dl-top">
             <div class="dl-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg>
@@ -511,7 +511,8 @@
 
   <script>
     const API_BASE = "https://132-243-234-162.nip.io";
-    const CACHE_KEY = "silentvpn_releases_v3";
+    const GITHUB_REPO = "silentvpn3/silentvpn3.github.io";
+    const CACHE_KEY = "silentvpn_releases_v4";
     const REFRESH_MS = 5 * 60 * 1000;
     const FETCH_TIMEOUT_MS = 6000;
     const MAX_RETRIES = 2;
@@ -530,19 +531,27 @@
       },
     };
 
-    // Вшито при деплое (sync-releases.ps1) — работает даже если API/CDN недоступны
+    // Вшито при деплое — GitHub Releases (работает без VPS)
         const INLINE_FALLBACK = {
       pc: {
         version: "1.0.146",
         size: 82800463,
         filename: "Silent VPN Setup 1.0.146.exe",
+        download_url: "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.146/Silent%20VPN%20Setup%201.0.146.exe",
       },
       android: {
         version: "1.0.146",
         size: 14382457,
         filename: "SilentVPN-release-1.0.146.apk",
+        download_url: "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.146/SilentVPN-release-1.0.146.apk",
       },
     };
+
+    function githubDownloadUrl(version, filename) {
+      if (!version || !filename) return null;
+      const tag = String(version).startsWith("v") ? version : `v${version}`;
+      return `https://github.com/${GITHUB_REPO}/releases/download/${tag}/${encodeURIComponent(filename)}`;
+    }
 
     function formatSize(bytes) {
       if (!bytes) return "";
@@ -569,8 +578,9 @@
       return compareVersions(next, current) >= 0;
     }
 
-    function buildDownloadUrl(platform, filename) {
-      return `${API_BASE}/update/${platform}/${encodeURIComponent(filename)}`;
+    function buildDownloadUrl(platform, filename, version) {
+      return githubDownloadUrl(version, filename)
+        || `${API_BASE}/update/${platform}/${encodeURIComponent(filename)}`;
     }
 
     function applyRelease(platform, data, versionEl, metaEl, linkEl) {
@@ -578,7 +588,7 @@
       const current = versionEl.dataset.version;
       if (current && !isNewerOrEqual(data.version, current)) return false;
 
-      linkEl.href = data.download_url || buildDownloadUrl(platform, data.filename);
+      linkEl.href = data.download_url || buildDownloadUrl(platform, data.filename, data.version);
       linkEl.style.pointerEvents = "";
       linkEl.style.opacity = "";
       versionEl.dataset.version = data.version;
@@ -628,7 +638,8 @@
         version: data.version,
         filename: data.filename,
         size: data.size,
-        download_url: buildDownloadUrl(platform, data.filename),
+        download_url: githubDownloadUrl(data.version, data.filename)
+          || buildDownloadUrl(platform, data.filename, data.version),
       };
     }
 
@@ -638,7 +649,7 @@
         version: item.version,
         filename: item.filename,
         size: item.size,
-        download_url: buildDownloadUrl(platform, item.filename),
+        download_url: item.download_url || githubDownloadUrl(item.version, item.filename),
       };
     }
 
@@ -671,9 +682,15 @@
       linkEl.style.opacity = "0.7";
     }
 
-    function bootstrapDownloads() {
+    async function bootstrapDownloads() {
+      let remote = null;
+      try {
+        const res = await fetchWithTimeout(`releases.json?_=${Date.now()}`, FETCH_TIMEOUT_MS);
+        if (res.ok) remote = await res.json();
+      } catch { /* ignore */ }
       for (const platform of ["pc", "android"]) {
-        const data = toRelease(platform, INLINE_FALLBACK[platform]);
+        const raw = remote?.[platform] || INLINE_FALLBACK[platform];
+        const data = toRelease(platform, raw);
         if (!data) continue;
         const els = DOWNLOADS[platform];
         applyRelease(platform, data, els.versionEl(), els.metaEl(), els.linkEl());
@@ -727,7 +744,7 @@
       }
     }
 
-    bootstrapDownloads();
+    void bootstrapDownloads();
     refreshDownloads();
     setInterval(refreshDownloads, REFRESH_MS);
     document.addEventListener("visibilitychange", () => {
