@@ -12,16 +12,36 @@ function Get-GithubDownloadUrl($version, $filename) {
     return "https://github.com/$GithubRepo/releases/download/$tag/$encoded"
 }
 
+function Resolve-GithubDownloadUrl($data) {
+    foreach ($key in @('github_download_url', 'download_url')) {
+        $url = [string]$data.$key
+        if ($url -match '^https://github\.com/.+/releases/download/') {
+            return $url
+        }
+    }
+    return Get-GithubDownloadUrl $data.version $data.filename
+}
+
+function Get-FilenameFromGithubUrl($url) {
+    if ($url -match '/releases/download/[^/]+/(.+?)(?:\?|$)') {
+        return [uri]::UnescapeDataString($matches[1])
+    }
+    return $null
+}
+
 function Get-Release($platform) {
     $url = "$ApiBase/api/updates/check?platform=$platform&version=0.0.0"
     $data = Invoke-RestMethod -Uri $url
     if (-not $data.available) { throw "No release for $platform" }
+    $downloadUrl = Resolve-GithubDownloadUrl $data
+    $filename = Get-FilenameFromGithubUrl $downloadUrl
+    if (-not $filename) { $filename = $data.filename }
     return @{
         version = $data.version
         size = [int]$data.size
-        filename = $data.filename
+        filename = $filename
         uploaded_at = $data.uploaded_at
-        download_url = Get-GithubDownloadUrl $data.version $data.filename
+        download_url = $downloadUrl
     }
 }
 
@@ -46,7 +66,12 @@ $releases = @{
         download_url = $android.download_url
     }
 }
-($releases | ConvertTo-Json -Depth 5) + "`n" | Out-File -FilePath "releases.json" -Encoding utf8NoBOM
+$utf8NoBom = New-Object System.Text.UTF8Encoding $false
+[System.IO.File]::WriteAllText(
+    (Join-Path $RepoDir "releases.json"),
+    (($releases | ConvertTo-Json -Depth 5) + "`n"),
+    $utf8NoBom
+)
 
 $inline = @"
     const INLINE_FALLBACK = {
@@ -85,6 +110,6 @@ $html = [regex]::Replace($html, 'id="androidVersion" data-version="[^"]*">v[^<]*
 $html = [regex]::Replace($html, 'id="pcMeta">[^<]* ', "id=`"pcMeta`">$(Format-Size $pc.size) ")
 $html = [regex]::Replace($html, 'id="androidMeta">[^<]* ', "id=`"androidMeta`">$(Format-Size $android.size) ")
 
-Set-Content -Path "index.html" -Value $html -Encoding utf8NoBOM
+[System.IO.File]::WriteAllText((Join-Path $RepoDir "index.html"), $html, $utf8NoBom)
 
 Write-Host "Synced: PC v$($pc.version), Android v$($android.version) (GitHub Releases URLs)"

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
@@ -450,7 +450,7 @@
       </section>
 
       <section class="downloads" aria-label="Скачать приложение">
-        <a class="dl-card" id="pcDownload" href="https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.147/Silent.VPN.Setup.1.0.147.exe" download>
+        <a class="dl-card" id="pcDownload" href="https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.150/Silent.VPN.Setup.1.0.150.exe" download>
           <div class="dl-top">
             <div class="dl-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
@@ -459,7 +459,7 @@
           </div>
           <div>
             <div class="dl-title">Windows</div>
-            <p class="dl-meta" id="pcMeta">79.0 MB</p>
+            <p class="dl-meta" id="pcMeta">79,0 MB MB</p>
           </div>
           <span class="dl-action">
             Скачать для ПК
@@ -467,7 +467,7 @@
           </span>
         </a>
 
-        <a class="dl-card" id="androidDownload" href="https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.148/SilentVPN-release-1.0.148.apk" download>
+        <a class="dl-card" id="androidDownload" href="https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.150/SilentVPN-release-1.0.150.apk" download>
           <div class="dl-top">
             <div class="dl-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg>
@@ -476,7 +476,7 @@
           </div>
           <div>
             <div class="dl-title">Android</div>
-            <p class="dl-meta" id="androidMeta">13.8 MB</p>
+            <p class="dl-meta" id="androidMeta">25,9 MB MB</p>
           </div>
           <span class="dl-action">
             Скачать для Android
@@ -532,18 +532,18 @@
     };
 
     // Вшито при деплое — GitHub Releases (работает без VPS)
-        const INLINE_FALLBACK = {
+                const INLINE_FALLBACK = {
       pc: {
-        version: "1.0.147",
-        size: 82818142,
-        filename: "Silent.VPN.Setup.1.0.147.exe",
-        download_url: "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.147/Silent.VPN.Setup.1.0.147.exe",
+        version: "1.0.150",
+        size: 82814626,
+        filename: "Silent.VPN.Setup.1.0.150.exe",
+        download_url: "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.150/Silent.VPN.Setup.1.0.150.exe",
       },
       android: {
-        version: "1.0.148",
-        size: 14443337,
-        filename: "SilentVPN-release-1.0.148.apk",
-        download_url: "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.148/SilentVPN-release-1.0.148.apk",
+        version: "1.0.150",
+        size: 27119496,
+        filename: "SilentVPN-release-1.0.150.apk",
+        download_url: "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.150/SilentVPN-release-1.0.150.apk",
       },
     };
 
@@ -634,12 +634,15 @@
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
       if (!data.available || !data.download_url) throw new Error("No release");
+      const ghUrl = data.github_download_url || data.download_url;
       return {
         version: data.version,
         filename: data.filename,
         size: data.size,
-        download_url: githubDownloadUrl(data.version, data.filename)
-          || buildDownloadUrl(platform, data.filename, data.version),
+        download_url: (ghUrl && String(ghUrl).includes("github.com"))
+          ? ghUrl
+          : (githubDownloadUrl(data.version, data.filename)
+            || buildDownloadUrl(platform, data.filename, data.version)),
       };
     }
 
