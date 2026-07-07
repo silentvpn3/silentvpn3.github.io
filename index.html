@@ -459,7 +459,7 @@
           </div>
           <div>
             <div class="dl-title">Windows</div>
-            <p class="dl-meta" id="pcMeta">79,0 MB MB</p>
+            <p class="dl-meta" id="pcMeta">79.0 MB</p>
           </div>
           <span class="dl-action">
             Скачать для ПК
@@ -476,7 +476,7 @@
           </div>
           <div>
             <div class="dl-title">Android</div>
-            <p class="dl-meta" id="androidMeta">25,9 MB MB</p>
+            <p class="dl-meta" id="androidMeta">25.9 MB</p>
           </div>
           <span class="dl-action">
             Скачать для Android
@@ -512,7 +512,7 @@
   <script>
     const API_BASE = "https://132-243-234-162.nip.io";
     const GITHUB_REPO = "silentvpn3/silentvpn3.github.io";
-    const CACHE_KEY = "silentvpn_releases_v5";
+    const CACHE_KEY = "silentvpn_releases_v6";
     const REFRESH_MS = 5 * 60 * 1000;
     const FETCH_TIMEOUT_MS = 6000;
     const MAX_RETRIES = 2;
@@ -532,16 +532,16 @@
     };
 
     // Вшито при деплое — GitHub Releases (работает без VPS)
-                const INLINE_FALLBACK = {
+                    const INLINE_FALLBACK = {
       pc: {
         version: "1.0.150",
-        size: 82814626,
+        size: 82817383,
         filename: "Silent.VPN.Setup.1.0.150.exe",
         download_url: "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.150/Silent.VPN.Setup.1.0.150.exe",
       },
       android: {
         version: "1.0.150",
-        size: 27119496,
+        size: 27117932,
         filename: "SilentVPN-release-1.0.150.apk",
         download_url: "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.150/SilentVPN-release-1.0.150.apk",
       },
@@ -578,6 +578,34 @@
       return compareVersions(next, current) >= 0;
     }
 
+    /** Та же версия, но другой билд (размер) — не откатывать на старый APK. */
+    function isBetterRelease(next, current) {
+      if (!current?.version) return true;
+      const vCmp = compareVersions(next.version, current.version);
+      if (vCmp > 0) return true;
+      if (vCmp < 0) return false;
+      const nextSize = Number(next.size) || 0;
+      const curSize = Number(current.size) || 0;
+      if (nextSize !== curSize) return nextSize > curSize;
+      const nextGh = String(next.download_url || "").includes("github.com");
+      const curGh = String(current.download_url || "").includes("github.com");
+      return nextGh && !curGh;
+    }
+
+    function releaseRank(a) {
+      return [compareVersions(a.version, "0"), Number(a.size) || 0];
+    }
+
+    function pickBestRelease(candidates) {
+      if (!candidates.length) return null;
+      return candidates.sort((a, b) => {
+        const [va, sa] = releaseRank(a);
+        const [vb, sb] = releaseRank(b);
+        if (vb !== va) return vb - va;
+        return sb - sa;
+      })[0];
+    }
+
     function buildDownloadUrl(platform, filename, version) {
       return githubDownloadUrl(version, filename)
         || `${API_BASE}/update/${platform}/${encodeURIComponent(filename)}`;
@@ -585,8 +613,12 @@
 
     function applyRelease(platform, data, versionEl, metaEl, linkEl) {
       if (!data?.version || !data?.filename) return false;
-      const current = versionEl.dataset.version;
-      if (current && !isNewerOrEqual(data.version, current)) return false;
+      const current = {
+        version: versionEl.dataset.version,
+        size: metaEl.dataset.size,
+        download_url: linkEl.href,
+      };
+      if (current.version && !isBetterRelease(data, current)) return false;
 
       linkEl.href = data.download_url || buildDownloadUrl(platform, data.filename, data.version);
       linkEl.style.pointerEvents = "";
@@ -594,6 +626,7 @@
       versionEl.dataset.version = data.version;
       versionEl.textContent = `v${data.version}`;
       versionEl.classList.remove("loading");
+      metaEl.dataset.size = String(data.size || "");
       metaEl.textContent = formatSize(data.size);
       return true;
     }
@@ -665,10 +698,9 @@
       if (remote) candidates.push(remote);
 
       const cached = loadCache(platform);
-      if (cached?.version && cached?.filename) candidates.push(cached);
+      if (cached?.version && cached?.filename) candidates.push(toRelease(platform, cached));
 
-      if (!candidates.length) return null;
-      return candidates.sort((a, b) => compareVersions(b.version, a.version))[0];
+      return pickBestRelease(candidates);
     }
 
     async function fetchRemoteFallback() {
@@ -692,8 +724,8 @@
         if (res.ok) remote = await res.json();
       } catch { /* ignore */ }
       for (const platform of ["pc", "android"]) {
-        const raw = remote?.[platform] || INLINE_FALLBACK[platform];
-        const data = toRelease(platform, raw);
+        const data = bestFallback(platform, remote)
+          || toRelease(platform, INLINE_FALLBACK[platform]);
         if (!data) continue;
         const els = DOWNLOADS[platform];
         applyRelease(platform, data, els.versionEl(), els.metaEl(), els.linkEl());
@@ -709,8 +741,9 @@
       for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
         try {
           const data = await fetchFromApi(platform);
-          applyRelease(platform, data, vEl, mEl, lEl);
-          saveCache(platform, data);
+          if (applyRelease(platform, data, vEl, mEl, lEl)) {
+            saveCache(platform, data);
+          }
           return;
         } catch {
           if (attempt < MAX_RETRIES) await new Promise((r) => setTimeout(r, 800));
@@ -726,22 +759,13 @@
       refreshInFlight = true;
       try {
         let remoteFallback = null;
-        const remoteTask = fetchRemoteFallback()
-          .then((data) => { remoteFallback = data; })
-          .catch(() => {});
-
+        try {
+          remoteFallback = await fetchRemoteFallback();
+        } catch { /* ignore */ }
         await Promise.all([
-          refreshRelease("pc", null),
-          refreshRelease("android", null),
+          refreshRelease("pc", remoteFallback),
+          refreshRelease("android", remoteFallback),
         ]);
-
-        await remoteTask;
-        if (remoteFallback) {
-          await Promise.all([
-            refreshRelease("pc", remoteFallback),
-            refreshRelease("android", remoteFallback),
-          ]);
-        }
       } finally {
         refreshInFlight = false;
       }

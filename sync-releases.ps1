@@ -107,8 +107,8 @@ $html = [regex]::Replace($html, 'id="pcDownload" href="[^"]*"', "id=`"pcDownload
 $html = [regex]::Replace($html, 'id="androidDownload" href="[^"]*"', "id=`"androidDownload`" href=`"$($android.download_url)`"")
 $html = [regex]::Replace($html, 'id="pcVersion" data-version="[^"]*">v[^<]*</span>', "id=`"pcVersion`" data-version=`"$($pc.version)`">v$($pc.version)</span>")
 $html = [regex]::Replace($html, 'id="androidVersion" data-version="[^"]*">v[^<]*</span>', "id=`"androidVersion`" data-version=`"$($android.version)`">v$($android.version)</span>")
-$html = [regex]::Replace($html, 'id="pcMeta">[^<]* ', "id=`"pcMeta`">$(Format-Size $pc.size) ")
-$html = [regex]::Replace($html, 'id="androidMeta">[^<]* ', "id=`"androidMeta`">$(Format-Size $android.size) ")
+$html = [regex]::Replace($html, 'id="pcMeta">[^<]*</p>', "id=`"pcMeta`">$(Format-Size $pc.size)</p>")
+$html = [regex]::Replace($html, 'id="androidMeta">[^<]*</p>', "id=`"androidMeta`">$(Format-Size $android.size)</p>")
 
 [System.IO.File]::WriteAllText((Join-Path $RepoDir "index.html"), $html, $utf8NoBom)
 
