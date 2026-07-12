@@ -1,12 +1,12 @@
 {
   "api_base": "https://132-243-234-162.nip.io",
   "github_repo": "silentvpn3/silentvpn3.github.io",
-  "updated_at": "2026-07-10T13:18:37Z",
+  "updated_at": "2026-07-12T09:52:43Z",
   "pc": {
-    "version": "1.0.153",
-    "filename": "Silent.VPN.Setup.1.0.153.exe",
-    "size": 82837929,
-    "download_url": "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.153/Silent.VPN.Setup.1.0.153.exe"
+    "version": "1.0.154",
+    "filename": "Silent.VPN.Setup.1.0.154.exe",
+    "size": 82840565,
+    "download_url": "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.154/Silent.VPN.Setup.1.0.154.exe"
   },
   "android": {
     "version": "1.0.153",
