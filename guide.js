@@ -9,7 +9,7 @@
 
   function setHash(view) {
     const next = view === "guide" ? "#guide" : "#";
-    if (location.hash !== next && !(view === "home" && (location.hash === "" || location.hash === "#"))) {
+    if (location.hash !== next && !(view === "home" && (!location.hash || location.hash === "#"))) {
       history.replaceState(null, "", next === "#" ? location.pathname + location.search : next);
     }
   }
@@ -48,36 +48,30 @@
       showView("guide");
     });
   });
-
   document.querySelectorAll("[data-open-home]").forEach((el) => {
     el.addEventListener("click", (e) => {
       e.preventDefault();
       showView("home");
     });
   });
-
   window.addEventListener("hashchange", routeFromHash);
 
-  /* —— TOC —— */
   const toc = document.querySelectorAll(".toc-chip");
   const sections = [...document.querySelectorAll(".guide-section[id]")];
-
   toc.forEach((chip) => {
     chip.addEventListener("click", () => {
-      const id = chip.getAttribute("data-jump");
-      const el = document.getElementById(id);
-      if (!el) return;
-      el.scrollIntoView({ behavior: prefersReduced ? "auto" : "smooth", block: "start" });
+      document.getElementById(chip.getAttribute("data-jump"))?.scrollIntoView({
+        behavior: prefersReduced ? "auto" : "smooth",
+        block: "start",
+      });
     });
   });
-
   if ("IntersectionObserver" in window && sections.length) {
     const tocObs = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
-          const id = entry.target.id;
-          toc.forEach((c) => c.classList.toggle("is-active", c.getAttribute("data-jump") === id));
+          toc.forEach((c) => c.classList.toggle("is-active", c.getAttribute("data-jump") === entry.target.id));
         });
       },
       { rootMargin: "-35% 0px -50% 0px", threshold: 0.1 }
@@ -85,9 +79,8 @@
     sections.forEach((s) => tocObs.observe(s));
   }
 
-  /* —— Helpers —— */
   function sleep(ms) {
-    return new Promise((r) => setTimeout(r, prefersReduced ? 0 : ms));
+    return new Promise((r) => setTimeout(r, prefersReduced ? Math.min(ms, 40) : ms));
   }
 
   function moveCursor(cursor, x, y) {
@@ -104,7 +97,7 @@
     };
   }
 
-  async function typeInto(field, text, delay = 55) {
+  async function typeInto(field, text, delay = 50) {
     field.classList.add("is-focus");
     field.textContent = "";
     const caret = document.createElement("span");
@@ -114,7 +107,7 @@
       caret.insertAdjacentText("beforebegin", ch);
       await sleep(delay);
     }
-    await sleep(200);
+    await sleep(180);
     field.classList.remove("is-focus");
     caret.remove();
   }
@@ -123,10 +116,10 @@
     const p = centerOf(el, stage);
     moveCursor(cursor, p.x, p.y);
     cursor.classList.add("is-on");
-    await sleep(280);
+    await sleep(260);
     cursor.classList.add("is-click");
     el.classList.add("is-press");
-    await sleep(220);
+    await sleep(200);
     el.classList.remove("is-press");
     cursor.classList.remove("is-click");
   }
@@ -137,78 +130,139 @@
     node.classList.add("is-on");
   }
 
-  /* —— Demo runners —— */
+  function setBoot(el, mode, text) {
+    el.textContent = text;
+    el.classList.toggle("is-ready", mode === "ready");
+    el.classList.toggle("is-wait", mode === "wait");
+  }
+
+  function resetAuthFields(stage, { tab = "login", promoVisible = false } = {}) {
+    const tabLogin = stage.querySelector('[data-tab="login"]');
+    const tabReg = stage.querySelector('[data-tab="register"]');
+    const promo = stage.querySelector("[data-field=promo]");
+    const email = stage.querySelector("[data-field=email]");
+    const pass = stage.querySelector("[data-field=pass]");
+    const btn = stage.querySelector("[data-btn=submit]");
+    const row = stage.querySelector("[data-auth-row]");
+    const done = stage.querySelector("[data-reg-done]");
+    const form = stage.querySelector("[data-auth-form]");
+
+    if (form) form.hidden = false;
+    if (done) done.hidden = true;
+
+    tabLogin?.classList.toggle("is-active", tab === "login");
+    tabReg?.classList.toggle("is-active", tab === "register");
+    if (promo) promo.hidden = !promoVisible;
+    if (row) {
+      const forgot = row.querySelector("[data-forgot]");
+      if (forgot) forgot.hidden = tab !== "login";
+    }
+    if (email) {
+      email.textContent = "you@example.com";
+      email.style.color = "#9CA3AF";
+    }
+    if (pass) {
+      pass.textContent = "••••••••";
+      pass.style.color = "#9CA3AF";
+    }
+    if (promo) {
+      promo.textContent = "Необязательно";
+      promo.style.color = "#9CA3AF";
+    }
+    if (btn) {
+      btn.classList.add("is-wait");
+      btn.textContent = "Ожидание канала…";
+    }
+  }
+
+  /** Shared: wait gray → green countdown → unlock black button */
+  async function playBootstrapReady(stage, stopSignal, caption) {
+    const boot = stage.querySelector("[data-boot]");
+    const btn = stage.querySelector("[data-btn=submit]");
+    setBoot(boot, "wait", "Подключение… подождите");
+    btn.classList.add("is-wait");
+    btn.textContent = "Ожидание канала…";
+    setCaption(caption, "Сначала ждём канал — кнопки пока неактивны");
+    await sleep(1600);
+    if (stopSignal.stopped) return false;
+
+    let sec = 119;
+    setBoot(
+      boot,
+      "ready",
+      `Канал готов. Осталось ${Math.floor(sec / 60)}:${String(sec % 60).padStart(2, "0")} — войдите или зарегистрируйтесь`
+    );
+    setCaption(caption, "Зелёный текст «Канал готов» — можно регистрироваться / входить");
+    btn.classList.remove("is-wait");
+    // tick a few seconds for the animation
+    for (let i = 0; i < 3; i++) {
+      if (stopSignal.stopped) return false;
+      await sleep(700);
+      sec -= 1;
+      setBoot(
+        boot,
+        "ready",
+        `Канал готов. Осталось ${Math.floor(sec / 60)}:${String(sec % 60).padStart(2, "0")} — войдите или зарегистрируйтесь`
+      );
+    }
+    return true;
+  }
+
   async function runRegister(stage, stopSignal) {
     const cursor = stage.querySelector(".demo-cursor");
     const caption = stage.querySelector(".demo-caption");
     const tabReg = stage.querySelector('[data-tab="register"]');
-    const tabLogin = stage.querySelector('[data-tab="login"]');
     const email = stage.querySelector("[data-field=email]");
     const pass = stage.querySelector("[data-field=pass]");
     const promo = stage.querySelector("[data-field=promo]");
     const btn = stage.querySelector("[data-btn=submit]");
-    const title = stage.querySelector("[data-screen-title]");
-    const sub = stage.querySelector("[data-screen-sub]");
+    const form = stage.querySelector("[data-auth-form]");
+    const done = stage.querySelector("[data-reg-done]");
 
     while (!stopSignal.stopped) {
-      tabLogin.classList.add("is-active");
-      tabReg.classList.remove("is-active");
-      email.textContent = "Email";
-      pass.textContent = "Пароль";
-      promo.textContent = "Промо / реф (необязательно)";
-      email.style.color = "#bbb";
-      pass.style.color = "#bbb";
-      promo.style.color = "#bbb";
-      title.textContent = "Добро пожаловать";
-      sub.textContent = "Войдите или создайте аккаунт";
-      btn.textContent = "Войти";
-      setCaption(caption, "Откройте приложение — сразу экран входа");
+      resetAuthFields(stage, { tab: "login", promoVisible: false });
       cursor.classList.add("is-on");
-      moveCursor(cursor, 40, 40);
-      await sleep(900);
-      if (stopSignal.stopped) break;
+      moveCursor(cursor, 40, 50);
 
+      const ok = await playBootstrapReady(stage, stopSignal, caption);
+      if (!ok || stopSignal.stopped) break;
+
+      btn.textContent = "Войти";
       await clickEl(cursor, tabReg, stage);
       tabReg.classList.add("is-active");
-      tabLogin.classList.remove("is-active");
-      title.textContent = "Регистрация";
-      sub.textContent = "Один аккаунт — ПК и телефон";
-      btn.textContent = "Создать аккаунт";
-      setCaption(caption, "Нажмите «Регистрация»");
-      await sleep(700);
+      stage.querySelector('[data-tab="login"]')?.classList.remove("is-active");
+      if (promo) promo.hidden = false;
+      const forgot = stage.querySelector("[data-forgot]");
+      if (forgot) forgot.hidden = true;
+      btn.textContent = "Зарегистрироваться";
+      setCaption(caption, "Вкладка «Регистрация» — активная чёрная");
+      await sleep(650);
       if (stopSignal.stopped) break;
 
-      const pe = centerOf(email, stage);
-      moveCursor(cursor, pe.x, pe.y);
-      setCaption(caption, "Введите email — на него придёт подтверждение");
+      moveCursor(cursor, ...Object.values(centerOf(email, stage)));
+      setCaption(caption, "Введите email");
       email.style.color = "#000";
-      await typeInto(email, "you@mail.ru", 45);
+      await typeInto(email, "you@mail.ru", 42);
       if (stopSignal.stopped) break;
 
-      const pp = centerOf(pass, stage);
-      moveCursor(cursor, pp.x, pp.y);
+      moveCursor(cursor, ...Object.values(centerOf(pass, stage)));
       setCaption(caption, "Придумайте пароль");
       pass.style.color = "#000";
-      await typeInto(pass, "••••••••", 70);
+      await typeInto(pass, "••••••••", 60);
       if (stopSignal.stopped) break;
 
-      const pr = centerOf(promo, stage);
-      moveCursor(cursor, pr.x, pr.y);
-      setCaption(caption, "Сюда — промокод или реферальный код (можно пусто)");
+      moveCursor(cursor, ...Object.values(centerOf(promo, stage)));
+      setCaption(caption, "Промокод или реферальный код — необязательно");
       promo.style.color = "#000";
-      await typeInto(promo, "SILENT30", 50);
+      await typeInto(promo, "SILENT30", 45);
       if (stopSignal.stopped) break;
 
       await clickEl(cursor, btn, stage);
-      setCaption(caption, "Готово — откройте письмо и подтвердите email");
-      title.textContent = "Проверьте почту";
-      sub.textContent = "После подтверждения — доступ к VPN";
-      btn.textContent = "Письмо отправлено";
-      btn.classList.add("is-dim");
-      await sleep(2200);
-      btn.classList.remove("is-dim");
+      setCaption(caption, "Откройте письмо и подтвердите email");
+      if (form) form.hidden = true;
+      if (done) done.hidden = false;
+      await sleep(2400);
       if (stopSignal.stopped) break;
-      await sleep(600);
     }
   }
 
@@ -218,59 +272,40 @@
     const email = stage.querySelector("[data-field=email]");
     const pass = stage.querySelector("[data-field=pass]");
     const btn = stage.querySelector("[data-btn=submit]");
-    const form = stage.querySelector("[data-form]");
-    const main = stage.querySelector("[data-main]");
-    const toggle = stage.querySelector("[data-toggle]");
-    const status = stage.querySelector("[data-status]");
+    const boot = stage.querySelector("[data-boot]");
 
     while (!stopSignal.stopped) {
-      form.hidden = false;
-      main.hidden = true;
-      toggle.classList.remove("is-on", "is-spinning");
-      status.classList.remove("is-on");
-      status.textContent = "Отключено";
-      email.textContent = "Email";
-      pass.textContent = "Пароль";
-      email.style.color = "#bbb";
-      pass.style.color = "#bbb";
-      btn.textContent = "Войти";
-      setCaption(caption, "Уже есть аккаунт — вкладка «Вход»");
+      resetAuthFields(stage, { tab: "login", promoVisible: false });
       cursor.classList.add("is-on");
-      await sleep(700);
+
+      // Login: channel already ready (same screen as register, without promo)
+      setBoot(
+        boot,
+        "ready",
+        "Канал готов. Осталось 1:42 — войдите или зарегистрируйтесь"
+      );
+      btn.classList.remove("is-wait");
+      btn.textContent = "Войти";
+      setCaption(caption, "Тот же экран, что и регистрация — без поля промокода");
+      await sleep(1100);
       if (stopSignal.stopped) break;
 
-      const pe = centerOf(email, stage);
-      moveCursor(cursor, pe.x, pe.y);
+      moveCursor(cursor, ...Object.values(centerOf(email, stage)));
       setCaption(caption, "Введите email аккаунта");
       email.style.color = "#000";
       await typeInto(email, "you@mail.ru", 40);
       if (stopSignal.stopped) break;
 
-      const pp = centerOf(pass, stage);
-      moveCursor(cursor, pp.x, pp.y);
+      moveCursor(cursor, ...Object.values(centerOf(pass, stage)));
       setCaption(caption, "И пароль");
       pass.style.color = "#000";
-      await typeInto(pass, "••••••••", 65);
+      await typeInto(pass, "••••••••", 60);
       if (stopSignal.stopped) break;
 
       await clickEl(cursor, btn, stage);
-      setCaption(caption, "Вход выполнен — открывается главный экран");
-      await sleep(500);
-      form.hidden = true;
-      main.hidden = false;
-      await sleep(900);
-      if (stopSignal.stopped) break;
-
-      await clickEl(cursor, toggle, stage);
-      toggle.classList.add("is-spinning");
-      setCaption(caption, "Тумблер включает полный VPN");
-      await sleep(900);
-      toggle.classList.remove("is-spinning");
-      toggle.classList.add("is-on");
-      status.classList.add("is-on");
-      status.textContent = "Подключено";
-      setCaption(caption, "Готово: трафик идёт через защищённый канал");
-      await sleep(2400);
+      setCaption(caption, "Готово — откроется главный экран с тумблером VPN");
+      btn.textContent = "Вход…";
+      await sleep(2200);
       if (stopSignal.stopped) break;
     }
   }
@@ -280,43 +315,41 @@
     const caption = stage.querySelector(".demo-caption");
     const toggle = stage.querySelector("[data-toggle]");
     const status = stage.querySelector("[data-status]");
-    const hint = stage.querySelector("[data-hint]");
 
     while (!stopSignal.stopped) {
       toggle.classList.remove("is-on", "is-spinning");
       status.classList.remove("is-on");
       status.textContent = "Отключено";
-      if (hint) hint.textContent = "До 3 устройств онлайн";
-      setCaption(caption, "На главном экране — один тумблер");
+      setCaption(caption, "На главном экране — тумблер 120×60 как в приложении");
       cursor.classList.add("is-on");
       const p = centerOf(toggle, stage);
-      moveCursor(cursor, p.x - 40, p.y + 20);
+      moveCursor(cursor, p.x - 36, p.y + 18);
       await sleep(800);
       if (stopSignal.stopped) break;
 
+      setCaption(caption, "Нажмите — VPN включается");
       moveCursor(cursor, p.x, p.y);
-      setCaption(caption, "Нажмите сюда — VPN включается");
-      await sleep(400);
+      await sleep(350);
       cursor.classList.add("is-click");
       toggle.classList.add("is-spinning");
-      await sleep(250);
+      status.textContent = "Подключение…";
+      await sleep(220);
       cursor.classList.remove("is-click");
-      await sleep(1000);
+      await sleep(1100);
       toggle.classList.remove("is-spinning");
       toggle.classList.add("is-on");
       status.classList.add("is-on");
       status.textContent = "Подключено";
-      if (hint) hint.textContent = "Мессенджеры · браузер · стриминг";
-      setCaption(caption, "Статус «Подключено» — можно пользоваться сетью");
+      setCaption(caption, "Статус «Подключено» — трафик через защищённый канал");
       await sleep(2200);
       if (stopSignal.stopped) break;
 
-      setCaption(caption, "Ещё раз — выключить туннель");
+      setCaption(caption, "Ещё раз — выключить");
       await clickEl(cursor, toggle, stage);
       toggle.classList.remove("is-on");
       status.classList.remove("is-on");
       status.textContent = "Отключено";
-      await sleep(1400);
+      await sleep(1300);
     }
   }
 
@@ -325,51 +358,49 @@
     const caption = stage.querySelector(".demo-caption");
     const menu = stage.querySelector("[data-menu]");
     const list = stage.querySelector("[data-excl]");
-    const items = [...stage.querySelectorAll("[data-app]")];
     const openBtn = stage.querySelector("[data-open-excl]");
+    const items = [...stage.querySelectorAll("[data-app]")];
 
     while (!stopSignal.stopped) {
       menu.hidden = false;
       list.hidden = true;
       items.forEach((it) => {
-        it.querySelector(".demo-check").classList.remove("is-on");
+        it.querySelector(".demo-check")?.classList.remove("is-on");
         it.classList.remove("is-hot");
       });
       openBtn.classList.remove("is-hot");
-      setCaption(caption, "Зачем исключения: часть приложений лучше мимо VPN");
+      setCaption(caption, "Зачем: игры, банк, лаунчеры — иногда лучше мимо VPN");
       cursor.classList.add("is-on");
-      moveCursor(cursor, 48, 60);
+      moveCursor(cursor, 48, 70);
       await sleep(1100);
       if (stopSignal.stopped) break;
 
       openBtn.classList.add("is-hot");
       await clickEl(cursor, openBtn, stage);
-      setCaption(caption, "Меню → «Исключения»");
-      await sleep(450);
+      setCaption(caption, "Меню → «Исключения приложений»");
+      await sleep(400);
       menu.hidden = true;
       list.hidden = false;
       await sleep(500);
       if (stopSignal.stopped) break;
 
-      setCaption(caption, "Отметьте приложения, которые идут мимо туннеля");
+      setCaption(caption, "Отмеченные приложения идут мимо VPN-туннеля");
       for (const app of items.slice(0, 2)) {
         if (stopSignal.stopped) break;
         app.classList.add("is-hot");
         await clickEl(cursor, app, stage);
-        app.querySelector(".demo-check").classList.add("is-on");
-        await sleep(450);
+        app.querySelector(".demo-check")?.classList.add("is-on");
+        await sleep(400);
         app.classList.remove("is-hot");
       }
       if (stopSignal.stopped) break;
-
-      setCaption(caption, "Игры / лаунчеры / банк — частый выбор. Остальное — через VPN");
-      await sleep(2600);
-      if (stopSignal.stopped) break;
-      await sleep(400);
+      setCaption(caption, "Остальной трафик по-прежнему через Silent VPN");
+      await sleep(2400);
     }
   }
 
   const runners = {
+    overview: runConnect,
     register: runRegister,
     login: runLogin,
     connect: runConnect,
@@ -393,8 +424,7 @@
   function startVisibleDemos() {
     document.querySelectorAll(".demo-stage[data-demo]").forEach((stage) => {
       const rect = stage.getBoundingClientRect();
-      const visible = rect.top < window.innerHeight * 0.9 && rect.bottom > 80;
-      if (visible) startDemo(stage);
+      if (rect.top < window.innerHeight * 0.9 && rect.bottom > 80) startDemo(stage);
     });
   }
 
@@ -402,13 +432,9 @@
     const demoObs = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          const stage = entry.target;
-          const id = stage.getAttribute("data-demo");
-          if (entry.isIntersecting && entry.intersectionRatio > 0.35) {
-            startDemo(stage);
-          } else {
-            stopDemo(id);
-          }
+          const id = entry.target.getAttribute("data-demo");
+          if (entry.isIntersecting && entry.intersectionRatio > 0.35) startDemo(entry.target);
+          else stopDemo(id);
         });
       },
       { threshold: [0.35, 0.6] }
@@ -416,7 +442,6 @@
     document.querySelectorAll(".demo-stage[data-demo]").forEach((s) => demoObs.observe(s));
   }
 
-  /* Boot */
   if ((location.hash || "").replace(/^#/, "") === "guide") {
     homeView.hidden = true;
     guideView.hidden = false;

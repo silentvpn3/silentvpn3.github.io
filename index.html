@@ -700,17 +700,12 @@
     </header>
 
     <section class="guide-hero">
-      <div class="guide-hero-copy">
-        <p class="eyebrow">Как пользоваться</p>
-        <h1>От скачивания<br>до первого VPN</h1>
-        <p class="guide-hero-desc">
-          Короткие интерактивные шаги: регистрация, вход, тумблер и исключения приложений.
-          Анимации показывают, куда нажать — без лишней теории.
-        </p>
-      </div>
-      <div class="guide-hero-visual">
-        <img src="assets/guide-hero.jpg" alt="" width="1400" height="875" loading="eager">
-      </div>
+      <p class="eyebrow">Как пользоваться</p>
+      <h1>От скачивания<br>до первого VPN</h1>
+      <p class="guide-hero-desc">
+        Демо один в один с экранами Android и Windows: логотип по центру, зелёный «Канал готов»,
+        чёрные кнопки, регистрация / вход и исключения.
+      </p>
     </section>
 
     <nav class="guide-toc" aria-label="Разделы инструкции">
@@ -721,58 +716,35 @@
       <button type="button" class="toc-chip" data-jump="g-excl">Исключения</button>
     </nav>
 
-    <!-- 01 overview -->
+    <!-- 01 overview = connect preview -->
     <section class="guide-section" id="g-overview">
       <div>
         <div class="guide-section-num">01</div>
         <h2>Знакомство с клиентом</h2>
         <div class="guide-section-text">
-          <p>Silent VPN на Windows и Android работает одинаково просто: после установки открывается экран входа, канал подготовки поднимается сам.</p>
+          <p>На Windows и Android один и тот же сценарий: после установки — экран входа с логотипом Silent, канал подготовки поднимается сам, затем тумблер на главном экране.</p>
           <ul class="guide-bullets">
-            <li><strong>Один аккаунт</strong> — ПК и телефон, до 3 устройств онлайн</li>
-            <li><strong>Тумблер</strong> — включили VPN, выключили туннель</li>
+            <li><strong>Логотип</strong> — чёрный квадрат с белой «S» и подпись SILENT VPN</li>
+            <li><strong>Один аккаунт</strong> — до 3 устройств онлайн</li>
             <li><strong>Меню</strong> — подписка, исключения, бонусы, сессии</li>
           </ul>
         </div>
       </div>
-      <div class="guide-art">
-        <img src="assets/guide-connect.jpg" alt="Главный экран Silent VPN — тумблер подключения" width="1400" height="875" loading="lazy">
-      </div>
-    </section>
-
-    <!-- 02 register -->
-    <section class="guide-section reverse" id="g-register">
-      <div>
-        <div class="guide-section-num">02</div>
-        <h2>Регистрация</h2>
-        <div class="guide-section-text">
-          <p>Создайте аккаунт один раз — дальше вход по email и паролю на любом устройстве.</p>
-          <ul class="guide-bullets">
-            <li>Переключитесь на вкладку <strong>«Регистрация»</strong></li>
-            <li>Укажите email и пароль</li>
-            <li>Поле промо/реф — по желанию</li>
-            <li>Подтвердите email из письма — после этого доступен VPN</li>
-          </ul>
-        </div>
-      </div>
       <div class="demo-shell">
-        <div class="demo-stage" data-demo="register">
-          <div class="demo-flow" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+        <div class="demo-stage" data-demo="overview">
           <div class="demo-device">
             <div class="demo-screen">
-              <div class="demo-brand-row">
-                <div class="demo-logo-s">S</div>
+              <div class="demo-main">
+                <div class="demo-logo-wrap">
+                  <div class="demo-logo-s" aria-hidden="true">S</div>
+                  <div class="demo-brand-name">Silent VPN</div>
+                </div>
+                <div class="demo-toggle" data-toggle>
+                  <span class="demo-snake"></span>
+                  <span class="demo-toggle-knob"></span>
+                </div>
+                <div class="demo-status" data-status>Отключено</div>
               </div>
-              <div class="demo-title" data-screen-title>Добро пожаловать</div>
-              <div class="demo-sub" data-screen-sub>Войдите или создайте аккаунт</div>
-              <div class="demo-tabs">
-                <div class="demo-tab is-active" data-tab="login">Вход</div>
-                <div class="demo-tab" data-tab="register">Регистрация</div>
-              </div>
-              <div class="demo-field" data-field="email">Email</div>
-              <div class="demo-field" data-field="pass">Пароль</div>
-              <div class="demo-field" data-field="promo">Промо / реф (необязательно)</div>
-              <div class="demo-btn" data-btn="submit">Войти</div>
             </div>
           </div>
           <div class="demo-cursor" aria-hidden="true">
@@ -786,44 +758,102 @@
       </div>
     </section>
 
-    <div class="guide-art" style="margin:8px 0 0;max-width:720px">
-      <img src="assets/guide-register.jpg" alt="Регистрация в Silent VPN" width="1400" height="875" loading="lazy">
-    </div>
+    <!-- 02 register -->
+    <section class="guide-section reverse" id="g-register">
+      <div>
+        <div class="guide-section-num">02</div>
+        <h2>Регистрация</h2>
+        <div class="guide-section-text">
+          <p>Сначала дождитесь <strong style="color:#16A34A">зелёного</strong> «Канал готов. Осталось M:SS…» — до этого кнопка серая («Ожидание канала…»).</p>
+          <ul class="guide-bullets">
+            <li>Логотип и SILENT VPN — по центру</li>
+            <li>Вкладка <strong>«Регистрация»</strong> (активная — чёрная)</li>
+            <li>Email, пароль, промо/реф (необязательно)</li>
+            <li>Чёрная кнопка <strong>«Зарегистрироваться»</strong> → подтвердите email</li>
+          </ul>
+        </div>
+      </div>
+      <div class="demo-shell">
+        <div class="demo-stage" data-demo="register">
+          <div class="demo-device">
+            <div class="demo-screen">
+              <div data-auth-form>
+                <div class="demo-logo-wrap">
+                  <div class="demo-logo-s" aria-hidden="true">S</div>
+                  <div class="demo-brand-name">Silent VPN</div>
+                </div>
+                <div class="demo-boot is-wait" data-boot>Подключение… подождите</div>
+                <div class="demo-tabs">
+                  <div class="demo-tab is-active" data-tab="login">Войти</div>
+                  <div class="demo-tab" data-tab="register">Регистрация</div>
+                </div>
+                <div class="demo-field" data-field="email">you@example.com</div>
+                <div class="demo-field" data-field="pass">••••••••</div>
+                <div class="demo-field" data-field="promo" hidden>Необязательно</div>
+                <div class="demo-row" data-auth-row>
+                  <span>Запомнить меня</span>
+                  <span class="link" data-forgot>Забыли пароль?</span>
+                </div>
+                <div class="demo-btn is-wait" data-btn="submit">Ожидание канала…</div>
+              </div>
+              <div data-reg-done hidden>
+                <div class="demo-logo-wrap">
+                  <div class="demo-logo-s" aria-hidden="true">S</div>
+                  <div class="demo-brand-name">Silent VPN</div>
+                </div>
+                <div class="demo-excl-title" style="text-align:center;margin-top:12px">Подтвердите email</div>
+                <div class="demo-excl-sub" style="text-align:center">Ссылка отправлена — откройте письмо и подтвердите аккаунт</div>
+                <div class="demo-btn" style="margin-top:16px">Войти</div>
+              </div>
+            </div>
+          </div>
+          <div class="demo-cursor" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4 3.5 19 12l-7.2 1.6L9.2 21 4 3.5z"/></svg>
+          </div>
+          <div class="demo-caption">
+            <span class="demo-caption-dot"></span>
+            <span data-caption-text>Следите за курсором</span>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <!-- 03 login -->
+    <!-- 03 login — same layout, no promo -->
     <section class="guide-section" id="g-login">
       <div>
         <div class="guide-section-num">03</div>
         <h2>Вход</h2>
         <div class="guide-section-text">
-          <p>Если аккаунт уже есть — вкладка «Вход». После авторизации открывается главный экран с тумблером.</p>
+          <p>Тот же экран, что и регистрация: логотип по центру, зелёный канал, вкладка <strong>«Войти»</strong> — без поля промокода.</p>
           <ul class="guide-bullets">
-            <li>Email и пароль от того же аккаунта</li>
-            <li>Сессия сохраняется, пока вы сами не нажмёте «Выйти»</li>
-            <li>Забыли пароль — сброс через письмо (веб-форма)</li>
+            <li>Email и пароль</li>
+            <li>«Запомнить меня» / «Забыли пароль?»</li>
+            <li>Чёрная кнопка <strong>«Войти»</strong> — затем главный экран с тумблером</li>
           </ul>
         </div>
       </div>
       <div class="demo-shell">
         <div class="demo-stage" data-demo="login">
-          <div class="demo-flow" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
           <div class="demo-device">
             <div class="demo-screen">
-              <div data-form>
-                <div class="demo-brand-row"><div class="demo-logo-s">S</div></div>
-                <div class="demo-title">Вход</div>
-                <div class="demo-sub">С возвращением</div>
-                <div class="demo-field" data-field="email">Email</div>
-                <div class="demo-field" data-field="pass">Пароль</div>
-                <div class="demo-btn" data-btn="submit">Войти</div>
-              </div>
-              <div class="demo-main" data-main hidden>
-                <div class="demo-logo-s" style="width:36px;height:36px;border-radius:10px;font-size:1rem">S</div>
-                <div class="demo-toggle" data-toggle>
-                  <span class="demo-snake"></span>
-                  <span class="demo-toggle-knob"></span>
+              <div data-auth-form>
+                <div class="demo-logo-wrap">
+                  <div class="demo-logo-s" aria-hidden="true">S</div>
+                  <div class="demo-brand-name">Silent VPN</div>
                 </div>
-                <div class="demo-status" data-status>Отключено</div>
+                <div class="demo-boot is-ready" data-boot>Канал готов. Осталось 1:42 — войдите или зарегистрируйтесь</div>
+                <div class="demo-tabs">
+                  <div class="demo-tab is-active" data-tab="login">Войти</div>
+                  <div class="demo-tab" data-tab="register">Регистрация</div>
+                </div>
+                <div class="demo-field" data-field="email">you@example.com</div>
+                <div class="demo-field" data-field="pass">••••••••</div>
+                <div class="demo-field" data-field="promo" hidden>Необязательно</div>
+                <div class="demo-row" data-auth-row>
+                  <span>Запомнить меня</span>
+                  <span class="link" data-forgot>Забыли пароль?</span>
+                </div>
+                <div class="demo-btn" data-btn="submit">Войти</div>
               </div>
             </div>
           </div>
@@ -844,28 +874,28 @@
         <div class="guide-section-num">04</div>
         <h2>Подключение VPN</h2>
         <div class="guide-section-text">
-          <p>Никаких протоколов и серверов вручную. Один жест — тумблер.</p>
+          <p>После входа — главный экран. Один тумблер, как в приложении (120×60).</p>
           <ul class="guide-bullets">
-            <li>Вкл — полный защищённый туннель</li>
-            <li>Выкл — обычный интернет, без VPN</li>
-            <li>На аккаунте одновременно до <strong>3</strong> подключений</li>
+            <li>Вкл — полный туннель, статус «Подключено»</li>
+            <li>Выкл — обычный интернет</li>
+            <li>До <strong>3</strong> одновременных подключений</li>
           </ul>
         </div>
       </div>
       <div class="demo-shell">
         <div class="demo-stage" data-demo="connect">
-          <div class="demo-flow" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
           <div class="demo-device">
             <div class="demo-screen">
-              <div class="demo-main" style="min-height:280px">
-                <div class="demo-logo-s" style="width:40px;height:40px;border-radius:12px;font-size:1.1rem">S</div>
-                <div class="demo-title" style="margin:0">Silent VPN</div>
+              <div class="demo-main">
+                <div class="demo-logo-wrap">
+                  <div class="demo-logo-s" aria-hidden="true">S</div>
+                  <div class="demo-brand-name">Silent VPN</div>
+                </div>
                 <div class="demo-toggle" data-toggle>
                   <span class="demo-snake"></span>
                   <span class="demo-toggle-knob"></span>
                 </div>
                 <div class="demo-status" data-status>Отключено</div>
-                <div class="demo-sub" data-hint style="margin:0">До 3 устройств онлайн</div>
               </div>
             </div>
           </div>
@@ -886,47 +916,33 @@
         <div class="guide-section-num">05</div>
         <h2>Исключения приложений</h2>
         <div class="guide-section-text">
-          <p><strong>Зачем:</strong> некоторым программам выгоднее ходить мимо VPN — игры (античит/латентность), банковские приложения, локальные сервисы.</p>
-          <p><strong>Как:</strong> меню → «Исключения» → отметьте нужные приложения. Отмеченные идут <strong>мимо туннеля</strong>, остальной трафик — через Silent VPN.</p>
-          <ul class="guide-bullets">
-            <li>Не отмечайте браузер, если хотите защиту веб-серфинга</li>
-            <li>Можно менять список в любой момент</li>
-            <li>На Android и Windows логика одна и та же</li>
-          </ul>
+          <p><strong>Зачем:</strong> игры, лаунчеры, банк — иногда лучше мимо VPN (латентность, античит).</p>
+          <p><strong>Как:</strong> меню → «Исключения приложений» → отметьте нужные. Подпись в клиенте: «Отмеченные приложения идут мимо VPN-туннеля».</p>
         </div>
       </div>
       <div class="demo-shell">
         <div class="demo-stage" data-demo="exclusions">
-          <div class="demo-flow" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
           <div class="demo-device">
             <div class="demo-screen">
               <div data-menu>
-                <div class="demo-brand-row"><div class="demo-logo-s">S</div></div>
-                <div class="demo-title">Меню</div>
-                <div class="demo-sub">Настройки клиента</div>
-                <div class="demo-menu">
+                <div class="demo-back">← Назад</div>
+                <div class="demo-excl-title">Меню</div>
+                <div class="demo-menu" style="margin-top:12px">
                   <div class="demo-menu-item">Подписка <span>›</span></div>
-                  <div class="demo-menu-item" data-open-excl>Исключения <span>›</span></div>
+                  <div class="demo-menu-item" data-open-excl>Исключения приложений <span>›</span></div>
                   <div class="demo-menu-item">Бонусы <span>›</span></div>
                   <div class="demo-menu-item">Устройства <span>›</span></div>
                 </div>
               </div>
               <div data-excl hidden>
-                <div class="demo-title">Исключения</div>
-                <div class="demo-sub">Отмеченные — мимо VPN</div>
+                <div class="demo-back">← Назад</div>
+                <div class="demo-excl-title">Исключения приложений</div>
+                <div class="demo-excl-sub">Отмеченные приложения идут мимо VPN-туннеля</div>
+                <div class="demo-search">Поиск...</div>
                 <div class="demo-menu">
-                  <div class="demo-menu-item" data-app>
-                    Игра / лаунчер
-                    <span class="demo-check"></span>
-                  </div>
-                  <div class="demo-menu-item" data-app>
-                    Банк
-                    <span class="demo-check"></span>
-                  </div>
-                  <div class="demo-menu-item" data-app>
-                    Мессенджер
-                    <span class="demo-check"></span>
-                  </div>
+                  <div class="demo-menu-item" data-app>Игра / лаунчер <span class="demo-check"></span></div>
+                  <div class="demo-menu-item" data-app>Банк <span class="demo-check"></span></div>
+                  <div class="demo-menu-item" data-app>Мессенджер <span class="demo-check"></span></div>
                 </div>
               </div>
             </div>
@@ -941,10 +957,6 @@
         </div>
       </div>
     </section>
-
-    <div class="guide-art" style="margin-top:12px">
-      <img src="assets/guide-exclusions.jpg" alt="Схема исключений приложений из VPN" width="1400" height="875" loading="lazy">
-    </div>
 
     <div class="guide-footer-cta">
       <div>
