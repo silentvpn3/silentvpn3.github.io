@@ -182,7 +182,7 @@
     setBoot(boot, "wait", "Подключение… подождите");
     btn.classList.add("is-wait");
     btn.textContent = "Ожидание канала…";
-    setCaption(caption, "Сначала ждём канал — кнопки пока неактивны");
+    setCaption(caption, "Каналу нужно пару секунд, чтобы подготовиться");
     await sleep(1600);
     if (stopSignal.stopped) return false;
 
@@ -192,7 +192,7 @@
       "ready",
       `Канал готов. Осталось ${Math.floor(sec / 60)}:${String(sec % 60).padStart(2, "0")} — войдите или зарегистрируйтесь`
     );
-    setCaption(caption, "Зелёный текст «Канал готов» — можно регистрироваться / входить");
+    setCaption(caption, "Готово — теперь можно войти или зарегистрироваться");
     btn.classList.remove("is-wait");
     // tick a few seconds for the animation
     for (let i = 0; i < 3; i++) {
@@ -235,7 +235,7 @@
       const forgot = stage.querySelector("[data-forgot]");
       if (forgot) forgot.hidden = true;
       btn.textContent = "Зарегистрироваться";
-      setCaption(caption, "Вкладка «Регистрация» — активная чёрная");
+      setCaption(caption, "Переключаемся на регистрацию");
       await sleep(650);
       if (stopSignal.stopped) break;
 
@@ -286,7 +286,7 @@
       );
       btn.classList.remove("is-wait");
       btn.textContent = "Войти";
-      setCaption(caption, "Тот же экран, что и регистрация — без поля промокода");
+      setCaption(caption, "Тот же экран — переключаемся на «Войти»");
       await sleep(1100);
       if (stopSignal.stopped) break;
 
@@ -303,7 +303,7 @@
       if (stopSignal.stopped) break;
 
       await clickEl(cursor, btn, stage);
-      setCaption(caption, "Готово — откроется главный экран с тумблером VPN");
+      setCaption(caption, "Готово — открывается главный экран");
       btn.textContent = "Вход…";
       await sleep(2200);
       if (stopSignal.stopped) break;
@@ -317,34 +317,34 @@
     const status = stage.querySelector("[data-status]");
 
     while (!stopSignal.stopped) {
-      toggle.classList.remove("is-on", "is-spinning");
+      toggle.classList.remove("is-on", "is-connecting");
       status.classList.remove("is-on");
       status.textContent = "Отключено";
-      setCaption(caption, "На главном экране — тумблер 120×60 как в приложении");
+      setCaption(caption, "Один тумблер — включает и выключает VPN");
       cursor.classList.add("is-on");
       const p = centerOf(toggle, stage);
       moveCursor(cursor, p.x - 36, p.y + 18);
       await sleep(800);
       if (stopSignal.stopped) break;
 
-      setCaption(caption, "Нажмите — VPN включается");
+      setCaption(caption, "Нажимаем — соединение устанавливается");
       moveCursor(cursor, p.x, p.y);
       await sleep(350);
       cursor.classList.add("is-click");
-      toggle.classList.add("is-spinning");
+      toggle.classList.add("is-connecting");
       status.textContent = "Подключение…";
       await sleep(220);
       cursor.classList.remove("is-click");
-      await sleep(1100);
-      toggle.classList.remove("is-spinning");
+      await sleep(1300);
+      toggle.classList.remove("is-connecting");
       toggle.classList.add("is-on");
       status.classList.add("is-on");
       status.textContent = "Подключено";
-      setCaption(caption, "Статус «Подключено» — трафик через защищённый канал");
+      setCaption(caption, "Готово — весь трафик идёт через защищённый канал");
       await sleep(2200);
       if (stopSignal.stopped) break;
 
-      setCaption(caption, "Ещё раз — выключить");
+      setCaption(caption, "Выключается тем же нажатием");
       await clickEl(cursor, toggle, stage);
       toggle.classList.remove("is-on");
       status.classList.remove("is-on");

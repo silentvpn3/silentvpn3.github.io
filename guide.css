@@ -453,20 +453,23 @@
   transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .demo-toggle.is-on .demo-toggle-knob { transform: translateX(64px); }
-.demo-snake {
+
+/* Spinner ring sits ON the round knob itself (not on the elongated pill —
+   rotating a border-highlight around a stadium shape looks like a swooping bird). */
+.demo-knob-spin {
   position: absolute;
-  inset: -3px;
-  border-radius: 999px;
-  border: 2px solid transparent;
-  border-top-color: rgba(0,0,0,0.45);
+  inset: -4px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-top-color: rgba(0, 0, 0, 0.55);
   opacity: 0;
 }
-.demo-toggle.is-on .demo-snake { border-top-color: rgba(255,255,255,0.65); }
-.demo-toggle.is-spinning .demo-snake {
+.demo-toggle.is-on .demo-knob-spin { border-top-color: rgba(255, 255, 255, 0.7); }
+.demo-toggle.is-connecting .demo-knob-spin {
   opacity: 1;
-  animation: spinSnake 1.1s linear infinite;
+  animation: spinKnob 0.8s linear infinite;
 }
-@keyframes spinSnake { to { transform: rotate(360deg); } }
+@keyframes spinKnob { to { transform: rotate(360deg); } }
 .demo-status {
   font-family: var(--font-display);
   font-weight: 600;
