@@ -478,61 +478,6 @@
 }
 .demo-status.is-on { color: #000; }
 
-/* Remote-control focus ring (Smart TV demo — no mouse cursor, D-pad + OK) */
-.demo-toggle {
-  transition: background 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.25s ease, transform 0.25s ease;
-}
-.demo-toggle.is-focused {
-  box-shadow: 0 0 0 3px #fff, 0 0 0 6px #000;
-  transform: scale(1.04);
-}
-
-/* TV frame — widescreen bezel + stand, same screen content as phone demos */
-.demo-tv-frame {
-  width: min(360px, 92%);
-  aspect-ratio: 16 / 10;
-  margin: 28px auto 0;
-  border-radius: 14px;
-  border: 10px solid #111;
-  background: #fff;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
-  display: flex;
-  position: relative;
-  z-index: 2;
-}
-.demo-tv-screen {
-  flex: 1;
-  min-height: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  padding: 8px;
-}
-.demo-tv-screen .demo-logo-wrap { margin-bottom: 2px; }
-.demo-tv-screen .demo-logo-s { width: 40px; height: 40px; border-radius: 12px; font-size: 16px; }
-.demo-tv-screen .demo-brand-name { font-size: 0.78rem; margin-top: 6px; }
-.demo-tv-stand {
-  width: 96px;
-  height: 8px;
-  background: #111;
-  border-radius: 0 0 6px 6px;
-  margin: 0 auto 70px;
-  position: relative;
-}
-.demo-tv-stand::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  bottom: 100%;
-  width: 8px;
-  height: 22px;
-  background: #111;
-  transform: translateX(-50%);
-}
-
 /* Exclusions */
 .demo-menu { display: grid; gap: 4px; }
 .demo-menu-item {

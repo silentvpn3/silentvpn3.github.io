@@ -399,55 +399,12 @@
     }
   }
 
-  async function runTv(stage, stopSignal) {
-    const caption = stage.querySelector(".demo-caption");
-    const toggle = stage.querySelector("[data-toggle]");
-    const status = stage.querySelector("[data-status]");
-
-    while (!stopSignal.stopped) {
-      toggle.classList.remove("is-on", "is-connecting", "is-focused");
-      status.classList.remove("is-on");
-      status.textContent = "Отключено";
-      setCaption(caption, "Стрелками на пульте выбираем тумблер");
-      await sleep(900);
-      if (stopSignal.stopped) break;
-
-      toggle.classList.add("is-focused");
-      setCaption(caption, "Жмём «ОК» — включаем VPN");
-      await sleep(700);
-      if (stopSignal.stopped) break;
-
-      toggle.classList.add("is-connecting");
-      status.textContent = "Подключение…";
-      await sleep(1300);
-      if (stopSignal.stopped) break;
-
-      toggle.classList.remove("is-connecting", "is-focused");
-      toggle.classList.add("is-on");
-      status.classList.add("is-on");
-      status.textContent = "Подключено";
-      setCaption(caption, "Готово — защищённый канал прямо на телевизоре");
-      await sleep(2200);
-      if (stopSignal.stopped) break;
-
-      setCaption(caption, "«ОК» ещё раз — выключаем");
-      toggle.classList.add("is-focused");
-      await sleep(500);
-      if (stopSignal.stopped) break;
-      toggle.classList.remove("is-on", "is-focused");
-      status.classList.remove("is-on");
-      status.textContent = "Отключено";
-      await sleep(1300);
-    }
-  }
-
   const runners = {
     overview: runConnect,
     register: runRegister,
     login: runLogin,
     connect: runConnect,
     exclusions: runExclusions,
-    tv: runTv,
   };
 
   function stopDemo(id) {
