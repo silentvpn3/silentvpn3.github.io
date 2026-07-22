@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Silent VPN — скачать</title>
   <meta name="description" content="Silent VPN — защищённое соединение для работы, учёбы и отдыха. Windows, Android и Smart TV, бесплатно 2 месяца на время тестирования.">
-  <!-- site-build: 20260716-guide-tv -->
+  <!-- site-build: 20260722-guide-bonus-sub-sessions -->
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="guide.css?v=4">
+  <link rel="stylesheet" href="guide.css?v=5">
   <style>
     :root {
       --bg: #ffffff;
@@ -708,8 +708,8 @@
       <p class="eyebrow">Как пользоваться</p>
       <h1>Быстрый старт<br>с Silent VPN</h1>
       <p class="guide-hero-desc">
-        Показываем на живых демо-экранах: регистрация, вход, включение VPN и настройка
-        исключений — ровно так, как это выглядит в приложении на Windows и Android.
+        Показываем на живых демо-экранах: регистрация, вход, VPN, исключения, подписка,
+        бонусы и сессии — ровно так, как это выглядит в приложении на Windows и Android.
       </p>
     </section>
 
@@ -719,6 +719,9 @@
       <button type="button" class="toc-chip" data-jump="g-login">Вход</button>
       <button type="button" class="toc-chip" data-jump="g-connect">Подключение</button>
       <button type="button" class="toc-chip" data-jump="g-excl">Исключения</button>
+      <button type="button" class="toc-chip" data-jump="g-sub">Подписка</button>
+      <button type="button" class="toc-chip" data-jump="g-bonuses">Бонусы</button>
+      <button type="button" class="toc-chip" data-jump="g-sessions">Сессии</button>
     </nav>
 
     <!-- 01 overview = connect preview -->
@@ -731,7 +734,7 @@
           <ul class="guide-bullets">
             <li><strong>Один аккаунт</strong> — до 3 устройств подключены одновременно</li>
             <li><strong>Ничего настраивать</strong> — сервер и протокол клиент выбирает сам</li>
-            <li><strong>Всё под рукой</strong> — подписка, бонусы, устройства и исключения в одном меню</li>
+            <li><strong>Всё под рукой</strong> — подписка, бонусы, сессии и исключения в одном меню</li>
           </ul>
         </div>
       </div>
@@ -938,7 +941,7 @@
                   <div class="demo-menu-item">Подписка <span>›</span></div>
                   <div class="demo-menu-item" data-open-excl>Исключения приложений <span>›</span></div>
                   <div class="demo-menu-item">Бонусы <span>›</span></div>
-                  <div class="demo-menu-item">Устройства <span>›</span></div>
+                  <div class="demo-menu-item">Сессии (1/3) <span>›</span></div>
                 </div>
               </div>
               <div data-excl hidden>
@@ -950,6 +953,198 @@
                   <div class="demo-menu-item" data-app>Игра / лаунчер <span class="demo-check"></span></div>
                   <div class="demo-menu-item" data-app>Банк <span class="demo-check"></span></div>
                   <div class="demo-menu-item" data-app>Мессенджер <span class="demo-check"></span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="demo-cursor" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4 3.5 19 12l-7.2 1.6L9.2 21 4 3.5z"/></svg>
+          </div>
+          <div class="demo-caption">
+            <span class="demo-caption-dot"></span>
+            <span data-caption-text>Следите за курсором</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06 subscription -->
+    <section class="guide-section reverse" id="g-sub">
+      <div>
+        <div class="guide-section-num">06</div>
+        <h2>Подписка</h2>
+        <div class="guide-section-text">
+          <p><strong>Как оформить:</strong> меню → «Подписка» → выберите тариф. Оплата откроется в браузере (YuMoney). После оплаты вернитесь в приложение — статус обновится сам.</p>
+          <ul class="guide-bullets">
+            <li><strong>Месяц</strong> — 199 ₽ · <strong>3 месяца</strong> — 499 ₽ · <strong>Год</strong> — 1 499 ₽</li>
+            <li>Пока идёт тестирование — бесплатный период уже активен, оплата понадобится позже</li>
+            <li>Подписка общая на аккаунт: все ваши устройства пользуются одним тарифом</li>
+          </ul>
+        </div>
+      </div>
+      <div class="demo-shell">
+        <div class="demo-stage" data-demo="subscription">
+          <div class="demo-device">
+            <div class="demo-screen">
+              <div data-menu>
+                <div class="demo-back">← Назад</div>
+                <div class="demo-excl-title">Меню</div>
+                <div class="demo-menu" style="margin-top:12px">
+                  <div class="demo-menu-item" data-open-sub>Подписка <span>›</span></div>
+                  <div class="demo-menu-item">Исключения приложений <span>›</span></div>
+                  <div class="demo-menu-item">Бонусы <span>›</span></div>
+                  <div class="demo-menu-item">Сессии (1/3) <span>›</span></div>
+                </div>
+              </div>
+              <div data-sub-plans hidden>
+                <div class="demo-back">← Назад</div>
+                <div class="demo-excl-title">Выберите тариф</div>
+                <div class="demo-plans">
+                  <div class="demo-plan" data-plan="monthly"><span>Месяц</span><span>199 ₽</span></div>
+                  <div class="demo-plan" data-plan="quarterly"><span>3 месяца</span><span>499 ₽</span></div>
+                  <div class="demo-plan" data-plan="yearly"><span>Год</span><span>1 499 ₽</span></div>
+                </div>
+                <p class="demo-hint">Оплата откроется в системном браузере (YuMoney). После оплаты вернитесь сюда — статус обновится сам.</p>
+              </div>
+              <div data-sub-wait hidden>
+                <div class="demo-pay-card">
+                  <div class="demo-pay-icon is-wait">⏳</div>
+                  <div class="demo-pay-title">Ждём подтверждения оплаты</div>
+                  <div class="demo-pay-text">Оплатите в открывшейся вкладке браузера. После оплаты вернитесь в приложение — подписка активируется автоматически.</div>
+                  <div class="demo-pay-spin" aria-hidden="true"></div>
+                  <div class="demo-pay-cancel">Отмена</div>
+                </div>
+              </div>
+              <div data-sub-ok hidden>
+                <div class="demo-pay-card is-ok">
+                  <div class="demo-pay-icon is-ok">✓</div>
+                  <div class="demo-pay-title">Оплата прошла успешно</div>
+                  <div class="demo-pay-text">Подписка активирована. Спасибо за покупку!</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="demo-cursor" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4 3.5 19 12l-7.2 1.6L9.2 21 4 3.5z"/></svg>
+          </div>
+          <div class="demo-caption">
+            <span class="demo-caption-dot"></span>
+            <span data-caption-text>Следите за курсором</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07 bonuses -->
+    <section class="guide-section" id="g-bonuses">
+      <div>
+        <div class="guide-section-num">07</div>
+        <h2>Бонусная программа</h2>
+        <div class="guide-section-text">
+          <p>В меню → «Бонусы»: реферальная ссылка и проверка промокода — как в клиенте.</p>
+          <ul class="guide-bullets">
+            <li><strong>Рефералка</strong> — друг регистрируется по вашей ссылке и оплачивает подписку: оба получаете +30 дней</li>
+            <li>Один бонус на одного друга, до 10 наград за 30 дней</li>
+            <li><strong>Промокод</strong> — скидка или доп. дни к тарифу; можно ввести при регистрации или проверить здесь</li>
+            <li>Условия программы могут измениться</li>
+          </ul>
+        </div>
+      </div>
+      <div class="demo-shell">
+        <div class="demo-stage" data-demo="bonuses">
+          <div class="demo-device">
+            <div class="demo-screen">
+              <div data-menu>
+                <div class="demo-back">← Назад</div>
+                <div class="demo-excl-title">Меню</div>
+                <div class="demo-menu" style="margin-top:12px">
+                  <div class="demo-menu-item">Подписка <span>›</span></div>
+                  <div class="demo-menu-item">Исключения приложений <span>›</span></div>
+                  <div class="demo-menu-item" data-open-bonuses>Бонусы <span>›</span></div>
+                  <div class="demo-menu-item">Сессии (1/3) <span>›</span></div>
+                </div>
+              </div>
+              <div data-bonuses hidden>
+                <div class="demo-back">← Назад</div>
+                <div class="demo-excl-title">Бонусы</div>
+                <p class="demo-intro">Друг по ссылке оплатил подписку — оба получаете +30 дней. Промокод — скидка к тарифу.</p>
+                <div class="demo-label">Ваша ссылка</div>
+                <p class="demo-hint tight">Скопируйте и отправьте другу</p>
+                <div class="demo-field demo-field-sm" data-ref-link>https://silentvpn3.github.io/?ref=SILENT30</div>
+                <div class="demo-btn demo-btn-sm" data-copy-ref>Копировать ссылку</div>
+                <p class="demo-copy-msg" data-copy-msg hidden>Ссылка скопирована</p>
+                <div class="demo-stats" data-ref-stats>Приглашено: 2 · Награждено: 1</div>
+                <div class="demo-label" style="margin-top:8px">Промокод</div>
+                <p class="demo-hint tight">Проверить скидку к тарифу</p>
+                <div class="demo-field demo-field-sm" data-field="promo-check">Введите код</div>
+                <div class="demo-btn demo-btn-sm" data-check-promo>Проверить</div>
+                <p class="demo-copy-msg" data-promo-msg hidden>Скидка 20%!</p>
+              </div>
+            </div>
+          </div>
+          <div class="demo-cursor" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4 3.5 19 12l-7.2 1.6L9.2 21 4 3.5z"/></svg>
+          </div>
+          <div class="demo-caption">
+            <span class="demo-caption-dot"></span>
+            <span data-caption-text>Следите за курсором</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 08 sessions -->
+    <section class="guide-section reverse" id="g-sessions">
+      <div>
+        <div class="guide-section-num">08</div>
+        <h2>Сессии</h2>
+        <div class="guide-section-text">
+          <p><strong>Сессия</strong> — это устройство, с которого вы вошли в аккаунт. Одновременно VPN могут держать до <strong>3</strong> устройств.</p>
+          <ul class="guide-bullets">
+            <li>В меню → «Сессии» видно все входы: ПК, Android, Smart TV</li>
+            <li>Зелёная точка — VPN сейчас онлайн; можно подписать устройство и удалить лишнюю сессию</li>
+            <li>Удаление текущей сессии выходит из аккаунта на этом устройстве</li>
+          </ul>
+        </div>
+      </div>
+      <div class="demo-shell">
+        <div class="demo-stage" data-demo="sessions">
+          <div class="demo-device">
+            <div class="demo-screen">
+              <div data-menu>
+                <div class="demo-back">← Назад</div>
+                <div class="demo-excl-title">Меню</div>
+                <div class="demo-menu" style="margin-top:12px">
+                  <div class="demo-menu-item">Подписка <span>›</span></div>
+                  <div class="demo-menu-item">Исключения приложений <span>›</span></div>
+                  <div class="demo-menu-item">Бонусы <span>›</span></div>
+                  <div class="demo-menu-item" data-open-sessions>Сессии (2/3) <span>›</span></div>
+                </div>
+              </div>
+              <div data-sessions hidden>
+                <div class="demo-back">← Назад</div>
+                <div class="demo-excl-title">Сессии</div>
+                <div class="demo-excl-sub" data-sessions-sub>VPN онлайн: 1 из 2</div>
+                <div class="demo-sessions">
+                  <div class="demo-session" data-session="pc">
+                    <span class="demo-dot is-on"></span>
+                    <div class="demo-session-body">
+                      <div class="demo-session-name">Windows <span class="demo-you">· это вы</span></div>
+                      <div class="demo-session-status is-on">Подключено</div>
+                    </div>
+                    <span class="demo-session-act" data-rename title="Подписать">✎</span>
+                    <span class="demo-session-act" data-delete title="Удалить">✕</span>
+                  </div>
+                  <div class="demo-session" data-session="android">
+                    <span class="demo-dot"></span>
+                    <div class="demo-session-body">
+                      <div class="demo-session-name">Android</div>
+                      <div class="demo-session-status">Не в сети</div>
+                      <div class="demo-session-label" data-custom-label hidden></div>
+                    </div>
+                    <span class="demo-session-act" data-rename title="Подписать">✎</span>
+                    <span class="demo-session-act" data-delete title="Удалить">✕</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -982,7 +1177,7 @@
     </footer>
   </div>
 
-  <script src="guide.js?v=4"></script>
+  <script src="guide.js?v=5"></script>
   <script>
     const API_BASE = "https://132-243-234-162.nip.io";
     const GITHUB_REPO = "silentvpn3/silentvpn3.github.io";

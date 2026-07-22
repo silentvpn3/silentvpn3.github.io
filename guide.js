@@ -399,12 +399,175 @@
     }
   }
 
+  async function runSubscription(stage, stopSignal) {
+    const cursor = stage.querySelector(".demo-cursor");
+    const caption = stage.querySelector(".demo-caption");
+    const menu = stage.querySelector("[data-menu]");
+    const plans = stage.querySelector("[data-sub-plans]");
+    const wait = stage.querySelector("[data-sub-wait]");
+    const ok = stage.querySelector("[data-sub-ok]");
+    const openBtn = stage.querySelector("[data-open-sub]");
+    const planBtn = stage.querySelector('[data-plan="monthly"]');
+
+    while (!stopSignal.stopped) {
+      menu.hidden = false;
+      plans.hidden = true;
+      wait.hidden = true;
+      ok.hidden = true;
+      openBtn.classList.remove("is-hot");
+      planBtn?.classList.remove("is-press");
+      setCaption(caption, "Меню → «Подписка» — выбор тарифа и оплата");
+      cursor.classList.add("is-on");
+      moveCursor(cursor, 48, 70);
+      await sleep(1000);
+      if (stopSignal.stopped) break;
+
+      openBtn.classList.add("is-hot");
+      await clickEl(cursor, openBtn, stage);
+      setCaption(caption, "Открываем раздел подписки");
+      await sleep(350);
+      menu.hidden = true;
+      plans.hidden = false;
+      await sleep(700);
+      if (stopSignal.stopped) break;
+
+      setCaption(caption, "Выбираем тариф — откроется оплата в браузере");
+      await clickEl(cursor, planBtn, stage);
+      await sleep(400);
+      plans.hidden = true;
+      wait.hidden = false;
+      setCaption(caption, "Ждём подтверждения от YuMoney");
+      await sleep(2200);
+      if (stopSignal.stopped) break;
+
+      wait.hidden = true;
+      ok.hidden = false;
+      setCaption(caption, "Готово — подписка активирована на весь аккаунт");
+      await sleep(2400);
+    }
+  }
+
+  async function runBonuses(stage, stopSignal) {
+    const cursor = stage.querySelector(".demo-cursor");
+    const caption = stage.querySelector(".demo-caption");
+    const menu = stage.querySelector("[data-menu]");
+    const page = stage.querySelector("[data-bonuses]");
+    const openBtn = stage.querySelector("[data-open-bonuses]");
+    const copyBtn = stage.querySelector("[data-copy-ref]");
+    const copyMsg = stage.querySelector("[data-copy-msg]");
+    const promoField = stage.querySelector("[data-field=promo-check]");
+    const checkBtn = stage.querySelector("[data-check-promo]");
+    const promoMsg = stage.querySelector("[data-promo-msg]");
+
+    while (!stopSignal.stopped) {
+      menu.hidden = false;
+      page.hidden = true;
+      openBtn.classList.remove("is-hot");
+      if (copyMsg) copyMsg.hidden = true;
+      if (promoMsg) promoMsg.hidden = true;
+      if (promoField) {
+        promoField.textContent = "Введите код";
+        promoField.style.color = "#9CA3AF";
+      }
+      setCaption(caption, "Меню → «Бонусы» — рефералка и промокоды");
+      cursor.classList.add("is-on");
+      moveCursor(cursor, 48, 70);
+      await sleep(1000);
+      if (stopSignal.stopped) break;
+
+      openBtn.classList.add("is-hot");
+      await clickEl(cursor, openBtn, stage);
+      setCaption(caption, "Открываем бонусную программу");
+      await sleep(350);
+      menu.hidden = true;
+      page.hidden = false;
+      await sleep(700);
+      if (stopSignal.stopped) break;
+
+      setCaption(caption, "Копируем ссылку и отправляем другу");
+      await clickEl(cursor, copyBtn, stage);
+      if (copyMsg) copyMsg.hidden = false;
+      await sleep(1200);
+      if (stopSignal.stopped) break;
+
+      moveCursor(cursor, ...Object.values(centerOf(promoField, stage)));
+      setCaption(caption, "Или проверяем промокод");
+      promoField.style.color = "#000";
+      await typeInto(promoField, "SILENT20", 45);
+      if (stopSignal.stopped) break;
+
+      await clickEl(cursor, checkBtn, stage);
+      if (promoMsg) promoMsg.hidden = false;
+      setCaption(caption, "Скидка применена к тарифу");
+      await sleep(2400);
+    }
+  }
+
+  async function runSessions(stage, stopSignal) {
+    const cursor = stage.querySelector(".demo-cursor");
+    const caption = stage.querySelector(".demo-caption");
+    const menu = stage.querySelector("[data-menu]");
+    const page = stage.querySelector("[data-sessions]");
+    const openBtn = stage.querySelector("[data-open-sessions]");
+    const android = stage.querySelector('[data-session="android"]');
+    const renameBtn = android?.querySelector("[data-rename]");
+    const customLabel = android?.querySelector("[data-custom-label]");
+    const sub = stage.querySelector("[data-sessions-sub]");
+
+    while (!stopSignal.stopped) {
+      menu.hidden = false;
+      page.hidden = true;
+      openBtn.classList.remove("is-hot");
+      android?.classList.remove("is-hot");
+      if (customLabel) {
+        customLabel.hidden = true;
+        customLabel.textContent = "";
+      }
+      if (sub) sub.textContent = "VPN онлайн: 1 из 2";
+      setCaption(caption, "Сессия — вход с устройства. До 3 одновременно");
+      cursor.classList.add("is-on");
+      moveCursor(cursor, 48, 70);
+      await sleep(1100);
+      if (stopSignal.stopped) break;
+
+      openBtn.classList.add("is-hot");
+      await clickEl(cursor, openBtn, stage);
+      setCaption(caption, "Меню → «Сессии»");
+      await sleep(350);
+      menu.hidden = true;
+      page.hidden = false;
+      await sleep(800);
+      if (stopSignal.stopped) break;
+
+      setCaption(caption, "Зелёная точка — VPN онлайн на этом устройстве");
+      await sleep(1600);
+      if (stopSignal.stopped) break;
+
+      android?.classList.add("is-hot");
+      setCaption(caption, "Можно подписать устройство — чтобы не перепутать");
+      await clickEl(cursor, renameBtn, stage);
+      if (customLabel) {
+        customLabel.hidden = false;
+        customLabel.textContent = "Телефон";
+      }
+      await sleep(1400);
+      if (stopSignal.stopped) break;
+
+      setCaption(caption, "Лишнюю сессию можно удалить крестиком");
+      await sleep(2200);
+      android?.classList.remove("is-hot");
+    }
+  }
+
   const runners = {
     overview: runConnect,
     register: runRegister,
     login: runLogin,
     connect: runConnect,
     exclusions: runExclusions,
+    subscription: runSubscription,
+    bonuses: runBonuses,
+    sessions: runSessions,
   };
 
   function stopDemo(id) {
