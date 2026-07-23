@@ -1,7 +1,7 @@
 {
   "api_base": "https://132-243-234-162.nip.io",
   "github_repo": "silentvpn3/silentvpn3.github.io",
-  "updated_at": "2026-07-22T12:17:39Z",
+  "updated_at": "2026-07-23T06:51:18Z",
   "pc": {
     "version": "1.0.159",
     "filename": "Silent.VPN.Setup.1.0.159.exe",
@@ -11,7 +11,7 @@
   "android": {
     "version": "1.0.159",
     "filename": "SilentVPN-release-1.0.159.apk",
-    "size": 27252187,
+    "size": 27252195,
     "download_url": "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.159/SilentVPN-release-1.0.159.apk"
   }
 }
