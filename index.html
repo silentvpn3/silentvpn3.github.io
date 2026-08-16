@@ -896,7 +896,7 @@
         <div class="demo-stage" data-demo="connect">
           <div class="demo-device">
             <div class="demo-screen">
-              <div class="demo-main" data-connect-main>
+              <div class="demo-main" data-connect-main hidden>
                 <div class="demo-logo-wrap">
                   <div class="demo-logo-s" aria-hidden="true">S</div>
                   <div class="demo-brand-name">Silent VPN</div>
@@ -907,16 +907,15 @@
                   </span>
                 </div>
                 <div class="demo-status" data-status>Отключено</div>
-                <div class="demo-btn demo-btn-sm" data-open-menu style="margin-top:14px">Меню</div>
               </div>
-              <div data-connect-menu hidden>
+              <div data-connect-menu>
                 <div class="demo-back">← Назад</div>
                 <div class="demo-excl-title">Меню</div>
                 <div class="demo-menu" style="margin-top:12px">
                   <div class="demo-menu-item">Подписка <span>›</span></div>
                   <div class="demo-menu-item">Исключения <span>›</span></div>
-                  <div class="demo-menu-item" data-open-dns>DNS · Как на сервере <span>›</span></div>
-                  <div class="demo-menu-item" data-open-server>Выбор сервера · сервер 1 <span>›</span></div>
+                  <div class="demo-menu-item" data-open-dns>DNS · <span data-connect-dns-label>Как на сервере</span> <span>›</span></div>
+                  <div class="demo-menu-item" data-open-server>Выбор сервера · <span data-connect-server-label>сервер 1</span> <span>›</span></div>
                   <div class="demo-menu-item">Бонусы <span>›</span></div>
                   <div class="demo-menu-item">Сессии (1/3) <span>›</span></div>
                 </div>
@@ -926,21 +925,21 @@
                 <div class="demo-excl-title">DNS</div>
                 <div class="demo-excl-sub">Используйте рекомендуемый DNS или укажите свой</div>
                 <div class="demo-menu" style="margin-top:10px">
-                  <div class="demo-menu-item">● Как на сервере <span>Рекомендуется</span></div>
+                  <div class="demo-menu-item" data-dns-server>● Как на сервере <span>Рекомендуется</span></div>
                   <div class="demo-menu-item" data-dns-custom>○ Свой DNS <span>до 3 адресов</span></div>
                 </div>
                 <div class="demo-field demo-field-sm" style="margin-top:10px">1.1.1.1, 8.8.8.8</div>
-                <div class="demo-btn demo-btn-sm" style="margin-top:10px">Использовать свой DNS</div>
+                <div class="demo-excl-sub" style="margin-top:10px">Примените и переподключите VPN</div>
               </div>
               <div data-connect-server hidden>
                 <div class="demo-back">← Назад</div>
                 <div class="demo-excl-title">Выбор сервера</div>
                 <div class="demo-menu" style="margin-top:12px">
-                  <div class="demo-menu-item">○ Сервер 1</div>
+                  <div class="demo-menu-item" data-server1>○ Сервер 1</div>
                   <div class="demo-menu-item" data-server2>● Сервер 2</div>
-                  <div class="demo-menu-item">○ Сервер 3</div>
+                  <div class="demo-menu-item" data-server3>○ Сервер 3</div>
                 </div>
-                <div class="demo-btn demo-btn-sm" style="margin-top:12px">Применить</div>
+                <div class="demo-excl-sub" style="margin-top:12px">Смена применится после переподключения</div>
               </div>
             </div>
           </div>
@@ -989,12 +988,32 @@
               <div data-excl hidden>
                 <div class="demo-back">← Назад</div>
                 <div class="demo-excl-title">Исключения</div>
-                <div class="demo-excl-sub">Отмеченные приложения идут мимо VPN-туннеля</div>
-                <div class="demo-search">Поиск...</div>
-                <div class="demo-menu">
-                  <div class="demo-menu-item" data-app>Игра / лаунчер <span class="demo-check"></span></div>
-                  <div class="demo-menu-item" data-app>Банк <span class="demo-check"></span></div>
-                  <div class="demo-menu-item" data-app>Мессенджер <span class="demo-check"></span></div>
+                <div class="demo-tabs" style="margin-top:8px">
+                  <div class="demo-tab is-active" data-excl-tab-apps>Приложения</div>
+                  <div class="demo-tab" data-excl-tab-sites>Сайты</div>
+                </div>
+                <div data-excl-apps>
+                  <div class="demo-excl-sub">ЧС: выбранные мимо VPN · БС: только выбранные через VPN</div>
+                  <div class="demo-menu" style="margin-top:8px">
+                    <div class="demo-menu-item" data-excl-mode-black>● ЧС <span>Выбрано</span></div>
+                    <div class="demo-menu-item" data-excl-mode-white>○ БС <span>Режим</span></div>
+                    <div class="demo-menu-item" data-excl-select-all>Выделить все <span class="demo-check"></span></div>
+                  </div>
+                  <div class="demo-search">Поиск...</div>
+                  <div class="demo-menu">
+                    <div class="demo-menu-item" data-app>Игра / лаунчер <span class="demo-check"></span></div>
+                    <div class="demo-menu-item" data-app>Банк <span class="demo-check"></span></div>
+                    <div class="demo-menu-item" data-app>Мессенджер <span class="demo-check"></span></div>
+                  </div>
+                </div>
+                <div data-excl-sites hidden>
+                  <div class="demo-excl-sub">Домен или IP идут мимо VPN</div>
+                  <div class="demo-field demo-field-sm" style="margin-top:8px">ozon.ru</div>
+                  <div class="demo-btn demo-btn-sm" style="margin-top:8px">Добавить</div>
+                  <div class="demo-menu" style="margin-top:8px">
+                    <div class="demo-menu-item">ozon.ru <span>✕</span></div>
+                    <div class="demo-menu-item">1.2.3.4 <span>✕</span></div>
+                  </div>
                 </div>
               </div>
             </div>
