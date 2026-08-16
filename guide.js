@@ -315,12 +315,29 @@
     const caption = stage.querySelector(".demo-caption");
     const toggle = stage.querySelector("[data-toggle]");
     const status = stage.querySelector("[data-status]");
+    const main = stage.querySelector("[data-connect-main]");
+    const menu = stage.querySelector("[data-connect-menu]");
+    const dns = stage.querySelector("[data-connect-dns]");
+    const server = stage.querySelector("[data-connect-server]");
+    const openMenu = stage.querySelector("[data-open-menu]");
+    const openDns = stage.querySelector("[data-open-dns]");
+    const openServer = stage.querySelector("[data-open-server]");
+    const dnsCustom = stage.querySelector("[data-dns-custom]");
+    const server2 = stage.querySelector("[data-server2]");
+
+    if (!toggle || !status || !openMenu || !openDns || !openServer || !dnsCustom || !server2) {
+      return;
+    }
 
     while (!stopSignal.stopped) {
+      if (main) main.hidden = false;
+      if (menu) menu.hidden = true;
+      if (dns) dns.hidden = true;
+      if (server) server.hidden = true;
       toggle.classList.remove("is-on", "is-connecting");
       status.classList.remove("is-on");
       status.textContent = "Отключено";
-      setCaption(caption, "Один тумблер — включает и выключает VPN");
+      setCaption(caption, "Главный экран: тумблер включает и выключает VPN");
       cursor.classList.add("is-on");
       const p = centerOf(toggle, stage);
       moveCursor(cursor, p.x - 36, p.y + 18);
@@ -341,10 +358,45 @@
       status.classList.add("is-on");
       status.textContent = "Подключено";
       setCaption(caption, "Готово — весь трафик идёт через защищённый канал");
-      await sleep(2200);
+      await sleep(1500);
       if (stopSignal.stopped) break;
 
-      setCaption(caption, "Выключается тем же нажатием");
+      setCaption(caption, "Откроем меню: здесь DNS, сервер, исключения, сессии");
+      await clickEl(cursor, openMenu, stage);
+      if (main) main.hidden = true;
+      if (menu) menu.hidden = false;
+      await sleep(700);
+      if (stopSignal.stopped) break;
+
+      setCaption(caption, "Меню → DNS: «Как на сервере» или «Свой DNS»");
+      await clickEl(cursor, openDns, stage);
+      if (menu) menu.hidden = true;
+      if (dns) dns.hidden = false;
+      await sleep(700);
+      if (stopSignal.stopped) break;
+
+      await clickEl(cursor, dnsCustom, stage);
+      setCaption(caption, "Свой DNS: до 3 адресов, применится после переподключения");
+      await sleep(1300);
+      if (stopSignal.stopped) break;
+
+      if (dns) dns.hidden = true;
+      if (menu) menu.hidden = false;
+      setCaption(caption, "Меню → Выбор сервера: Сервер 1 / 2 / 3");
+      await clickEl(cursor, openServer, stage);
+      if (menu) menu.hidden = true;
+      if (server) server.hidden = false;
+      await sleep(700);
+      if (stopSignal.stopped) break;
+
+      await clickEl(cursor, server2, stage);
+      setCaption(caption, "Сервер выбран — нажмите «Применить» и переподключите VPN");
+      await sleep(1400);
+      if (stopSignal.stopped) break;
+
+      if (server) server.hidden = true;
+      if (main) main.hidden = false;
+      setCaption(caption, "Возвращаемся на главный экран и выключаем VPN");
       await clickEl(cursor, toggle, stage);
       toggle.classList.remove("is-on");
       status.classList.remove("is-on");
@@ -377,7 +429,7 @@
 
       openBtn.classList.add("is-hot");
       await clickEl(cursor, openBtn, stage);
-      setCaption(caption, "Меню → «Исключения приложений»");
+      setCaption(caption, "Меню → «Исключения»");
       await sleep(400);
       menu.hidden = true;
       list.hidden = false;

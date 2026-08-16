@@ -883,10 +883,11 @@
         <div class="guide-section-num">04</div>
         <h2>Подключение VPN</h2>
         <div class="guide-section-text">
-          <p>После входа — главный экран с одним тумблером. Нажали — подключились, нажали ещё раз — отключились.</p>
+          <p>После входа вы управляете не только тумблером: в меню есть смена DNS и выбор сервера. Это применится после переподключения VPN.</p>
           <ul class="guide-bullets">
-            <li>Включили — весь интернет-трафик защищён</li>
-            <li>Выключили — обычное подключение без VPN</li>
+            <li>На главном экране — тумблер подключения VPN</li>
+            <li>В меню → <strong>DNS</strong>: «Как на сервере» или «Свой DNS» (до 3 адресов)</li>
+            <li>В меню → <strong>Выбор сервера</strong>: Сервер 1 / 2 / 3</li>
             <li>До <strong>3</strong> устройств могут быть подключены одновременно</li>
           </ul>
         </div>
@@ -895,7 +896,7 @@
         <div class="demo-stage" data-demo="connect">
           <div class="demo-device">
             <div class="demo-screen">
-              <div class="demo-main">
+              <div class="demo-main" data-connect-main>
                 <div class="demo-logo-wrap">
                   <div class="demo-logo-s" aria-hidden="true">S</div>
                   <div class="demo-brand-name">Silent VPN</div>
@@ -906,6 +907,40 @@
                   </span>
                 </div>
                 <div class="demo-status" data-status>Отключено</div>
+                <div class="demo-btn demo-btn-sm" data-open-menu style="margin-top:14px">Меню</div>
+              </div>
+              <div data-connect-menu hidden>
+                <div class="demo-back">← Назад</div>
+                <div class="demo-excl-title">Меню</div>
+                <div class="demo-menu" style="margin-top:12px">
+                  <div class="demo-menu-item">Подписка <span>›</span></div>
+                  <div class="demo-menu-item">Исключения <span>›</span></div>
+                  <div class="demo-menu-item" data-open-dns>DNS · Как на сервере <span>›</span></div>
+                  <div class="demo-menu-item" data-open-server>Выбор сервера · сервер 1 <span>›</span></div>
+                  <div class="demo-menu-item">Бонусы <span>›</span></div>
+                  <div class="demo-menu-item">Сессии (1/3) <span>›</span></div>
+                </div>
+              </div>
+              <div data-connect-dns hidden>
+                <div class="demo-back">← Назад</div>
+                <div class="demo-excl-title">DNS</div>
+                <div class="demo-excl-sub">Используйте рекомендуемый DNS или укажите свой</div>
+                <div class="demo-menu" style="margin-top:10px">
+                  <div class="demo-menu-item">● Как на сервере <span>Рекомендуется</span></div>
+                  <div class="demo-menu-item" data-dns-custom>○ Свой DNS <span>до 3 адресов</span></div>
+                </div>
+                <div class="demo-field demo-field-sm" style="margin-top:10px">1.1.1.1, 8.8.8.8</div>
+                <div class="demo-btn demo-btn-sm" style="margin-top:10px">Использовать свой DNS</div>
+              </div>
+              <div data-connect-server hidden>
+                <div class="demo-back">← Назад</div>
+                <div class="demo-excl-title">Выбор сервера</div>
+                <div class="demo-menu" style="margin-top:12px">
+                  <div class="demo-menu-item">○ Сервер 1</div>
+                  <div class="demo-menu-item" data-server2>● Сервер 2</div>
+                  <div class="demo-menu-item">○ Сервер 3</div>
+                </div>
+                <div class="demo-btn demo-btn-sm" style="margin-top:12px">Применить</div>
               </div>
             </div>
           </div>
@@ -944,7 +979,7 @@
                 <div class="demo-excl-title">Меню</div>
                 <div class="demo-menu" style="margin-top:12px">
                   <div class="demo-menu-item">Подписка <span>›</span></div>
-                  <div class="demo-menu-item" data-open-excl>Исключения приложений <span>›</span></div>
+                  <div class="demo-menu-item" data-open-excl>Исключения <span>›</span></div>
                   <div class="demo-menu-item">DNS · Как на сервере <span>›</span></div>
                   <div class="demo-menu-item">Выбор сервера · сервер 1 <span>›</span></div>
                   <div class="demo-menu-item">Бонусы <span>›</span></div>
@@ -953,7 +988,7 @@
               </div>
               <div data-excl hidden>
                 <div class="demo-back">← Назад</div>
-                <div class="demo-excl-title">Исключения приложений</div>
+                <div class="demo-excl-title">Исключения</div>
                 <div class="demo-excl-sub">Отмеченные приложения идут мимо VPN-туннеля</div>
                 <div class="demo-search">Поиск...</div>
                 <div class="demo-menu">
@@ -998,7 +1033,7 @@
                 <div class="demo-excl-title">Меню</div>
                 <div class="demo-menu" style="margin-top:12px">
                   <div class="demo-menu-item" data-open-sub>Подписка <span>›</span></div>
-                  <div class="demo-menu-item">Исключения приложений <span>›</span></div>
+                  <div class="demo-menu-item">Исключения <span>›</span></div>
                   <div class="demo-menu-item">DNS · Как на сервере <span>›</span></div>
                   <div class="demo-menu-item">Выбор сервера · сервер 1 <span>›</span></div>
                   <div class="demo-menu-item">Бонусы <span>›</span></div>
@@ -1068,7 +1103,7 @@
                 <div class="demo-excl-title">Меню</div>
                 <div class="demo-menu" style="margin-top:12px">
                   <div class="demo-menu-item">Подписка <span>›</span></div>
-                  <div class="demo-menu-item">Исключения приложений <span>›</span></div>
+                  <div class="demo-menu-item">Исключения <span>›</span></div>
                   <div class="demo-menu-item">DNS · Как на сервере <span>›</span></div>
                   <div class="demo-menu-item">Выбор сервера · сервер 1 <span>›</span></div>
                   <div class="demo-menu-item" data-open-bonuses>Бонусы <span>›</span></div>
@@ -1127,7 +1162,7 @@
                 <div class="demo-excl-title">Меню</div>
                 <div class="demo-menu" style="margin-top:12px">
                   <div class="demo-menu-item">Подписка <span>›</span></div>
-                  <div class="demo-menu-item">Исключения приложений <span>›</span></div>
+                  <div class="demo-menu-item">Исключения <span>›</span></div>
                   <div class="demo-menu-item">DNS · Как на сервере <span>›</span></div>
                   <div class="demo-menu-item">Выбор сервера · сервер 1 <span>›</span></div>
                   <div class="demo-menu-item">Бонусы <span>›</span></div>
