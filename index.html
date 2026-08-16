@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Silent VPN — скачать</title>
   <meta name="description" content="Silent VPN — защищённое соединение для работы, учёбы и отдыха. Windows, Android и Smart TV, бесплатно 2 месяца на время тестирования.">
-  <!-- site-build: 20260816-guide-connect-excl-screens -->
+  <!-- site-build: 20260816-guide-drop-hero-water -->
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="guide.css?v=6">
+  <link rel="stylesheet" href="guide.css?v=9">
   <style>
     :root {
       --bg: #ffffff;
@@ -707,10 +707,6 @@
     <section class="guide-hero">
       <p class="eyebrow">Как пользоваться</p>
       <h1>Быстрый старт<br>с Silent VPN</h1>
-      <p class="guide-hero-desc">
-        Показываем на живых демо-экранах: регистрация, вход, VPN, исключения (ЧС/БС + сайты),
-        DNS, выбор сервера, подписка, бонусы и сессии — ровно так, как это выглядит в приложении на Windows и Android.
-      </p>
     </section>
 
     <nav class="guide-toc" aria-label="Разделы инструкции">
@@ -895,49 +891,82 @@
       <div class="demo-shell">
         <div class="demo-stage" data-demo="connect">
           <div class="demo-device">
-            <div class="demo-screen">
-              <div class="demo-main" data-connect-main>
-                <div class="demo-main-top">
-                  <span class="demo-main-spacer"></span>
+            <div class="demo-screen is-app">
+              <div class="demo-home" data-connect-main>
+                <div class="demo-titlebar">
                   <button type="button" class="demo-menu-trigger" data-open-menu aria-label="Меню">
                     <span></span><span></span><span></span>
                   </button>
+                  <div class="demo-titlebar-title">Silent VPN</div>
                 </div>
-                <div class="demo-logo-wrap">
-                  <div class="demo-logo-s" aria-hidden="true">S</div>
-                  <div class="demo-brand-name">Silent VPN</div>
-                </div>
-                <div class="demo-toggle" data-toggle>
-                  <span class="demo-toggle-knob">
-                    <span class="demo-knob-spin"></span>
-                  </span>
-                </div>
-                <div class="demo-status" data-status>Отключено</div>
-              </div>
-              <div data-connect-menu hidden>
-                <div class="demo-back">← Назад</div>
-                <div class="demo-excl-title">Меню</div>
-                <div class="demo-menu" style="margin-top:12px">
-                  <div class="demo-menu-item">Подписка <span>›</span></div>
-                  <div class="demo-menu-item">Исключения <span>›</span></div>
-                  <div class="demo-menu-item" data-open-dns>DNS · <span data-connect-dns-label>Как на сервере</span> <span>›</span></div>
-                  <div class="demo-menu-item" data-open-server>Выбор сервера · <span data-connect-server-label>сервер 1</span> <span>›</span></div>
-                  <div class="demo-menu-item">Бонусы <span>›</span></div>
-                  <div class="demo-menu-item">Сессии (1/3) <span>›</span></div>
+                <div class="demo-home-body">
+                  <div class="demo-logo-wrap">
+                    <div class="demo-logo-s" aria-hidden="true">S</div>
+                    <div class="demo-brand-name">Silent VPN</div>
+                  </div>
+                  <div class="demo-toggle" data-toggle>
+                    <span class="demo-toggle-knob">
+                      <span class="demo-knob-spin"></span>
+                    </span>
+                  </div>
+                  <div class="demo-status" data-status>Отключено</div>
                 </div>
               </div>
-              <div data-connect-dns hidden>
+              <div class="demo-drawer-dim" data-connect-dim hidden></div>
+              <div class="demo-drawer" data-connect-menu hidden>
+                <div class="demo-drawer-head">
+                  <div>
+                    <div class="demo-drawer-email">you@example.com</div>
+                    <div class="demo-drawer-meta">Аккаунт: A1B2C3</div>
+                  </div>
+                  <span class="demo-drawer-close" aria-hidden="true">×</span>
+                </div>
+                <div class="demo-drawer-nav">
+                  <div class="demo-drawer-item">Подписка <span>›</span></div>
+                  <div class="demo-drawer-item">Исключения <span>›</span></div>
+                  <div class="demo-drawer-item" data-open-dns>DNS · <span data-connect-dns-label>Как на сервере</span> <span>›</span></div>
+                  <div class="demo-drawer-item" data-open-server>Выбор сервера · <span data-connect-server-label>сервер 1</span> <span>›</span></div>
+                  <div class="demo-drawer-item">Бонусы <span>›</span></div>
+                  <div class="demo-drawer-item">Сессии (1/3) <span>›</span></div>
+                  <div class="demo-drawer-item">Поддержка <span>›</span></div>
+                  <div class="demo-drawer-item">О сервисе <span>›</span></div>
+                  <div class="demo-drawer-item demo-drawer-logout">Выйти</div>
+                </div>
+              </div>
+              <div class="demo-page" data-connect-dns hidden>
                 <div class="demo-back">← Назад</div>
                 <div class="demo-excl-title">DNS</div>
-                <div class="demo-excl-sub">Используйте рекомендуемый DNS или укажите свой</div>
-                <div class="demo-menu" style="margin-top:10px">
-                  <div class="demo-menu-item" data-dns-server>● Как на сервере <span>Рекомендуется</span></div>
-                  <div class="demo-menu-item" data-dns-custom>○ Свой DNS <span>до 3 адресов</span></div>
+                <div class="demo-excl-sub">Используйте рекомендуемый DNS или укажите свой. Применяется при следующем подключении VPN.</div>
+                <div class="demo-radio" data-dns-server>
+                  <span class="demo-radio-mark is-on"><span></span></span>
+                  <div>
+                    <div class="demo-radio-title">Как на сервере</div>
+                    <div class="demo-radio-sub">Рекомендуется</div>
+                  </div>
                 </div>
-                <div class="demo-field demo-field-sm" style="margin-top:10px">1.1.1.1, 8.8.8.8</div>
-                <div class="demo-excl-sub" style="margin-top:10px">Примените и переподключите VPN</div>
+                <div class="demo-divider"></div>
+                <div class="demo-radio" data-dns-custom>
+                  <span class="demo-radio-mark"><span></span></span>
+                  <div>
+                    <div class="demo-radio-title">Свой DNS</div>
+                    <div class="demo-radio-sub">до 3 адресов через запятую</div>
+                  </div>
+                </div>
+                <div class="demo-field demo-field-sm" data-dns-input>1.1.1.1, 8.8.8.8</div>
+                <div class="demo-excl-sub" style="margin-top:4px;margin-bottom:0">IPv4 или IPv6, до 3 адресов через запятую</div>
+                <div class="demo-btn-outline" data-dns-use>Использовать свой DNS</div>
+                <div class="demo-dialog" data-dns-dialog hidden>
+                  <div class="demo-dialog-card">
+                    <div class="demo-dialog-title">Применить?</div>
+                    <p class="demo-dialog-text">Как на сервере → Свой DNS (1.1.1.1, 8.8.8.8)<br><br>Переподключите VPN, чтобы применить.</p>
+                    <div class="demo-dialog-actions">
+                      <span>Отмена</span>
+                      <span class="demo-dialog-ok" data-dns-apply>Применить</span>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div data-connect-server hidden>
+              <div class="demo-page" data-connect-server hidden>
                 <div class="demo-back">← Назад</div>
                 <div class="demo-excl-title">Выбор сервера</div>
                 <div class="demo-menu" style="margin-top:12px">
@@ -978,28 +1007,53 @@
       <div class="demo-shell">
         <div class="demo-stage" data-demo="exclusions">
           <div class="demo-device">
-            <div class="demo-screen">
-              <div data-menu>
-                <div class="demo-back">← Назад</div>
-                <div class="demo-excl-title">Меню</div>
-                <div class="demo-menu" style="margin-top:12px">
-                  <div class="demo-menu-item">Подписка <span>›</span></div>
-                  <div class="demo-menu-item" data-open-excl>Исключения <span>›</span></div>
-                  <div class="demo-menu-item">DNS · Как на сервере <span>›</span></div>
-                  <div class="demo-menu-item">Выбор сервера · сервер 1 <span>›</span></div>
-                  <div class="demo-menu-item">Бонусы <span>›</span></div>
-                  <div class="demo-menu-item">Сессии (1/3) <span>›</span></div>
+            <div class="demo-screen is-app">
+              <div class="demo-home" data-home>
+                <div class="demo-titlebar">
+                  <button type="button" class="demo-menu-trigger" aria-label="Меню">
+                    <span></span><span></span><span></span>
+                  </button>
+                  <div class="demo-titlebar-title">Silent VPN</div>
+                </div>
+                <div class="demo-home-body">
+                  <div class="demo-logo-wrap">
+                    <div class="demo-logo-s" aria-hidden="true">S</div>
+                    <div class="demo-brand-name">Silent VPN</div>
+                  </div>
+                  <div class="demo-toggle"></div>
+                  <div class="demo-status">Отключено</div>
                 </div>
               </div>
-              <div data-excl hidden>
+              <div class="demo-drawer-dim" data-dim></div>
+              <div class="demo-drawer" data-menu>
+                <div class="demo-drawer-head">
+                  <div>
+                    <div class="demo-drawer-email">you@example.com</div>
+                    <div class="demo-drawer-meta">Аккаунт: A1B2C3</div>
+                  </div>
+                  <span class="demo-drawer-close" aria-hidden="true">×</span>
+                </div>
+                <div class="demo-drawer-nav">
+                  <div class="demo-drawer-item">Подписка <span>›</span></div>
+                  <div class="demo-drawer-item" data-open-excl>Исключения <span>›</span></div>
+                  <div class="demo-drawer-item">DNS · Как на сервере <span>›</span></div>
+                  <div class="demo-drawer-item">Выбор сервера · сервер 1 <span>›</span></div>
+                  <div class="demo-drawer-item">Бонусы <span>›</span></div>
+                  <div class="demo-drawer-item">Сессии (1/3) <span>›</span></div>
+                  <div class="demo-drawer-item">Поддержка <span>›</span></div>
+                  <div class="demo-drawer-item">О сервисе <span>›</span></div>
+                  <div class="demo-drawer-item demo-drawer-logout">Выйти</div>
+                </div>
+              </div>
+              <div class="demo-page" data-excl hidden>
                 <div class="demo-back">← Назад</div>
                 <div class="demo-excl-title">Исключения</div>
                 <div class="demo-chip-row" style="margin-top:8px">
-                  <div class="demo-chip is-active" data-excl-tab-apps>Приложения</div>
                   <div class="demo-chip" data-excl-tab-sites>Сайты</div>
+                  <div class="demo-chip is-active" data-excl-tab-apps>Приложения</div>
                 </div>
                 <div data-excl-apps>
-                  <div class="demo-excl-sub">ЧС: выбранные мимо VPN · БС: только выбранные через VPN</div>
+                  <div class="demo-excl-sub" data-excl-hint>ЧС: выбранные мимо VPN</div>
                   <div class="demo-chip-row" style="margin-top:8px">
                     <div class="demo-chip is-active" data-excl-mode-black>ЧС</div>
                     <div class="demo-chip" data-excl-mode-white>БС</div>
@@ -1016,8 +1070,8 @@
                   </div>
                 </div>
                 <div data-excl-sites hidden>
-                  <div class="demo-excl-sub">Домен или IP идут мимо VPN</div>
-                  <div class="demo-field demo-field-sm" style="margin-top:8px">ozon.ru</div>
+                  <div class="demo-excl-sub">Домен или IP идут мимо VPN (ozon.ru, 1.2.3.4, 10.0.0.0/8)</div>
+                  <div class="demo-field demo-field-sm" style="margin-top:8px">домен или IP…</div>
                   <div class="demo-btn demo-btn-sm" style="margin-top:8px">Добавить</div>
                   <div class="demo-menu" style="margin-top:8px">
                     <div class="demo-menu-item">ozon.ru <span>✕</span></div>
@@ -1055,20 +1109,45 @@
       <div class="demo-shell">
         <div class="demo-stage" data-demo="subscription">
           <div class="demo-device">
-            <div class="demo-screen">
-              <div data-menu>
-                <div class="demo-back">← Назад</div>
-                <div class="demo-excl-title">Меню</div>
-                <div class="demo-menu" style="margin-top:12px">
-                  <div class="demo-menu-item" data-open-sub>Подписка <span>›</span></div>
-                  <div class="demo-menu-item">Исключения <span>›</span></div>
-                  <div class="demo-menu-item">DNS · Как на сервере <span>›</span></div>
-                  <div class="demo-menu-item">Выбор сервера · сервер 1 <span>›</span></div>
-                  <div class="demo-menu-item">Бонусы <span>›</span></div>
-                  <div class="demo-menu-item">Сессии (1/3) <span>›</span></div>
+            <div class="demo-screen is-app">
+              <div class="demo-home" data-home>
+                <div class="demo-titlebar">
+                  <button type="button" class="demo-menu-trigger" aria-label="Меню">
+                    <span></span><span></span><span></span>
+                  </button>
+                  <div class="demo-titlebar-title">Silent VPN</div>
+                </div>
+                <div class="demo-home-body">
+                  <div class="demo-logo-wrap">
+                    <div class="demo-logo-s" aria-hidden="true">S</div>
+                    <div class="demo-brand-name">Silent VPN</div>
+                  </div>
+                  <div class="demo-toggle"></div>
+                  <div class="demo-status">Отключено</div>
                 </div>
               </div>
-              <div data-sub-plans hidden>
+              <div class="demo-drawer-dim" data-dim></div>
+              <div class="demo-drawer" data-menu>
+                <div class="demo-drawer-head">
+                  <div>
+                    <div class="demo-drawer-email">you@example.com</div>
+                    <div class="demo-drawer-meta">Аккаунт: A1B2C3</div>
+                  </div>
+                  <span class="demo-drawer-close" aria-hidden="true">×</span>
+                </div>
+                <div class="demo-drawer-nav">
+                  <div class="demo-drawer-item" data-open-sub>Подписка <span>›</span></div>
+                  <div class="demo-drawer-item">Исключения <span>›</span></div>
+                  <div class="demo-drawer-item">DNS · Как на сервере <span>›</span></div>
+                  <div class="demo-drawer-item">Выбор сервера · сервер 1 <span>›</span></div>
+                  <div class="demo-drawer-item">Бонусы <span>›</span></div>
+                  <div class="demo-drawer-item">Сессии (1/3) <span>›</span></div>
+                  <div class="demo-drawer-item">Поддержка <span>›</span></div>
+                  <div class="demo-drawer-item">О сервисе <span>›</span></div>
+                  <div class="demo-drawer-item demo-drawer-logout">Выйти</div>
+                </div>
+              </div>
+              <div class="demo-page" data-sub-plans hidden>
                 <div class="demo-back">← Назад</div>
                 <div class="demo-excl-title">Выберите тариф</div>
                 <div class="demo-plans">
@@ -1078,7 +1157,7 @@
                 </div>
                 <p class="demo-hint">Оплата откроется в системном браузере (YuMoney). После оплаты вернитесь сюда — статус обновится сам.</p>
               </div>
-              <div data-sub-wait hidden>
+              <div class="demo-page" data-sub-wait hidden>
                 <div class="demo-pay-card">
                   <div class="demo-pay-icon is-wait">⏳</div>
                   <div class="demo-pay-title">Ждём подтверждения оплаты</div>
@@ -1087,7 +1166,7 @@
                   <div class="demo-pay-cancel">Отмена</div>
                 </div>
               </div>
-              <div data-sub-ok hidden>
+              <div class="demo-page" data-sub-ok hidden>
                 <div class="demo-pay-card is-ok">
                   <div class="demo-pay-icon is-ok">✓</div>
                   <div class="demo-pay-title">Оплата прошла успешно</div>
@@ -1125,20 +1204,45 @@
       <div class="demo-shell">
         <div class="demo-stage" data-demo="bonuses">
           <div class="demo-device">
-            <div class="demo-screen">
-              <div data-menu>
-                <div class="demo-back">← Назад</div>
-                <div class="demo-excl-title">Меню</div>
-                <div class="demo-menu" style="margin-top:12px">
-                  <div class="demo-menu-item">Подписка <span>›</span></div>
-                  <div class="demo-menu-item">Исключения <span>›</span></div>
-                  <div class="demo-menu-item">DNS · Как на сервере <span>›</span></div>
-                  <div class="demo-menu-item">Выбор сервера · сервер 1 <span>›</span></div>
-                  <div class="demo-menu-item" data-open-bonuses>Бонусы <span>›</span></div>
-                  <div class="demo-menu-item">Сессии (1/3) <span>›</span></div>
+            <div class="demo-screen is-app">
+              <div class="demo-home" data-home>
+                <div class="demo-titlebar">
+                  <button type="button" class="demo-menu-trigger" aria-label="Меню">
+                    <span></span><span></span><span></span>
+                  </button>
+                  <div class="demo-titlebar-title">Silent VPN</div>
+                </div>
+                <div class="demo-home-body">
+                  <div class="demo-logo-wrap">
+                    <div class="demo-logo-s" aria-hidden="true">S</div>
+                    <div class="demo-brand-name">Silent VPN</div>
+                  </div>
+                  <div class="demo-toggle"></div>
+                  <div class="demo-status">Отключено</div>
                 </div>
               </div>
-              <div data-bonuses hidden>
+              <div class="demo-drawer-dim" data-dim></div>
+              <div class="demo-drawer" data-menu>
+                <div class="demo-drawer-head">
+                  <div>
+                    <div class="demo-drawer-email">you@example.com</div>
+                    <div class="demo-drawer-meta">Аккаунт: A1B2C3</div>
+                  </div>
+                  <span class="demo-drawer-close" aria-hidden="true">×</span>
+                </div>
+                <div class="demo-drawer-nav">
+                  <div class="demo-drawer-item">Подписка <span>›</span></div>
+                  <div class="demo-drawer-item">Исключения <span>›</span></div>
+                  <div class="demo-drawer-item">DNS · Как на сервере <span>›</span></div>
+                  <div class="demo-drawer-item">Выбор сервера · сервер 1 <span>›</span></div>
+                  <div class="demo-drawer-item" data-open-bonuses>Бонусы <span>›</span></div>
+                  <div class="demo-drawer-item">Сессии (1/3) <span>›</span></div>
+                  <div class="demo-drawer-item">Поддержка <span>›</span></div>
+                  <div class="demo-drawer-item">О сервисе <span>›</span></div>
+                  <div class="demo-drawer-item demo-drawer-logout">Выйти</div>
+                </div>
+              </div>
+              <div class="demo-page" data-bonuses hidden>
                 <div class="demo-back">← Назад</div>
                 <div class="demo-excl-title">Бонусы</div>
                 <p class="demo-intro">Друг по ссылке оплатил подписку — оба получаете +30 дней. Промокод — скидка к тарифу.</p>
@@ -1184,20 +1288,45 @@
       <div class="demo-shell">
         <div class="demo-stage" data-demo="sessions">
           <div class="demo-device">
-            <div class="demo-screen">
-              <div data-menu>
-                <div class="demo-back">← Назад</div>
-                <div class="demo-excl-title">Меню</div>
-                <div class="demo-menu" style="margin-top:12px">
-                  <div class="demo-menu-item">Подписка <span>›</span></div>
-                  <div class="demo-menu-item">Исключения <span>›</span></div>
-                  <div class="demo-menu-item">DNS · Как на сервере <span>›</span></div>
-                  <div class="demo-menu-item">Выбор сервера · сервер 1 <span>›</span></div>
-                  <div class="demo-menu-item">Бонусы <span>›</span></div>
-                  <div class="demo-menu-item" data-open-sessions>Сессии (2/3) <span>›</span></div>
+            <div class="demo-screen is-app">
+              <div class="demo-home" data-home>
+                <div class="demo-titlebar">
+                  <button type="button" class="demo-menu-trigger" aria-label="Меню">
+                    <span></span><span></span><span></span>
+                  </button>
+                  <div class="demo-titlebar-title">Silent VPN</div>
+                </div>
+                <div class="demo-home-body">
+                  <div class="demo-logo-wrap">
+                    <div class="demo-logo-s" aria-hidden="true">S</div>
+                    <div class="demo-brand-name">Silent VPN</div>
+                  </div>
+                  <div class="demo-toggle"></div>
+                  <div class="demo-status">Отключено</div>
                 </div>
               </div>
-              <div data-sessions hidden>
+              <div class="demo-drawer-dim" data-dim></div>
+              <div class="demo-drawer" data-menu>
+                <div class="demo-drawer-head">
+                  <div>
+                    <div class="demo-drawer-email">you@example.com</div>
+                    <div class="demo-drawer-meta">Аккаунт: A1B2C3</div>
+                  </div>
+                  <span class="demo-drawer-close" aria-hidden="true">×</span>
+                </div>
+                <div class="demo-drawer-nav">
+                  <div class="demo-drawer-item">Подписка <span>›</span></div>
+                  <div class="demo-drawer-item">Исключения <span>›</span></div>
+                  <div class="demo-drawer-item">DNS · Как на сервере <span>›</span></div>
+                  <div class="demo-drawer-item">Выбор сервера · сервер 1 <span>›</span></div>
+                  <div class="demo-drawer-item">Бонусы <span>›</span></div>
+                  <div class="demo-drawer-item" data-open-sessions>Сессии (2/3) <span>›</span></div>
+                  <div class="demo-drawer-item">Поддержка <span>›</span></div>
+                  <div class="demo-drawer-item">О сервисе <span>›</span></div>
+                  <div class="demo-drawer-item demo-drawer-logout">Выйти</div>
+                </div>
+              </div>
+              <div class="demo-page" data-sessions hidden>
                 <div class="demo-back">← Назад</div>
                 <div class="demo-excl-title">Сессии</div>
                 <div class="demo-excl-sub" data-sessions-sub>VPN онлайн: 1 из 2</div>
@@ -1253,7 +1382,7 @@
     </footer>
   </div>
 
-  <script src="guide.js?v=6"></script>
+  <script src="guide.js?v=9"></script>
   <script>
     const API_BASE = "https://132-243-234-162.nip.io";
     const GITHUB_REPO = "silentvpn3/silentvpn3.github.io";

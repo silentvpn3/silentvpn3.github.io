@@ -130,6 +130,24 @@
     node.classList.add("is-on");
   }
 
+  function setDrawerOpen(stage, open) {
+    const home = stage.querySelector("[data-home]");
+    const dim = stage.querySelector("[data-dim]");
+    const menu = stage.querySelector("[data-menu]");
+    if (home) home.hidden = false;
+    if (dim) dim.hidden = !open;
+    if (menu) menu.hidden = !open;
+  }
+
+  function hideDrawerForPage(stage) {
+    const home = stage.querySelector("[data-home]");
+    const dim = stage.querySelector("[data-dim]");
+    const menu = stage.querySelector("[data-menu]");
+    if (home) home.hidden = true;
+    if (dim) dim.hidden = true;
+    if (menu) menu.hidden = true;
+  }
+
   function setBoot(el, mode, text) {
     el.textContent = text;
     el.classList.toggle("is-ready", mode === "ready");
@@ -363,70 +381,99 @@
     const menu = stage.querySelector("[data-connect-menu]");
     const dns = stage.querySelector("[data-connect-dns]");
     const server = stage.querySelector("[data-connect-server]");
+    const dim = stage.querySelector("[data-connect-dim]");
     const openMenu = stage.querySelector("[data-open-menu]");
     const openDns = stage.querySelector("[data-open-dns]");
     const openServer = stage.querySelector("[data-open-server]");
     const dnsServer = stage.querySelector("[data-dns-server]");
     const dnsCustom = stage.querySelector("[data-dns-custom]");
+    const dnsUse = stage.querySelector("[data-dns-use]");
+    const dnsDialog = stage.querySelector("[data-dns-dialog]");
+    const dnsApply = stage.querySelector("[data-dns-apply]");
+    const dnsServerMark = dnsServer?.querySelector(".demo-radio-mark");
+    const dnsCustomMark = dnsCustom?.querySelector(".demo-radio-mark");
     const menuDnsLabel = stage.querySelector("[data-connect-dns-label]");
     const menuServerLabel = stage.querySelector("[data-connect-server-label]");
     const server1 = stage.querySelector("[data-server1]");
     const server2 = stage.querySelector("[data-server2]");
     const server3 = stage.querySelector("[data-server3]");
 
-    if (!toggle || !status || !openMenu || !openDns || !openServer || !dnsServer || !dnsCustom || !server1 || !server2 || !server3) {
+    if (!toggle || !status || !openMenu || !openDns || !openServer || !dnsServer || !dnsCustom || !dnsUse || !dnsDialog || !dnsApply || !server1 || !server2 || !server3) {
       return;
     }
+
+    const setDnsRadio = (custom) => {
+      dnsServerMark?.classList.toggle("is-on", !custom);
+      dnsCustomMark?.classList.toggle("is-on", custom);
+    };
 
     while (!stopSignal.stopped) {
       if (main) main.hidden = false;
       if (menu) menu.hidden = true;
+      if (dim) dim.hidden = true;
       if (dns) dns.hidden = true;
       if (server) server.hidden = true;
+      setDnsRadio(false);
+      if (dnsDialog) dnsDialog.hidden = true;
       if (menuDnsLabel) menuDnsLabel.textContent = "Как на сервере";
       if (menuServerLabel) menuServerLabel.textContent = "сервер 1";
-      dnsServer.innerHTML = "● Как на сервере <span>Рекомендуется</span>";
-      dnsCustom.innerHTML = "○ Свой DNS <span>до 3 адресов</span>";
       server1.textContent = "● Сервер 1";
       server2.textContent = "○ Сервер 2";
       server3.textContent = "○ Сервер 3";
       toggle.classList.remove("is-on", "is-connecting");
       status.classList.remove("is-on");
       status.textContent = "Отключено";
-      setCaption(caption, "Главный экран клиента: подключение и кнопка меню");
+      setCaption(caption, "Главный экран: тумблер и меню слева");
       cursor.classList.add("is-on");
       const p = centerOf(toggle, stage);
       moveCursor(cursor, p.x - 36, p.y + 18);
       await sleep(800);
       if (stopSignal.stopped) break;
 
-      setCaption(caption, "Нажимаем меню, чтобы открыть DNS и выбор сервера");
+      setCaption(caption, "Меню слева: DNS и выбор сервера");
       await clickEl(cursor, openMenu, stage);
-      if (main) main.hidden = true;
       if (menu) menu.hidden = false;
+      if (dim) dim.hidden = false;
       await sleep(650);
       if (stopSignal.stopped) break;
 
       setCaption(caption, "Меню → DNS: «Как на сервере» или «Свой DNS»");
       await clickEl(cursor, openDns, stage);
       if (menu) menu.hidden = true;
+      if (dim) dim.hidden = true;
+      if (main) main.hidden = true;
       if (dns) dns.hidden = false;
       await sleep(700);
       if (stopSignal.stopped) break;
 
       await clickEl(cursor, dnsCustom, stage);
-      dnsServer.innerHTML = "○ Как на сервере <span>Рекомендуется</span>";
-      dnsCustom.innerHTML = "● Свой DNS <span>до 3 адресов</span>";
-      setCaption(caption, "Свой DNS: до 3 адресов, применится после переподключения");
-      await sleep(1300);
+      setDnsRadio(true);
+      setCaption(caption, "Свой DNS: до 3 адресов через запятую");
+      await sleep(700);
+      if (stopSignal.stopped) break;
+
+      setCaption(caption, "Подтверждение: «Использовать свой DNS»");
+      await clickEl(cursor, dnsUse, stage);
+      dnsDialog.hidden = false;
+      await sleep(550);
+      if (stopSignal.stopped) break;
+
+      setCaption(caption, "Применить? Смена DNS после переподключения");
+      await clickEl(cursor, dnsApply, stage);
+      dnsDialog.hidden = true;
+      await sleep(500);
       if (stopSignal.stopped) break;
 
       if (dns) dns.hidden = true;
+      if (main) main.hidden = false;
       if (menu) menu.hidden = false;
+      if (dim) dim.hidden = false;
       if (menuDnsLabel) menuDnsLabel.textContent = "Свой DNS";
       setCaption(caption, "Меню → Выбор сервера: Сервер 1 / 2 / 3");
       await clickEl(cursor, openServer, stage);
       if (menu) menu.hidden = true;
+      if (dim) dim.hidden = true;
+      if (main) main.hidden = true;
       if (server) server.hidden = false;
       await sleep(700);
       if (stopSignal.stopped) break;
@@ -440,12 +487,15 @@
       if (stopSignal.stopped) break;
 
       if (server) server.hidden = true;
+      if (main) main.hidden = false;
       if (menu) menu.hidden = false;
+      if (dim) dim.hidden = false;
       if (menuServerLabel) menuServerLabel.textContent = "сервер 2";
       await sleep(450);
       if (stopSignal.stopped) break;
 
       if (menu) menu.hidden = true;
+      if (dim) dim.hidden = true;
       if (main) main.hidden = false;
       const p2 = centerOf(toggle, stage);
       setCaption(caption, "Главный экран: включаем VPN");
@@ -490,13 +540,14 @@
     const modeWhite = stage.querySelector("[data-excl-mode-white]");
     const selectAll = stage.querySelector("[data-excl-select-all]");
     const openBtn = stage.querySelector("[data-open-excl]");
+    const hint = stage.querySelector("[data-excl-hint]");
     const items = [...stage.querySelectorAll("[data-app]")];
     if (!openBtn || !tabApps || !tabSites || !viewApps || !viewSites || !modeBlack || !modeWhite || !selectAll) {
       return;
     }
 
     while (!stopSignal.stopped) {
-      menu.hidden = false;
+      setDrawerOpen(stage, true);
       list.hidden = true;
       viewApps.hidden = false;
       viewSites.hidden = true;
@@ -504,13 +555,14 @@
       tabSites.classList.remove("is-active");
       modeBlack.classList.add("is-active");
       modeWhite.classList.remove("is-active");
+      if (hint) hint.textContent = "ЧС: выбранные мимо VPN";
       selectAll.querySelector(".demo-check")?.classList.remove("is-on");
       items.forEach((it) => {
         it.querySelector(".demo-check")?.classList.remove("is-on");
         it.classList.remove("is-hot");
       });
       openBtn.classList.remove("is-hot");
-      setCaption(caption, "Раздел исключений: приложения (ЧС/БС) и сайты");
+      setCaption(caption, "Меню слева → «Исключения»");
       cursor.classList.add("is-on");
       moveCursor(cursor, 48, 70);
       await sleep(1100);
@@ -518,39 +570,49 @@
 
       openBtn.classList.add("is-hot");
       await clickEl(cursor, openBtn, stage);
-      setCaption(caption, "Меню → «Исключения»");
+      setCaption(caption, "Открываем исключения");
       await sleep(400);
-      menu.hidden = true;
+      hideDrawerForPage(stage);
       list.hidden = false;
       await sleep(500);
       if (stopSignal.stopped) break;
 
-      setCaption(caption, "Вкладка «Приложения»: сначала выбираем режим ЧС или БС");
+      setCaption(caption, "Приложения: режим ЧС или БС");
       await clickEl(cursor, modeWhite, stage);
       modeBlack.classList.remove("is-active");
       modeWhite.classList.add("is-active");
-      await sleep(550);
+      if (hint) hint.textContent = "БС: только выбранные через VPN";
+      await sleep(700);
       if (stopSignal.stopped) break;
 
       await clickEl(cursor, modeBlack, stage);
       modeBlack.classList.add("is-active");
       modeWhite.classList.remove("is-active");
-      await sleep(550);
-      if (stopSignal.stopped) break;
-
-      setCaption(caption, "Можно быстро отметить список кнопкой «Выделить все»");
-      await clickEl(cursor, selectAll, stage);
-      selectAll.querySelector(".demo-check")?.classList.add("is-on");
+      if (hint) hint.textContent = "ЧС: выбранные мимо VPN";
       await sleep(700);
       if (stopSignal.stopped) break;
 
-      setCaption(caption, "ЧС: выбранные приложения идут мимо VPN-туннеля");
-      for (const app of items.slice(0, 2)) {
+      setCaption(caption, "«Выделить все» отмечает сразу весь список приложений");
+      await clickEl(cursor, selectAll, stage);
+      selectAll.querySelector(".demo-check")?.classList.add("is-on");
+      items.forEach((it) => it.querySelector(".demo-check")?.classList.add("is-on"));
+      await sleep(900);
+      if (stopSignal.stopped) break;
+
+      setCaption(caption, "Снимаем галку — все приложения снова без отметки");
+      await clickEl(cursor, selectAll, stage);
+      selectAll.querySelector(".demo-check")?.classList.remove("is-on");
+      items.forEach((it) => it.querySelector(".demo-check")?.classList.remove("is-on"));
+      await sleep(800);
+      if (stopSignal.stopped) break;
+
+      setCaption(caption, "Дальше можно отметить приложения по одному");
+      for (const app of items) {
         if (stopSignal.stopped) break;
         app.classList.add("is-hot");
         await clickEl(cursor, app, stage);
         app.querySelector(".demo-check")?.classList.add("is-on");
-        await sleep(400);
+        await sleep(450);
         app.classList.remove("is-hot");
       }
       if (stopSignal.stopped) break;
@@ -579,13 +641,13 @@
     const planBtn = stage.querySelector('[data-plan="monthly"]');
 
     while (!stopSignal.stopped) {
-      menu.hidden = false;
+      setDrawerOpen(stage, true);
       plans.hidden = true;
       wait.hidden = true;
       ok.hidden = true;
       openBtn.classList.remove("is-hot");
       planBtn?.classList.remove("is-press");
-      setCaption(caption, "Меню → «Подписка» — выбор тарифа и оплата");
+      setCaption(caption, "Меню слева → «Подписка» — выбор тарифа и оплата");
       cursor.classList.add("is-on");
       moveCursor(cursor, 48, 70);
       await sleep(1000);
@@ -595,7 +657,7 @@
       await clickEl(cursor, openBtn, stage);
       setCaption(caption, "Открываем раздел подписки");
       await sleep(350);
-      menu.hidden = true;
+      hideDrawerForPage(stage);
       plans.hidden = false;
       await sleep(700);
       if (stopSignal.stopped) break;
@@ -629,7 +691,7 @@
     const promoMsg = stage.querySelector("[data-promo-msg]");
 
     while (!stopSignal.stopped) {
-      menu.hidden = false;
+      setDrawerOpen(stage, true);
       page.hidden = true;
       openBtn.classList.remove("is-hot");
       if (copyMsg) copyMsg.hidden = true;
@@ -638,7 +700,7 @@
         promoField.textContent = "Введите код";
         promoField.style.color = "#9CA3AF";
       }
-      setCaption(caption, "Меню → «Бонусы» — рефералка и промокоды");
+      setCaption(caption, "Меню слева → «Бонусы» — рефералка и промокоды");
       cursor.classList.add("is-on");
       moveCursor(cursor, 48, 70);
       await sleep(1000);
@@ -648,7 +710,7 @@
       await clickEl(cursor, openBtn, stage);
       setCaption(caption, "Открываем бонусную программу");
       await sleep(350);
-      menu.hidden = true;
+      hideDrawerForPage(stage);
       page.hidden = false;
       await sleep(700);
       if (stopSignal.stopped) break;
@@ -684,7 +746,7 @@
     const sub = stage.querySelector("[data-sessions-sub]");
 
     while (!stopSignal.stopped) {
-      menu.hidden = false;
+      setDrawerOpen(stage, true);
       page.hidden = true;
       openBtn.classList.remove("is-hot");
       android?.classList.remove("is-hot");
@@ -701,9 +763,9 @@
 
       openBtn.classList.add("is-hot");
       await clickEl(cursor, openBtn, stage);
-      setCaption(caption, "Меню → «Сессии»");
+      setCaption(caption, "Меню слева → «Сессии»");
       await sleep(350);
-      menu.hidden = true;
+      hideDrawerForPage(stage);
       page.hidden = false;
       await sleep(800);
       if (stopSignal.stopped) break;
