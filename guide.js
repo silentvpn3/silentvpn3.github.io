@@ -369,7 +369,7 @@
         it.classList.remove("is-hot");
       });
       openBtn.classList.remove("is-hot");
-      setCaption(caption, "Зачем: игры, банк, лаунчеры — иногда лучше мимо VPN");
+      setCaption(caption, "Раздел исключений: приложения (ЧС/БС) и сайты");
       cursor.classList.add("is-on");
       moveCursor(cursor, 48, 70);
       await sleep(1100);
@@ -384,7 +384,7 @@
       await sleep(500);
       if (stopSignal.stopped) break;
 
-      setCaption(caption, "Отмеченные приложения идут мимо VPN-туннеля");
+      setCaption(caption, "ЧС: выбранные приложения идут мимо VPN-туннеля");
       for (const app of items.slice(0, 2)) {
         if (stopSignal.stopped) break;
         app.classList.add("is-hot");
@@ -394,7 +394,7 @@
         app.classList.remove("is-hot");
       }
       if (stopSignal.stopped) break;
-      setCaption(caption, "Остальной трафик по-прежнему через Silent VPN");
+      setCaption(caption, "Во вкладке «Сайты» можно добавить домен или IP мимо VPN");
       await sleep(2400);
     }
   }

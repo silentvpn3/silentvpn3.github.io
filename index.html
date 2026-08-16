@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Silent VPN — скачать</title>
   <meta name="description" content="Silent VPN — защищённое соединение для работы, учёбы и отдыха. Windows, Android и Smart TV, бесплатно 2 месяца на время тестирования.">
-  <!-- site-build: 20260722-guide-bonus-sub-sessions -->
+  <!-- site-build: 20260816-guide-menu-dns-server -->
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -647,7 +647,7 @@
           </span>
           <span class="tg-copy">
             <span class="tg-title">Инструкция по клиенту</span>
-            <span class="tg-sub">Регистрация, вход, тумблер и исключения — с анимациями «нажми сюда»</span>
+            <span class="tg-sub">Регистрация, вход, исключения, DNS и выбор сервера — с анимациями «нажми сюда»</span>
           </span>
           <svg class="tg-arrow" viewBox="0 0 24 24" aria-hidden="true">
             <path d="M5 12h14"/><path d="m13 6 6 6-6 6"/>
@@ -708,8 +708,8 @@
       <p class="eyebrow">Как пользоваться</p>
       <h1>Быстрый старт<br>с Silent VPN</h1>
       <p class="guide-hero-desc">
-        Показываем на живых демо-экранах: регистрация, вход, VPN, исключения, подписка,
-        бонусы и сессии — ровно так, как это выглядит в приложении на Windows и Android.
+        Показываем на живых демо-экранах: регистрация, вход, VPN, исключения (ЧС/БС + сайты),
+        DNS, выбор сервера, подписка, бонусы и сессии — ровно так, как это выглядит в приложении на Windows и Android.
       </p>
     </section>
 
@@ -734,7 +734,7 @@
           <ul class="guide-bullets">
             <li><strong>Один аккаунт</strong> — до 3 устройств подключены одновременно</li>
             <li><strong>Ничего настраивать</strong> — сервер и протокол клиент выбирает сам</li>
-            <li><strong>Всё под рукой</strong> — подписка, бонусы, сессии и исключения в одном меню</li>
+            <li><strong>Всё под рукой</strong> — подписка, исключения, DNS, выбор сервера, бонусы и сессии в одном меню</li>
           </ul>
         </div>
       </div>
@@ -924,10 +924,15 @@
     <section class="guide-section" id="g-excl">
       <div>
         <div class="guide-section-num">05</div>
-        <h2>Исключения приложений</h2>
+        <h2>Исключения: приложения и сайты</h2>
         <div class="guide-section-text">
-          <p><strong>Зачем:</strong> некоторым приложениям — играм, банку, лаунчерам — лучше работать без VPN: ниже задержка, не срабатывает античит.</p>
-          <p><strong>Как:</strong> откройте меню → «Исключения приложений» → отметьте нужные. Они будут работать напрямую, а весь остальной трафик — как обычно, через Silent VPN.</p>
+          <p><strong>Зачем:</strong> некоторым приложениям и сайтам лучше идти напрямую — например, для меньшей задержки в играх, банковских приложениях или локальных сервисах.</p>
+          <ul class="guide-bullets">
+            <li><strong>ЧС</strong> — выбранные приложения идут мимо VPN</li>
+            <li><strong>БС</strong> — через VPN идут только выбранные приложения</li>
+            <li><strong>Сайты</strong> — домен или IP (например, `ozon.ru`, `1.2.3.4`, `10.0.0.0/8`) идут мимо VPN</li>
+            <li><strong>Выделить все</strong> — быстро отметить весь видимый список приложений</li>
+          </ul>
         </div>
       </div>
       <div class="demo-shell">
@@ -940,6 +945,8 @@
                 <div class="demo-menu" style="margin-top:12px">
                   <div class="demo-menu-item">Подписка <span>›</span></div>
                   <div class="demo-menu-item" data-open-excl>Исключения приложений <span>›</span></div>
+                  <div class="demo-menu-item">DNS · Как на сервере <span>›</span></div>
+                  <div class="demo-menu-item">Выбор сервера · сервер 1 <span>›</span></div>
                   <div class="demo-menu-item">Бонусы <span>›</span></div>
                   <div class="demo-menu-item">Сессии (1/3) <span>›</span></div>
                 </div>
@@ -992,6 +999,8 @@
                 <div class="demo-menu" style="margin-top:12px">
                   <div class="demo-menu-item" data-open-sub>Подписка <span>›</span></div>
                   <div class="demo-menu-item">Исключения приложений <span>›</span></div>
+                  <div class="demo-menu-item">DNS · Как на сервере <span>›</span></div>
+                  <div class="demo-menu-item">Выбор сервера · сервер 1 <span>›</span></div>
                   <div class="demo-menu-item">Бонусы <span>›</span></div>
                   <div class="demo-menu-item">Сессии (1/3) <span>›</span></div>
                 </div>
@@ -1060,6 +1069,8 @@
                 <div class="demo-menu" style="margin-top:12px">
                   <div class="demo-menu-item">Подписка <span>›</span></div>
                   <div class="demo-menu-item">Исключения приложений <span>›</span></div>
+                  <div class="demo-menu-item">DNS · Как на сервере <span>›</span></div>
+                  <div class="demo-menu-item">Выбор сервера · сервер 1 <span>›</span></div>
                   <div class="demo-menu-item" data-open-bonuses>Бонусы <span>›</span></div>
                   <div class="demo-menu-item">Сессии (1/3) <span>›</span></div>
                 </div>
@@ -1117,6 +1128,8 @@
                 <div class="demo-menu" style="margin-top:12px">
                   <div class="demo-menu-item">Подписка <span>›</span></div>
                   <div class="demo-menu-item">Исключения приложений <span>›</span></div>
+                  <div class="demo-menu-item">DNS · Как на сервере <span>›</span></div>
+                  <div class="demo-menu-item">Выбор сервера · сервер 1 <span>›</span></div>
                   <div class="demo-menu-item">Бонусы <span>›</span></div>
                   <div class="demo-menu-item" data-open-sessions>Сессии (2/3) <span>›</span></div>
                 </div>
