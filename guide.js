@@ -310,6 +310,50 @@
     }
   }
 
+  async function runOverview(stage, stopSignal) {
+    const cursor = stage.querySelector(".demo-cursor");
+    const caption = stage.querySelector(".demo-caption");
+    const toggle = stage.querySelector("[data-toggle]");
+    const status = stage.querySelector("[data-status]");
+    if (!toggle || !status) return;
+
+    while (!stopSignal.stopped) {
+      toggle.classList.remove("is-on", "is-connecting");
+      status.classList.remove("is-on");
+      status.textContent = "Отключено";
+      setCaption(caption, "Так выглядит главный экран после входа");
+      cursor.classList.add("is-on");
+      const p = centerOf(toggle, stage);
+      moveCursor(cursor, p.x - 36, p.y + 18);
+      await sleep(800);
+      if (stopSignal.stopped) break;
+
+      setCaption(caption, "Нажатие тумблера включает VPN");
+      moveCursor(cursor, p.x, p.y);
+      await sleep(350);
+      cursor.classList.add("is-click");
+      toggle.classList.add("is-connecting");
+      status.textContent = "Подключение…";
+      await sleep(220);
+      cursor.classList.remove("is-click");
+      await sleep(1300);
+      toggle.classList.remove("is-connecting");
+      toggle.classList.add("is-on");
+      status.classList.add("is-on");
+      status.textContent = "Подключено";
+      setCaption(caption, "Подключено — трафик идёт через VPN");
+      await sleep(1800);
+      if (stopSignal.stopped) break;
+
+      setCaption(caption, "Повторное нажатие отключает VPN");
+      await clickEl(cursor, toggle, stage);
+      toggle.classList.remove("is-on");
+      status.classList.remove("is-on");
+      status.textContent = "Отключено";
+      await sleep(1200);
+    }
+  }
+
   async function runConnect(stage, stopSignal) {
     const cursor = stage.querySelector(".demo-cursor");
     const caption = stage.querySelector(".demo-caption");
@@ -319,6 +363,7 @@
     const menu = stage.querySelector("[data-connect-menu]");
     const dns = stage.querySelector("[data-connect-dns]");
     const server = stage.querySelector("[data-connect-server]");
+    const openMenu = stage.querySelector("[data-open-menu]");
     const openDns = stage.querySelector("[data-open-dns]");
     const openServer = stage.querySelector("[data-open-server]");
     const dnsServer = stage.querySelector("[data-dns-server]");
@@ -329,13 +374,13 @@
     const server2 = stage.querySelector("[data-server2]");
     const server3 = stage.querySelector("[data-server3]");
 
-    if (!toggle || !status || !openDns || !openServer || !dnsServer || !dnsCustom || !server1 || !server2 || !server3) {
+    if (!toggle || !status || !openMenu || !openDns || !openServer || !dnsServer || !dnsCustom || !server1 || !server2 || !server3) {
       return;
     }
 
     while (!stopSignal.stopped) {
-      if (main) main.hidden = true;
-      if (menu) menu.hidden = false;
+      if (main) main.hidden = false;
+      if (menu) menu.hidden = true;
       if (dns) dns.hidden = true;
       if (server) server.hidden = true;
       if (menuDnsLabel) menuDnsLabel.textContent = "Как на сервере";
@@ -348,10 +393,18 @@
       toggle.classList.remove("is-on", "is-connecting");
       status.classList.remove("is-on");
       status.textContent = "Отключено";
-      setCaption(caption, "Меню клиента: сначала DNS и выбор сервера");
+      setCaption(caption, "Главный экран клиента: подключение и кнопка меню");
       cursor.classList.add("is-on");
-      moveCursor(cursor, 48, 70);
+      const p = centerOf(toggle, stage);
+      moveCursor(cursor, p.x - 36, p.y + 18);
       await sleep(800);
+      if (stopSignal.stopped) break;
+
+      setCaption(caption, "Нажимаем меню, чтобы открыть DNS и выбор сервера");
+      await clickEl(cursor, openMenu, stage);
+      if (main) main.hidden = true;
+      if (menu) menu.hidden = false;
+      await sleep(650);
       if (stopSignal.stopped) break;
 
       setCaption(caption, "Меню → DNS: «Как на сервере» или «Свой DNS»");
@@ -394,12 +447,12 @@
 
       if (menu) menu.hidden = true;
       if (main) main.hidden = false;
-      const p = centerOf(toggle, stage);
+      const p2 = centerOf(toggle, stage);
       setCaption(caption, "Главный экран: включаем VPN");
-      moveCursor(cursor, p.x - 36, p.y + 18);
+      moveCursor(cursor, p2.x - 36, p2.y + 18);
       await sleep(450);
       if (stopSignal.stopped) break;
-      moveCursor(cursor, p.x, p.y);
+      moveCursor(cursor, p2.x, p2.y);
       await sleep(250);
       cursor.classList.add("is-click");
       toggle.classList.add("is-connecting");
@@ -449,8 +502,8 @@
       viewSites.hidden = true;
       tabApps.classList.add("is-active");
       tabSites.classList.remove("is-active");
-      modeBlack.innerHTML = "● ЧС <span>Выбрано</span>";
-      modeWhite.innerHTML = "○ БС <span>Режим</span>";
+      modeBlack.classList.add("is-active");
+      modeWhite.classList.remove("is-active");
       selectAll.querySelector(".demo-check")?.classList.remove("is-on");
       items.forEach((it) => {
         it.querySelector(".demo-check")?.classList.remove("is-on");
@@ -474,14 +527,14 @@
 
       setCaption(caption, "Вкладка «Приложения»: сначала выбираем режим ЧС или БС");
       await clickEl(cursor, modeWhite, stage);
-      modeBlack.innerHTML = "○ ЧС <span>Режим</span>";
-      modeWhite.innerHTML = "● БС <span>Выбрано</span>";
+      modeBlack.classList.remove("is-active");
+      modeWhite.classList.add("is-active");
       await sleep(550);
       if (stopSignal.stopped) break;
 
       await clickEl(cursor, modeBlack, stage);
-      modeBlack.innerHTML = "● ЧС <span>Выбрано</span>";
-      modeWhite.innerHTML = "○ БС <span>Режим</span>";
+      modeBlack.classList.add("is-active");
+      modeWhite.classList.remove("is-active");
       await sleep(550);
       if (stopSignal.stopped) break;
 
@@ -676,7 +729,7 @@
   }
 
   const runners = {
-    overview: runConnect,
+    overview: runOverview,
     register: runRegister,
     login: runLogin,
     connect: runConnect,

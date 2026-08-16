@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Silent VPN — скачать</title>
   <meta name="description" content="Silent VPN — защищённое соединение для работы, учёбы и отдыха. Windows, Android и Smart TV, бесплатно 2 месяца на время тестирования.">
-  <!-- site-build: 20260816-guide-menu-dns-server -->
+  <!-- site-build: 20260816-guide-connect-excl-screens -->
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="guide.css?v=5">
+  <link rel="stylesheet" href="guide.css?v=6">
   <style>
     :root {
       --bg: #ffffff;
@@ -896,7 +896,13 @@
         <div class="demo-stage" data-demo="connect">
           <div class="demo-device">
             <div class="demo-screen">
-              <div class="demo-main" data-connect-main hidden>
+              <div class="demo-main" data-connect-main>
+                <div class="demo-main-top">
+                  <span class="demo-main-spacer"></span>
+                  <button type="button" class="demo-menu-trigger" data-open-menu aria-label="Меню">
+                    <span></span><span></span><span></span>
+                  </button>
+                </div>
                 <div class="demo-logo-wrap">
                   <div class="demo-logo-s" aria-hidden="true">S</div>
                   <div class="demo-brand-name">Silent VPN</div>
@@ -908,7 +914,7 @@
                 </div>
                 <div class="demo-status" data-status>Отключено</div>
               </div>
-              <div data-connect-menu>
+              <div data-connect-menu hidden>
                 <div class="demo-back">← Назад</div>
                 <div class="demo-excl-title">Меню</div>
                 <div class="demo-menu" style="margin-top:12px">
@@ -988,16 +994,19 @@
               <div data-excl hidden>
                 <div class="demo-back">← Назад</div>
                 <div class="demo-excl-title">Исключения</div>
-                <div class="demo-tabs" style="margin-top:8px">
-                  <div class="demo-tab is-active" data-excl-tab-apps>Приложения</div>
-                  <div class="demo-tab" data-excl-tab-sites>Сайты</div>
+                <div class="demo-chip-row" style="margin-top:8px">
+                  <div class="demo-chip is-active" data-excl-tab-apps>Приложения</div>
+                  <div class="demo-chip" data-excl-tab-sites>Сайты</div>
                 </div>
                 <div data-excl-apps>
                   <div class="demo-excl-sub">ЧС: выбранные мимо VPN · БС: только выбранные через VPN</div>
-                  <div class="demo-menu" style="margin-top:8px">
-                    <div class="demo-menu-item" data-excl-mode-black>● ЧС <span>Выбрано</span></div>
-                    <div class="demo-menu-item" data-excl-mode-white>○ БС <span>Режим</span></div>
-                    <div class="demo-menu-item" data-excl-select-all>Выделить все <span class="demo-check"></span></div>
+                  <div class="demo-chip-row" style="margin-top:8px">
+                    <div class="demo-chip is-active" data-excl-mode-black>ЧС</div>
+                    <div class="demo-chip" data-excl-mode-white>БС</div>
+                  </div>
+                  <div class="demo-select-all" data-excl-select-all>
+                    <span>Выделить все</span>
+                    <span class="demo-check"></span>
                   </div>
                   <div class="demo-search">Поиск...</div>
                   <div class="demo-menu">
@@ -1244,7 +1253,7 @@
     </footer>
   </div>
 
-  <script src="guide.js?v=5"></script>
+  <script src="guide.js?v=6"></script>
   <script>
     const API_BASE = "https://132-243-234-162.nip.io";
     const GITHUB_REPO = "silentvpn3/silentvpn3.github.io";
