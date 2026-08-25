@@ -560,6 +560,7 @@
       </a>
       <div class="header-actions">
         <a class="nav-link" href="#guide" data-open-guide>Инструкция</a>
+        <a class="nav-link" href="#payment" data-open-payment>Оплата</a>
         <div class="status-pill">
           <span class="status-dot" aria-hidden="true"></span>
           <span>Сервис активен</span>
@@ -655,6 +656,25 @@
         </a>
       </section>
 
+      <section class="telegram-block" aria-label="Оплата" style="margin-top:-8px">
+        <a class="tg-card" href="#payment" data-open-payment>
+          <span class="tg-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 7h18v10H3z"/>
+              <path d="M3 11h18"/>
+              <path d="M7 15h4"/>
+            </svg>
+          </span>
+          <span class="tg-copy">
+            <span class="tg-title">Оплата и подписка</span>
+            <span class="tg-sub">Тарифы, шаги оплаты в YuMoney и что делать при мобильной сети</span>
+          </span>
+          <svg class="tg-arrow" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M5 12h14"/><path d="m13 6 6 6-6 6"/>
+          </svg>
+        </a>
+      </section>
+
       <section class="features">
         <article class="feature">
           <div class="feature-num">01</div>
@@ -683,6 +703,7 @@
       <span>© 2026 Silent VPN</span>
       <div style="display:flex;gap:16px;flex-wrap:wrap">
         <a href="#guide" data-open-guide>Инструкция</a>
+        <a href="#payment" data-open-payment>Оплата</a>
         <a href="https://telegram.me/silentvpn3" target="_blank" rel="noopener noreferrer">Telegram</a>
       </div>
     </footer>
@@ -715,7 +736,6 @@
       <button type="button" class="toc-chip" data-jump="g-login">Вход</button>
       <button type="button" class="toc-chip" data-jump="g-connect">Подключение</button>
       <button type="button" class="toc-chip" data-jump="g-excl">Исключения</button>
-      <button type="button" class="toc-chip" data-jump="g-sub">Подписка</button>
       <button type="button" class="toc-chip" data-jump="g-bonuses">Бонусы</button>
       <button type="button" class="toc-chip" data-jump="g-sessions">Сессии</button>
     </nav>
@@ -754,10 +774,6 @@
           </div>
           <div class="demo-cursor" aria-hidden="true">
             <svg viewBox="0 0 24 24"><path d="M4 3.5 19 12l-7.2 1.6L9.2 21 4 3.5z"/></svg>
-          </div>
-          <div class="demo-caption">
-            <span class="demo-caption-dot"></span>
-            <span data-caption-text>Следите за курсором</span>
           </div>
         </div>
       </div>
@@ -1092,104 +1108,10 @@
       </div>
     </section>
 
-    <!-- 06 subscription -->
-    <section class="guide-section reverse" id="g-sub">
-      <div>
-        <div class="guide-section-num">06</div>
-        <h2>Подписка</h2>
-        <div class="guide-section-text">
-          <p><strong>Как оформить:</strong> меню → «Подписка» → выберите тариф. Оплата откроется в браузере (YuMoney). После оплаты вернитесь в приложение — статус обновится сам.</p>
-          <ul class="guide-bullets">
-            <li><strong>Месяц</strong> — 199 ₽ · <strong>3 месяца</strong> — 499 ₽ · <strong>Год</strong> — 1 499 ₽</li>
-            <li>Пока идёт тестирование — бесплатный период уже активен, оплата понадобится позже</li>
-            <li>Подписка общая на аккаунт: все ваши устройства пользуются одним тарифом</li>
-          </ul>
-        </div>
-      </div>
-      <div class="demo-shell">
-        <div class="demo-stage" data-demo="subscription">
-          <div class="demo-device">
-            <div class="demo-screen is-app">
-              <div class="demo-home" data-home>
-                <div class="demo-titlebar">
-                  <button type="button" class="demo-menu-trigger" aria-label="Меню">
-                    <span></span><span></span><span></span>
-                  </button>
-                  <div class="demo-titlebar-title">Silent VPN</div>
-                </div>
-                <div class="demo-home-body">
-                  <div class="demo-logo-wrap">
-                    <div class="demo-logo-s" aria-hidden="true">S</div>
-                    <div class="demo-brand-name">Silent VPN</div>
-                  </div>
-                  <div class="demo-toggle"></div>
-                  <div class="demo-status">Отключено</div>
-                </div>
-              </div>
-              <div class="demo-drawer-dim" data-dim></div>
-              <div class="demo-drawer" data-menu>
-                <div class="demo-drawer-head">
-                  <div>
-                    <div class="demo-drawer-email">you@example.com</div>
-                    <div class="demo-drawer-meta">Аккаунт: A1B2C3</div>
-                  </div>
-                  <span class="demo-drawer-close" aria-hidden="true">×</span>
-                </div>
-                <div class="demo-drawer-nav">
-                  <div class="demo-drawer-item" data-open-sub>Подписка <span>›</span></div>
-                  <div class="demo-drawer-item">Исключения <span>›</span></div>
-                  <div class="demo-drawer-item">DNS · Как на сервере <span>›</span></div>
-                  <div class="demo-drawer-item">Выбор сервера · сервер 1 <span>›</span></div>
-                  <div class="demo-drawer-item">Бонусы <span>›</span></div>
-                  <div class="demo-drawer-item">Сессии (1/3) <span>›</span></div>
-                  <div class="demo-drawer-item">Поддержка <span>›</span></div>
-                  <div class="demo-drawer-item">О сервисе <span>›</span></div>
-                  <div class="demo-drawer-item demo-drawer-logout">Выйти</div>
-                </div>
-              </div>
-              <div class="demo-page" data-sub-plans hidden>
-                <div class="demo-back">← Назад</div>
-                <div class="demo-excl-title">Выберите тариф</div>
-                <div class="demo-plans">
-                  <div class="demo-plan" data-plan="monthly"><span>Месяц</span><span>199 ₽</span></div>
-                  <div class="demo-plan" data-plan="quarterly"><span>3 месяца</span><span>499 ₽</span></div>
-                  <div class="demo-plan" data-plan="yearly"><span>Год</span><span>1 499 ₽</span></div>
-                </div>
-                <p class="demo-hint">Оплата откроется в системном браузере (YuMoney). После оплаты вернитесь сюда — статус обновится сам.</p>
-              </div>
-              <div class="demo-page" data-sub-wait hidden>
-                <div class="demo-pay-card">
-                  <div class="demo-pay-icon is-wait">⏳</div>
-                  <div class="demo-pay-title">Ждём подтверждения оплаты</div>
-                  <div class="demo-pay-text">Оплатите в открывшейся вкладке браузера. После оплаты вернитесь в приложение — подписка активируется автоматически.</div>
-                  <div class="demo-pay-spin" aria-hidden="true"></div>
-                  <div class="demo-pay-cancel">Отмена</div>
-                </div>
-              </div>
-              <div class="demo-page" data-sub-ok hidden>
-                <div class="demo-pay-card is-ok">
-                  <div class="demo-pay-icon is-ok">✓</div>
-                  <div class="demo-pay-title">Оплата прошла успешно</div>
-                  <div class="demo-pay-text">Подписка активирована. Спасибо за покупку!</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="demo-cursor" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M4 3.5 19 12l-7.2 1.6L9.2 21 4 3.5z"/></svg>
-          </div>
-          <div class="demo-caption">
-            <span class="demo-caption-dot"></span>
-            <span data-caption-text>Следите за курсором</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 07 bonuses -->
+    <!-- 06 bonuses -->
     <section class="guide-section" id="g-bonuses">
       <div>
-        <div class="guide-section-num">07</div>
+        <div class="guide-section-num">06</div>
         <h2>Бонусная программа</h2>
         <div class="guide-section-text">
           <p>В меню → «Бонусы»: реферальная ссылка и проверка промокода — как в клиенте.</p>
@@ -1271,10 +1193,10 @@
       </div>
     </section>
 
-    <!-- 08 sessions -->
+    <!-- 07 sessions -->
     <section class="guide-section reverse" id="g-sessions">
       <div>
-        <div class="guide-section-num">08</div>
+        <div class="guide-section-num">07</div>
         <h2>Сессии</h2>
         <div class="guide-section-text">
           <p><strong>Сессия</strong> — это устройство, с которого вы вошли в аккаунт. Одновременно VPN могут держать до <strong>3</strong> устройств.</p>
@@ -1382,7 +1304,134 @@
     </footer>
   </div>
 
-  <script src="guide.js?v=9"></script>
+  <!-- ========== PAYMENT VIEW ========== -->
+  <div class="guide-page view" id="view-payment" hidden>
+    <header style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:8px">
+      <a class="brand" href="#" data-open-home>
+        <div class="logo" aria-hidden="true">S</div>
+        <span class="brand-name">Silent VPN</span>
+      </a>
+      <div class="header-actions">
+        <a class="nav-link" href="#" data-open-home>← На главную</a>
+        <a class="nav-link" href="#guide" data-open-guide>Инструкция</a>
+        <div class="status-pill">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span>Оплата</span>
+        </div>
+      </div>
+    </header>
+
+    <section class="guide-hero">
+      <p class="eyebrow">Оплата</p>
+      <h1>Оплата и подписка</h1>
+    </section>
+
+    <section class="guide-section reverse" style="padding-top:24px">
+      <div>
+        <div class="guide-section-text">
+          <p><strong>Как оформить:</strong> меню → «Подписка» → выберите тариф. Оплата откроется в браузере (YuMoney). После оплаты вернитесь в приложение — статус обновится сам.</p>
+          <ul class="guide-bullets">
+            <li><strong>1 месяц</strong> — 199 ₽ · <strong>2 месяца</strong> — 359 ₽ (<strong>-10%</strong>) · <strong>3 месяца</strong> — 478 ₽ (<strong>-20%</strong>)</li>
+            <li>Подписка общая на аккаунт: все ваши устройства пользуются одним тарифом</li>
+          </ul>
+          <div class="guide-alerts">
+            <p class="guide-alert">На мобильном интернете после перехода в YuMoney иногда на секунды открывается страница «нет интернета». Это нормально: дождитесь 5–15 секунд, сеть переключится и страница загрузится.</p>
+            <p class="guide-alert">После оплаты вернитесь в страницу YuMoney и нажмите <strong>«Вернуться в магазин»</strong> (или <strong>«Перейти в приложение»</strong>) — в клиенте появится сообщение «Оплата прошла успешно».</p>
+            <p class="guide-alert">Если на мобильной сети статус подписки сразу не обновился, но оплата успешна — закройте и заново откройте приложение. При следующем старте подписка подтянется.</p>
+            <p class="guide-alert">Если после успешной оплаты подписка всё равно не активировалась: откройте письмо об оплате, возьмите код операции и напишите в поддержку — подписку активируют вручную.</p>
+          </div>
+        </div>
+      </div>
+      <div class="demo-shell">
+        <div class="demo-stage" data-demo="subscription">
+          <div class="demo-device">
+            <div class="demo-screen is-app">
+              <div class="demo-home" data-home>
+                <div class="demo-titlebar">
+                  <button type="button" class="demo-menu-trigger" aria-label="Меню">
+                    <span></span><span></span><span></span>
+                  </button>
+                  <div class="demo-titlebar-title">Silent VPN</div>
+                </div>
+                <div class="demo-home-body">
+                  <div class="demo-logo-wrap">
+                    <div class="demo-logo-s" aria-hidden="true">S</div>
+                    <div class="demo-brand-name">Silent VPN</div>
+                  </div>
+                  <div class="demo-toggle"></div>
+                  <div class="demo-status">Отключено</div>
+                </div>
+              </div>
+              <div class="demo-drawer-dim" data-dim></div>
+              <div class="demo-drawer" data-menu>
+                <div class="demo-drawer-head">
+                  <div>
+                    <div class="demo-drawer-email">you@example.com</div>
+                    <div class="demo-drawer-meta">Аккаунт: A1B2C3</div>
+                  </div>
+                  <span class="demo-drawer-close" aria-hidden="true">×</span>
+                </div>
+                <div class="demo-drawer-nav">
+                  <div class="demo-drawer-item" data-open-sub>Подписка <span>›</span></div>
+                  <div class="demo-drawer-item">Исключения <span>›</span></div>
+                  <div class="demo-drawer-item">DNS · Как на сервере <span>›</span></div>
+                  <div class="demo-drawer-item">Выбор сервера · сервер 1 <span>›</span></div>
+                  <div class="demo-drawer-item">Бонусы <span>›</span></div>
+                  <div class="demo-drawer-item">Сессии (1/3) <span>›</span></div>
+                  <div class="demo-drawer-item">Поддержка <span>›</span></div>
+                  <div class="demo-drawer-item">О сервисе <span>›</span></div>
+                  <div class="demo-drawer-item demo-drawer-logout">Выйти</div>
+                </div>
+              </div>
+              <div class="demo-page" data-sub-plans hidden>
+                <div class="demo-back">← Назад</div>
+                <div class="demo-excl-title">Выберите тариф</div>
+                <div class="demo-plans">
+                  <div class="demo-plan" data-plan="monthly"><span>Месяц</span><span>199 ₽</span></div>
+                  <div class="demo-plan" data-plan="two-months"><span>2 месяца</span><span>359 ₽</span></div>
+                  <div class="demo-plan" data-plan="three-months"><span>3 месяца</span><span>478 ₽</span></div>
+                </div>
+                <p class="demo-hint">Оплата откроется в Chrome или Яндекс.Браузере (YuMoney / SberPay).</p>
+              </div>
+              <div class="demo-page" data-sub-wait hidden>
+                <div class="demo-pay-card">
+                  <div class="demo-pay-icon is-wait">⏳</div>
+                  <div class="demo-pay-title">Ждём подтверждения оплаты</div>
+                  <div class="demo-pay-text">Оплатите в открывшейся вкладке браузера. После оплаты вернитесь в приложение — подписка активируется автоматически.</div>
+                  <div class="demo-pay-spin" aria-hidden="true"></div>
+                  <div class="demo-pay-cancel">Отмена</div>
+                </div>
+              </div>
+              <div class="demo-page" data-sub-ok hidden>
+                <div class="demo-pay-card is-ok">
+                  <div class="demo-pay-icon is-ok">✓</div>
+                  <div class="demo-pay-title">Оплата прошла успешно</div>
+                  <div class="demo-pay-text">Подписка активирована. Спасибо за покупку!</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="demo-cursor" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4 3.5 19 12l-7.2 1.6L9.2 21 4 3.5z"/></svg>
+          </div>
+          <div class="demo-caption">
+            <span class="demo-caption-dot"></span>
+            <span data-caption-text>Следите за курсором</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer style="margin-top:40px;padding-top:24px;border-top:1px solid var(--line);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:0.82rem;color:var(--muted)">
+      <span>© 2026 Silent VPN</span>
+      <div style="display:flex;gap:16px;flex-wrap:wrap">
+        <a href="#" data-open-home style="color:inherit;text-decoration:none">На главную</a>
+        <a href="#guide" data-open-guide style="color:inherit;text-decoration:none">Инструкция</a>
+      </div>
+    </footer>
+  </div>
+
+  <script src="guide.js?v=13"></script>
   <script>
     const API_BASE = "https://132-243-234-162.nip.io";
     const GITHUB_REPO = "silentvpn3/silentvpn3.github.io";

@@ -1,14 +1,16 @@
 (() => {
   const homeView = document.getElementById("view-home");
   const guideView = document.getElementById("view-guide");
-  if (!homeView || !guideView) return;
+  const paymentView = document.getElementById("view-payment");
+  if (!homeView || !guideView || !paymentView) return;
+  const viewMap = { home: homeView, guide: guideView, payment: paymentView };
 
   const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   let switching = false;
   const demoControllers = new Map();
 
   function setHash(view) {
-    const next = view === "guide" ? "#guide" : "#";
+    const next = view === "guide" ? "#guide" : view === "payment" ? "#payment" : "#";
     if (location.hash !== next && !(view === "home" && (!location.hash || location.hash === "#"))) {
       history.replaceState(null, "", next === "#" ? location.pathname + location.search : next);
     }
@@ -16,22 +18,25 @@
 
   async function showView(name, { push = true } = {}) {
     if (switching) return;
-    const target = name === "guide" ? guideView : homeView;
-    const other = name === "guide" ? homeView : guideView;
-    if (!target.hidden && other.hidden) {
+    const viewName = viewMap[name] ? name : "home";
+    const target = viewMap[viewName];
+    const visible = Object.values(viewMap).filter((view) => !view.hidden && view !== target);
+    if (!target.hidden && visible.length === 0) {
       if (push) setHash(name);
       return;
     }
     switching = true;
-    other.classList.add("is-leaving");
+    visible.forEach((view) => view.classList.add("is-leaving"));
     await new Promise((r) => setTimeout(r, prefersReduced ? 0 : 280));
-    other.hidden = true;
-    other.classList.remove("is-leaving");
+    visible.forEach((view) => {
+      view.hidden = true;
+      view.classList.remove("is-leaving");
+    });
     target.hidden = false;
     target.classList.add("is-entering");
     window.scrollTo({ top: 0, behavior: prefersReduced ? "auto" : "smooth" });
-    if (push) setHash(name);
-    if (name === "guide") startVisibleDemos();
+    if (push) setHash(viewName);
+    if (viewName === "guide" || viewName === "payment") startVisibleDemos();
     await new Promise((r) => setTimeout(r, prefersReduced ? 0 : 420));
     target.classList.remove("is-entering");
     switching = false;
@@ -39,7 +44,7 @@
 
   function routeFromHash() {
     const h = (location.hash || "").replace(/^#/, "");
-    showView(h === "guide" ? "guide" : "home", { push: false });
+    showView(h === "guide" || h === "payment" ? h : "home", { push: false });
   }
 
   document.querySelectorAll("[data-open-guide]").forEach((el) => {
@@ -52,6 +57,12 @@
     el.addEventListener("click", (e) => {
       e.preventDefault();
       showView("home");
+    });
+  });
+  document.querySelectorAll("[data-open-payment]").forEach((el) => {
+    el.addEventListener("click", (e) => {
+      e.preventDefault();
+      showView("payment");
     });
   });
   window.addEventListener("hashchange", routeFromHash);
@@ -125,6 +136,7 @@
   }
 
   function setCaption(node, text) {
+    if (!node) return;
     const label = node.querySelector("[data-caption-text]");
     if (label) label.textContent = text;
     node.classList.add("is-on");
@@ -632,7 +644,7 @@
 
   async function runSubscription(stage, stopSignal) {
     const cursor = stage.querySelector(".demo-cursor");
-    const caption = stage.querySelector(".demo-caption");
+    const caption = null;
     const menu = stage.querySelector("[data-menu]");
     const plans = stage.querySelector("[data-sub-plans]");
     const wait = stage.querySelector("[data-sub-wait]");
@@ -647,7 +659,7 @@
       ok.hidden = true;
       openBtn.classList.remove("is-hot");
       planBtn?.classList.remove("is-press");
-      setCaption(caption, "Меню слева → «Подписка» — выбор тарифа и оплата");
+      setCaption(caption, "Меню слева → «Подписка»");
       cursor.classList.add("is-on");
       moveCursor(cursor, 48, 70);
       await sleep(1000);
@@ -662,18 +674,18 @@
       await sleep(700);
       if (stopSignal.stopped) break;
 
-      setCaption(caption, "Выбираем тариф — откроется оплата в браузере");
+      setCaption(caption, "Выбираем тариф");
       await clickEl(cursor, planBtn, stage);
       await sleep(400);
       plans.hidden = true;
       wait.hidden = false;
-      setCaption(caption, "Ждём подтверждения от YuMoney");
+      setCaption(caption, "Ждём подтверждения оплаты");
       await sleep(2200);
       if (stopSignal.stopped) break;
 
       wait.hidden = true;
       ok.hidden = false;
-      setCaption(caption, "Готово — подписка активирована на весь аккаунт");
+      setCaption(caption, "Оплата прошла успешно");
       await sleep(2400);
     }
   }
@@ -836,11 +848,14 @@
     document.querySelectorAll(".demo-stage[data-demo]").forEach((s) => demoObs.observe(s));
   }
 
-  if ((location.hash || "").replace(/^#/, "") === "guide") {
+  const initialHash = (location.hash || "").replace(/^#/, "");
+  if (initialHash === "guide" || initialHash === "payment") {
     homeView.hidden = true;
-    guideView.hidden = false;
+    guideView.hidden = initialHash !== "guide";
+    paymentView.hidden = initialHash !== "payment";
     startVisibleDemos();
   } else {
+    paymentView.hidden = true;
     guideView.hidden = true;
     homeView.hidden = false;
   }

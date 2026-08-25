@@ -827,9 +827,9 @@
   margin-top: 12px;
 }
 .demo-plan {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto;
   align-items: center;
-  justify-content: space-between;
   padding: 11px 14px;
   border-radius: 12px;
   background: #000;
@@ -842,11 +842,51 @@
   transform: scale(0.97);
   opacity: 0.9;
 }
+.demo-plan-main {
+  display: grid;
+  gap: 2px;
+}
+.demo-plan-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+.demo-plan-sub {
+  font-size: 0.62rem;
+  opacity: 0.78;
+}
+.demo-plan-price {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+.demo-plan-sale {
+  font-size: 0.58rem;
+  padding: 2px 6px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  opacity: 0.95;
+}
 .demo-hint {
   margin-top: 10px;
   font-size: 0.62rem;
   line-height: 1.45;
   color: #6B7280;
+}
+.guide-alerts {
+  display: grid;
+  gap: 8px;
+  margin-top: 6px;
+}
+.guide-alert {
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: #4B5563;
+  background: rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  padding: 10px 12px;
 }
 .demo-hint.tight { margin-top: 0; margin-bottom: 6px; }
 .demo-intro {
