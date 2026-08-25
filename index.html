@@ -497,6 +497,24 @@
       color: var(--muted);
     }
 
+    .legal-note {
+      margin-top: 10px;
+      font-size: 0.74rem;
+      line-height: 1.55;
+      color: #6B7280;
+    }
+
+    .legal-note a {
+      color: inherit;
+      border-bottom: 1px dashed rgba(107, 114, 128, 0.7);
+      text-decoration: none;
+    }
+
+    .legal-note a:hover {
+      color: #111827;
+      border-bottom-color: rgba(17, 24, 39, 0.45);
+    }
+
     footer {
       display: flex;
       flex-wrap: wrap;
@@ -520,6 +538,34 @@
     footer a:hover {
       color: #000;
       border-bottom-color: rgba(0, 0, 0, 0.35);
+    }
+
+    .lang-switch {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.7);
+    }
+
+    .lang-switch button {
+      border: 0;
+      background: transparent;
+      border-radius: 999px;
+      padding: 5px 9px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      cursor: pointer;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .lang-switch button.is-active {
+      background: #111827;
+      color: #fff;
     }
 
     .cursor-glow {
@@ -562,6 +608,10 @@
         <a class="nav-link" href="#guide" data-open-guide>Инструкция</a>
         <a class="nav-link" href="#payment" data-open-payment>Оплата</a>
         <a class="nav-link" href="#bonuses" data-open-bonuses-page>Бонусы</a>
+        <div class="lang-switch" aria-label="Выбор языка">
+          <button type="button" data-home-lang="ru" class="is-active">RU</button>
+          <button type="button" data-home-lang="en">EN</button>
+        </div>
         <div class="status-pill">
           <span class="status-dot" aria-hidden="true"></span>
           <span>Сервис активен</span>
@@ -657,6 +707,7 @@
           <p class="feature-text">Тот же APK — на Android TV, Google TV, Fire TV и большинстве Smart TV-приставок. Управление привычным пультом.</p>
         </article>
       </section>
+
     </main>
 
     <footer>
@@ -666,6 +717,9 @@
         <a href="#payment" data-open-payment>Оплата</a>
         <a href="#bonuses" data-open-bonuses-page>Бонусы</a>
         <a href="https://telegram.me/silentvpn3" target="_blank" rel="noopener noreferrer">Telegram</a>
+        <a href="#terms" data-open-terms>Пользовательское соглашение</a>
+        <a href="#privacy" data-open-privacy>Политика конфиденциальности</a>
+        <a href="#pdn" data-open-pdn>Обработка персональных данных</a>
       </div>
     </footer>
   </div>
@@ -1212,6 +1266,10 @@
             <p class="guide-alert">Если на мобильной сети статус подписки сразу не обновился, но оплата успешна — закройте и заново откройте приложение. При следующем старте подписка подтянется.</p>
             <p class="guide-alert">Если после успешной оплаты подписка всё равно не активировалась: откройте письмо об оплате, возьмите код операции и напишите в поддержку — подписку активируют вручную.</p>
           </div>
+          <p class="legal-note">
+            * Подробные условия по платежам и использованию сервиса указаны в <a href="#terms" data-open-terms>Пользовательском соглашении</a>.<br>
+            ** Условия конфиденциальности и обработки данных: <a href="#privacy" data-open-privacy>Политика конфиденциальности</a> и <a href="#pdn" data-open-pdn>Согласие на обработку персональных данных</a>.
+          </p>
         </div>
       </div>
       <div class="demo-shell">
@@ -1419,7 +1477,210 @@
     </footer>
   </div>
 
-  <script src="guide.js?v=14"></script>
+  <!-- ========== TERMS VIEW ========== -->
+  <div class="guide-page view" id="view-terms" hidden>
+    <header style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:8px">
+      <a class="brand" href="#" data-open-home>
+        <div class="logo" aria-hidden="true">S</div>
+        <span class="brand-name">Silent VPN</span>
+      </a>
+      <div class="header-actions">
+        <a class="nav-link" href="#" data-open-home>← На главную</a>
+        <a class="nav-link" href="#payment" data-open-payment>Оплата</a>
+        <div class="status-pill">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span>Соглашение</span>
+        </div>
+      </div>
+    </header>
+
+    <section class="guide-hero">
+      <p class="eyebrow">Документы</p>
+      <h1>Пользовательское соглашение</h1>
+    </section>
+
+    <section class="guide-section" style="padding-top:24px">
+      <div>
+        <div class="guide-section-text">
+          <p>Настоящее пользовательское соглашение регулирует порядок использования сервиса Silent VPN, сайта, приложений и связанных функций. Начиная использование сервиса, пользователь подтверждает принятие условий в полном объеме.</p>
+          <h3>1. Общие условия</h3>
+          <ul class="guide-bullets">
+            <li>Сервис предоставляется в формате «как есть» с постоянной работой по улучшению стабильности и скорости.</li>
+            <li>Фактические характеристики соединения зависят от сети пользователя, загрузки узлов, оборудования и внешних технических ограничений.</li>
+            <li>Администрация вправе обновлять функциональность, интерфейс и технические параметры без отдельного согласования.</li>
+          </ul>
+          <h3>2. Учетная запись и доступ</h3>
+          <ul class="guide-bullets">
+            <li>Пользователь самостоятельно отвечает за сохранность данных входа и любые действия в своей учетной записи.</li>
+            <li>Запрещается передача доступа третьим лицам для массового или автоматизированного использования.</li>
+            <li>При подозрении на компрометацию доступа пользователь обязан немедленно сменить пароль и обратиться в поддержку.</li>
+          </ul>
+          <h3>3. Ограничения использования</h3>
+          <ul class="guide-bullets">
+            <li>Сервис не может использоваться для действий, нарушающих права других лиц, безопасность сетей и работоспособность информационных систем.</li>
+            <li>Запрещены попытки вмешательства в инфраструктуру сервиса, обход технических ограничений и автоматизированные атаки.</li>
+            <li>При выявлении злоупотреблений доступ может быть ограничен или прекращен.</li>
+          </ul>
+          <h3>4. Платежи и пожертвования</h3>
+          <ul class="guide-bullets">
+            <li>Денежные переводы в интерфейсе оплаты рассматриваются как добровольное пожертвование на развитие и поддержку сервиса.</li>
+            <li>Факт успешного платежа подтверждается оператором платежного сервиса и отражается в учётной записи после синхронизации.</li>
+            <li>По вопросам спорных операций, статуса платежа и ручной проверки пользователь может обратиться в поддержку с кодом операции.</li>
+          </ul>
+          <h3>5. Ответственность сторон</h3>
+          <ul class="guide-bullets">
+            <li>Администрация принимает разумные меры для устойчивой работы, но не гарантирует абсолютную непрерывность доступа в каждый момент времени.</li>
+            <li>Стороны не несут ответственность за сбои, вызванные внешними платформами, сетевой инфраструктурой и иными факторами вне их контроля.</li>
+            <li>Размер возможной ответственности ограничивается фактически оказанными услугами и подтвержденными обстоятельствами инцидента.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <footer style="margin-top:40px;padding-top:24px;border-top:1px solid var(--line);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:0.82rem;color:var(--muted)">
+      <span>© 2026 Silent VPN</span>
+      <div style="display:flex;gap:16px;flex-wrap:wrap">
+        <a href="#" data-open-home style="color:inherit;text-decoration:none">На главную</a>
+        <a href="#privacy" data-open-privacy style="color:inherit;text-decoration:none">Конфиденциальность</a>
+        <a href="#pdn" data-open-pdn style="color:inherit;text-decoration:none">Персональные данные</a>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ========== PRIVACY VIEW ========== -->
+  <div class="guide-page view" id="view-privacy" hidden>
+    <header style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:8px">
+      <a class="brand" href="#" data-open-home>
+        <div class="logo" aria-hidden="true">S</div>
+        <span class="brand-name">Silent VPN</span>
+      </a>
+      <div class="header-actions">
+        <a class="nav-link" href="#" data-open-home>← На главную</a>
+        <a class="nav-link" href="#payment" data-open-payment>Оплата</a>
+        <div class="status-pill">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span>Конфиденциальность</span>
+        </div>
+      </div>
+    </header>
+
+    <section class="guide-hero">
+      <p class="eyebrow">Документы</p>
+      <h1>Политика конфиденциальности</h1>
+    </section>
+
+    <section class="guide-section" style="padding-top:24px">
+      <div>
+        <div class="guide-section-text">
+          <p>Политика конфиденциальности определяет принципы обращения с информацией пользователей при использовании сайта, приложений и инфраструктуры сервиса.</p>
+          <h3>1. Какие данные обрабатываются</h3>
+          <ul class="guide-bullets">
+            <li>Регистрационные данные: адрес электронной почты, хешированные учетные идентификаторы и служебные данные авторизации.</li>
+            <li>Технические данные: версия клиента, тип устройства, признаки сетевого состояния, диагностические события и журналы ошибок.</li>
+            <li>Операционные данные: информация о состоянии подписки, активных сессиях и обращениях в поддержку.</li>
+          </ul>
+          <h3>2. Для чего используются данные</h3>
+          <ul class="guide-bullets">
+            <li>Для предоставления доступа к сервису, аутентификации и защиты учетных записей.</li>
+            <li>Для работы подписки, синхронизации настроек, обработки технических запросов и ответа на обращения пользователей.</li>
+            <li>Для улучшения стабильности, выявления злоупотреблений и повышения качества клиентского опыта.</li>
+          </ul>
+          <h3>3. Принципы защиты информации</h3>
+          <ul class="guide-bullets">
+            <li>Применяются организационные и технические меры для ограничения несанкционированного доступа.</li>
+            <li>Доступ к данным предоставляется только уполномоченным лицам в рамках их рабочих задач.</li>
+            <li>Срок хранения данных ограничивается целями обработки и необходимостью выполнения обязательств перед пользователем.</li>
+          </ul>
+          <h3>4. Передача данных третьим лицам</h3>
+          <ul class="guide-bullets">
+            <li>Передача возможна только в пределах, необходимых для обработки платежей, доставки сервисных уведомлений и технической поддержки инфраструктуры.</li>
+            <li>Такие лица получают только минимально необходимый объем информации и обязуются соблюдать конфиденциальность.</li>
+          </ul>
+          <h3>5. Права пользователя</h3>
+          <ul class="guide-bullets">
+            <li>Пользователь вправе запрашивать уточнение, обновление или удаление данных в пределах применимых требований и технической возможности.</li>
+            <li>Для реализации прав пользователь направляет запрос в поддержку с подтверждением владения учетной записью.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <footer style="margin-top:40px;padding-top:24px;border-top:1px solid var(--line);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:0.82rem;color:var(--muted)">
+      <span>© 2026 Silent VPN</span>
+      <div style="display:flex;gap:16px;flex-wrap:wrap">
+        <a href="#" data-open-home style="color:inherit;text-decoration:none">На главную</a>
+        <a href="#terms" data-open-terms style="color:inherit;text-decoration:none">Соглашение</a>
+        <a href="#pdn" data-open-pdn style="color:inherit;text-decoration:none">Персональные данные</a>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ========== PDN VIEW ========== -->
+  <div class="guide-page view" id="view-pdn" hidden>
+    <header style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:8px">
+      <a class="brand" href="#" data-open-home>
+        <div class="logo" aria-hidden="true">S</div>
+        <span class="brand-name">Silent VPN</span>
+      </a>
+      <div class="header-actions">
+        <a class="nav-link" href="#" data-open-home>← На главную</a>
+        <a class="nav-link" href="#payment" data-open-payment>Оплата</a>
+        <div class="status-pill">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span>Персональные данные</span>
+        </div>
+      </div>
+    </header>
+
+    <section class="guide-hero">
+      <p class="eyebrow">Документы</p>
+      <h1>Согласие на обработку персональных данных</h1>
+    </section>
+
+    <section class="guide-section" style="padding-top:24px">
+      <div>
+        <div class="guide-section-text">
+          <p>Регистрируясь и продолжая использование сервиса, пользователь выражает информированное и добровольное согласие на обработку персональных данных на условиях, изложенных ниже.</p>
+          <h3>1. Перечень данных</h3>
+          <ul class="guide-bullets">
+            <li>Адрес электронной почты, идентификатор учетной записи, служебные данные авторизации и устройства.</li>
+            <li>Техническая информация, необходимая для обеспечения работоспособности и безопасности сервиса.</li>
+          </ul>
+          <h3>2. Действия с данными</h3>
+          <ul class="guide-bullets">
+            <li>Сбор, запись, систематизация, хранение, уточнение, использование, обезличивание, блокирование и удаление.</li>
+            <li>Обработка может выполняться как с использованием автоматизированных средств, так и без их использования.</li>
+          </ul>
+          <h3>3. Цели обработки</h3>
+          <ul class="guide-bullets">
+            <li>Создание и обслуживание учетной записи, предоставление доступа к функциям сервиса и поддержка пользователя.</li>
+            <li>Информационные уведомления по вопросам работы сервиса, безопасности учетной записи и технических изменений.</li>
+            <li>Обеспечение устойчивости работы сервиса и предотвращение злоупотреблений.</li>
+          </ul>
+          <h3>4. Срок действия согласия</h3>
+          <ul class="guide-bullets">
+            <li>Согласие действует с момента принятия и до достижения целей обработки либо до отзыва согласия пользователем.</li>
+            <li>Отзыв согласия направляется через поддержку и может повлечь ограничение или прекращение доступа к сервису.</li>
+          </ul>
+          <h3>5. Контакты по персональным данным</h3>
+          <ul class="guide-bullets">
+            <li>Запросы по обработке персональных данных, их уточнению и удалению принимаются службой поддержки сервиса.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <footer style="margin-top:40px;padding-top:24px;border-top:1px solid var(--line);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:0.82rem;color:var(--muted)">
+      <span>© 2026 Silent VPN</span>
+      <div style="display:flex;gap:16px;flex-wrap:wrap">
+        <a href="#" data-open-home style="color:inherit;text-decoration:none">На главную</a>
+        <a href="#terms" data-open-terms style="color:inherit;text-decoration:none">Соглашение</a>
+        <a href="#privacy" data-open-privacy style="color:inherit;text-decoration:none">Конфиденциальность</a>
+      </div>
+    </footer>
+  </div>
+
+  <script src="guide.js?v=15"></script>
   <script>
     const API_BASE = "https://132-243-234-162.nip.io";
     const GITHUB_REPO = "silentvpn3/silentvpn3.github.io";
@@ -1764,6 +2025,231 @@
       glow.style.left = e.clientX + "px";
       glow.style.top = e.clientY + "px";
     });
+
+    // Global language switch (RU/EN) for all views
+    (() => {
+      const LANG_KEY = "silent_site_lang";
+      const DICT = {
+        "Инструкция": "Guide",
+        "Оплата": "Payment",
+        "Бонусы": "Bonuses",
+        "Сервис активен": "Service online",
+        "Защита · Скорость · Простота": "Protection · Speed · Simplicity",
+        "Ваша сеть.": "Your network.",
+        "Ваши правила.": "Your rules.",
+        "Защищённое соединение для работы, учёбы и отдыха. Один аккаунт — компьютер, телефон и смарт ТВ. После установки: регистрация и 3 дня trial бесплатно.": "Secure connection for work, study, and daily life. One account for your computer, phone, and Smart TV. After install: registration and 3-day free trial.",
+        "Скачать для ПК": "Download for PC",
+        "Скачать для Android": "Download for Android",
+        "Наш канал в Telegram": "Our Telegram channel",
+        "Новости, обновления и поддержка — @silentvpn3": "News, updates, and support — @silentvpn3",
+        "Без лишних настроек": "No extra setup",
+        "Включили тумблер — VPN работает. Не нужно разбираться в протоколах и технических деталях.": "Turn on the switch and VPN is ready. No protocol tuning needed.",
+        "До 3 устройств": "Up to 3 devices",
+        "ПК, ноутбук и смартфон на одной подписке. Управление сессиями — в личном кабинете приложения.": "PC, laptop, and smartphone on one subscription. Manage sessions in your account.",
+        "Стабильное соединение": "Stable connection",
+        "Оптимизированная маршрутизация для повседневных задач: мессенджеры, браузер, стриминг и работа онлайн.": "Optimized routing for messaging, browsing, streaming, and online work.",
+        "Работает на Smart TV": "Works on Smart TV",
+        "Тот же APK — на Android TV, Google TV, Fire TV и большинстве Smart TV-приставок. Управление привычным пультом.": "Same APK works on Android TV, Google TV, Fire TV, and most TV boxes.",
+        "Пользовательское соглашение": "User Agreement",
+        "Политика конфиденциальности": "Privacy Policy",
+        "Обработка персональных данных": "Personal Data Processing",
+        "На главную": "Home",
+        "← На главную": "← Home",
+        "Гайд": "Guide",
+        "Быстрый старт": "Quick start",
+        "с Silent VPN": "with Silent VPN",
+        "Регистрация": "Registration",
+        "Вход": "Sign in",
+        "Выбор сервера": "Server selection",
+        "Подключение": "Connection",
+        "Сессии": "Sessions",
+        "Оплата и подписка": "Payment and subscription",
+        "Как оформить:": "How to activate:",
+        "Как на сервере": "As on server",
+        "Рекомендуется": "Recommended",
+        "Свой DNS": "Custom DNS",
+        "Применить?": "Apply?",
+        "Отмена": "Cancel",
+        "Применить": "Apply",
+        "Выберите тариф": "Choose a plan",
+        "Ждём подтверждения оплаты": "Waiting for payment confirmation",
+        "Оплата прошла успешно": "Payment successful",
+        "Подписка активирована. Спасибо за покупку!": "Subscription activated. Thank you for your purchase!",
+        "Бонусная программа": "Bonus program",
+        "Документы": "Documents",
+        "Соглашение": "Agreement",
+        "Конфиденциальность": "Privacy",
+        "Персональные данные": "Personal data",
+        "Согласие на обработку персональных данных": "Consent to personal data processing",
+        "1. Общие условия": "1. General terms",
+        "2. Учетная запись и доступ": "2. Account and access",
+        "3. Ограничения использования": "3. Usage restrictions",
+        "4. Платежи и пожертвования": "4. Payments and donations",
+        "5. Ответственность сторон": "5. Liability of parties",
+        "1. Какие данные обрабатываются": "1. What data is processed",
+        "2. Для чего используются данные": "2. Why data is used",
+        "3. Принципы защиты информации": "3. Information protection principles",
+        "4. Передача данных третьим лицам": "4. Data transfer to third parties",
+        "5. Права пользователя": "5. User rights",
+        "1. Перечень данных": "1. Data scope",
+        "2. Действия с данными": "2. Data operations",
+        "3. Цели обработки": "3. Processing purposes",
+        "4. Срок действия согласия": "4. Consent validity period",
+        "5. Контакты по персональным данным": "5. Personal data contacts",
+        "Подключение VPN": "VPN connection",
+        "После входа откройте главный экран и включите VPN тумблером. Статус изменится с «Отключено» на «Подключено».": "After login, open the main screen and turn on VPN with the switch. Status changes from \"Disconnected\" to \"Connected\".",
+        "Одно нажатие включает VPN": "One tap turns VPN on",
+        "Повторное нажатие отключает VPN": "Second tap turns VPN off",
+        "Статус подключения видно сразу под тумблером": "Connection status is shown under the switch",
+        "После установки клиент сам готовит канал — это занимает пару секунд. Как только надпись становится зелёной, можно создавать аккаунт.": "After installation the client prepares the channel in a few seconds. Once status turns green, you can create an account.",
+        "Переключитесь на вкладку «Регистрация»": "Switch to the \"Registration\" tab",
+        "Укажите email и пароль": "Enter email and password",
+        "Промокод или реферальный код — по желанию, можно пропустить": "Promo or referral code is optional and can be skipped",
+        "Подтвердите email по ссылке из письма — и аккаунт готов": "Confirm email via link in the message and your account is ready",
+        "Уже есть аккаунт? Тот же экран, только вкладка «Войти» — введите email и пароль и вы на главном экране.": "Already have an account? Same screen, just open \"Sign in\", enter email and password, and you are on the main screen.",
+        "Email и пароль от аккаунта": "Use your account email and password",
+        "«Запомнить меня» — чтобы не вводить пароль каждый раз": "\"Remember me\" to avoid entering password every time",
+        "Забыли пароль — восстановление придёт на почту": "Password reset will be sent to your email",
+        "Смена DNS и сервера": "DNS and server switch",
+        "Параметры меняются в одном разделе. После изменения переподключите VPN.": "Settings are changed in one section. Reconnect VPN after changes.",
+        "DNS: если сайты открываются нестабильно, переключите на «Свой DNS»": "DNS: if websites open unstably, switch to \"Custom DNS\"",
+        "Сервер: если текущий сервер загружен и работает медленно, переключитесь на другой": "Server: if current server is overloaded and slow, switch to another one",
+        "Изменения DNS и сервера применяются после переподключения": "DNS and server changes apply after reconnect",
+        "Исключения: приложения и сайты": "Exclusions: apps and websites",
+        "Зачем: некоторым приложениям и сайтам лучше идти напрямую — например, для меньшей задержки в играх, банковских приложениях или локальных сервисах.": "Why: some apps and websites are better routed directly, for example for lower latency in games, banking apps, or local services.",
+        "ЧС — выбранные приложения идут мимо VPN": "Blacklist mode: selected apps bypass VPN",
+        "БС — через VPN идут только выбранные приложения": "Whitelist mode: only selected apps use VPN",
+        "Сайты — домен или IP (например, `ozon.ru`, `1.2.3.4`, `10.0.0.0/8`) идут мимо VPN": "Websites: domain or IP (for example `ozon.ru`, `1.2.3.4`, `10.0.0.0/8`) bypass VPN",
+        "Выделить все — быстро отметить весь видимый список приложений": "\"Select all\" quickly marks the full visible app list",
+        "Сессия — это устройство, с которого вы вошли в аккаунт. Одновременно VPN могут держать до 3 устройств.": "A session is a device where you signed into your account. Up to 3 devices can keep VPN connected simultaneously.",
+        "В меню → «Сессии» видно все входы: ПК, Android, Smart TV": "Menu → \"Sessions\" shows all sign-ins: PC, Android, Smart TV",
+        "Зелёная точка — VPN сейчас онлайн; можно подписать устройство и удалить лишнюю сессию": "Green dot means VPN is online; you can label the device and remove extra sessions",
+        "Удаление текущей сессии выходит из аккаунта на этом устройстве": "Deleting current session signs out on this device",
+        "Готовы попробовать?": "Ready to try?",
+        "Скачайте клиент на главной странице, создайте аккаунт — и подключение к VPN займёт меньше минуты.": "Download the client on the home page, create an account, and VPN connection takes under a minute.",
+        "К скачиванию": "Go to downloads",
+        "menu → «Подписка» → выберите тариф. Оплата откроется в браузере (YuMoney). После оплаты вернитесь в приложение — статус обновится сам.": "menu → \"Subscription\" → choose a plan. Payment opens in browser (YuMoney). After payment, return to the app and status updates automatically.",
+        "Подписка общая на аккаунт: все ваши устройства пользуются одним тарифом": "Subscription is account-wide: all your devices use one plan.",
+        "На мобильном интернете после перехода в YuMoney иногда на секунды открывается страница «нет интернета». Это нормально: дождитесь 5–15 секунд, сеть переключится и страница загрузится.": "On mobile data, after opening YuMoney, a \"no internet\" page may appear for a few seconds. This is normal: wait 5-15 seconds, the network switches and page loads.",
+        "После оплаты вернитесь в страницу YuMoney и нажмите «Вернуться в магазин» (или «Перейти в приложение») — в клиенте появится сообщение «Оплата прошла успешно».": "After payment, return to YuMoney page and tap \"Back to store\" (or \"Open app\"); the client will show \"Payment successful\".",
+        "Если на мобильной сети статус подписки сразу не обновился, но оплата успешна — закройте и заново откройте приложение. При следующем старте подписка подтянется.": "If subscription status on mobile network does not update immediately but payment is successful, close and reopen the app. It syncs on next launch.",
+        "Если после успешной оплаты подписка всё равно не активировалась: откройте письмо об оплате, возьмите код операции и напишите в поддержку — подписку активируют вручную.": "If subscription is still not activated after successful payment, open the payment email, take the operation code, and contact support for manual activation.",
+        "Подробные условия по платежам и использованию сервиса указаны в Пользовательском соглашении.": "Detailed payment and service usage terms are described in the User Agreement.",
+        "Условия конфиденциальности и обработки данных: Политика конфиденциальности и Согласие на обработку персональных данных.": "Privacy and data processing terms: Privacy Policy and Consent to Personal Data Processing.",
+        "В меню → «Бонусы»: реферальная ссылка и проверка промокода — как в клиенте.": "Menu → \"Bonuses\": referral link and promo code check, same as in the client.",
+        "Рефералка — друг регистрируется по вашей ссылке и оплачивает подписку: оба получаете +30 дней": "Referral: when your friend registers via your link and pays, both get +30 days.",
+        "Один бонус на одного друга, до 10 наград за 30 дней": "One bonus per friend, up to 10 rewards in 30 days.",
+        "Промокод — скидка или доп. дни к тарифу; можно ввести при регистрации или проверить здесь": "Promo code gives discount or extra days; enter during registration or check here.",
+        "Условия программы могут измениться": "Program terms may change.",
+        "Настоящее пользовательское соглашение регулирует порядок использования сервиса Silent VPN, сайта, приложений и связанных функций. Начиная использование сервиса, пользователь подтверждает принятие условий в полном объеме.": "This User Agreement defines rules for using Silent VPN service, website, apps, and related features. By starting to use the service, the user confirms full acceptance of these terms.",
+        "Сервис предоставляется в формате «как есть» с постоянной работой по улучшению стабильности и скорости.": "The service is provided on an \"as is\" basis with continuous improvements to stability and speed.",
+        "Фактические характеристики соединения зависят от сети пользователя, загрузки узлов, оборудования и внешних технических ограничений.": "Actual connection characteristics depend on user network, node load, hardware, and external technical limitations.",
+        "Администрация вправе обновлять функциональность, интерфейс и технические параметры без отдельного согласования.": "Administration may update functionality, interface, and technical parameters without separate approval.",
+        "Пользователь самостоятельно отвечает за сохранность данных входа и любые действия в своей учетной записи.": "The user is solely responsible for login credentials safety and any actions within their account.",
+        "Запрещается передача доступа третьим лицам для массового или автоматизированного использования.": "Sharing access with third parties for mass or automated usage is prohibited.",
+        "При подозрении на компрометацию доступа пользователь обязан немедленно сменить пароль и обратиться в поддержку.": "If access compromise is suspected, the user must immediately change password and contact support.",
+        "Сервис не может использоваться для действий, нарушающих права других лиц, безопасность сетей и работоспособность информационных систем.": "The service must not be used for actions that violate rights of others, network security, or information system stability.",
+        "Запрещены попытки вмешательства в инфраструктуру сервиса, обход технических ограничений и автоматизированные атаки.": "Attempts to interfere with service infrastructure, bypass technical limits, or run automated attacks are prohibited.",
+        "При выявлении злоупотреблений доступ может быть ограничен или прекращен.": "If abuse is detected, access may be limited or terminated.",
+        "Денежные переводы в интерфейсе оплаты рассматриваются как добровольное пожертвование на развитие и поддержку сервиса.": "Transfers in the payment interface are treated as voluntary donations for service development and support.",
+        "Факт успешного платежа подтверждается оператором платежного сервиса и отражается в учётной записи после синхронизации.": "Successful payment is confirmed by the payment operator and reflected in the account after synchronization.",
+        "По вопросам спорных операций, статуса платежа и ручной проверки пользователь может обратиться в поддержку с кодом операции.": "For disputed operations, payment status, and manual verification, users may contact support with operation code.",
+        "Администрация принимает разумные меры для устойчивой работы, но не гарантирует абсолютную непрерывность доступа в каждый момент времени.": "Administration takes reasonable measures for stable operation but does not guarantee absolute uninterrupted access at every moment.",
+        "Стороны не несут ответственность за сбои, вызванные внешними платформами, сетевой инфраструктурой и иными факторами вне их контроля.": "Parties are not liable for failures caused by external platforms, network infrastructure, or other factors beyond control.",
+        "Размер возможной ответственности ограничивается фактически оказанными услугами и подтвержденными обстоятельствами инцидента.": "Possible liability is limited by actually provided services and confirmed incident circumstances.",
+        "Политика конфиденциальности определяет принципы обращения с информацией пользователей при использовании сайта, приложений и инфраструктуры сервиса.": "This Privacy Policy defines handling principles for user information while using the website, applications, and service infrastructure.",
+        "Регистрационные данные: адрес электронной почты, хешированные учетные идентификаторы и служебные данные авторизации.": "Registration data: email address, hashed account identifiers, and service authorization data.",
+        "Технические данные: версия клиента, тип устройства, признаки сетевого состояния, диагностические события и журналы ошибок.": "Technical data: client version, device type, network state signals, diagnostic events, and error logs.",
+        "Операционные данные: информация о состоянии подписки, активных сессиях и обращениях в поддержку.": "Operational data: subscription status, active sessions, and support requests.",
+        "Для предоставления доступа к сервису, аутентификации и защиты учетных записей.": "To provide service access, authentication, and account security.",
+        "Для работы подписки, синхронизации настроек, обработки технических запросов и ответа на обращения пользователей.": "To operate subscription, sync settings, process technical requests, and answer support requests.",
+        "Для улучшения стабильности, выявления злоупотреблений и повышения качества клиентского опыта.": "To improve stability, detect abuse, and improve client experience quality.",
+        "Применяются организационные и технические меры для ограничения несанкционированного доступа.": "Organizational and technical measures are applied to limit unauthorized access.",
+        "Доступ к данным предоставляется только уполномоченным лицам в рамках их рабочих задач.": "Data access is granted only to authorized personnel within job scope.",
+        "Срок хранения данных ограничивается целями обработки и необходимостью выполнения обязательств перед пользователем.": "Data retention period is limited by processing goals and obligations to the user.",
+        "Передача возможна только в пределах, необходимых для обработки платежей, доставки сервисных уведомлений и технической поддержки инфраструктуры.": "Transfer is possible only as needed for payment processing, service notifications, and infrastructure technical support.",
+        "Такие лица получают только минимально необходимый объем информации и обязуются соблюдать конфиденциальность.": "Such parties receive only the minimum necessary information and must keep confidentiality.",
+        "Пользователь вправе запрашивать уточнение, обновление или удаление данных в пределах применимых требований и технической возможности.": "Users may request clarification, update, or deletion of data within applicable requirements and technical feasibility.",
+        "Для реализации прав пользователь направляет запрос в поддержку с подтверждением владения учетной записью.": "To exercise rights, users submit a request to support with account ownership confirmation.",
+        "Регистрируясь и продолжая использование сервиса, пользователь выражает информированное и добровольное согласие на обработку персональных данных на условиях, изложенных ниже.": "By registering and continuing service usage, users provide informed and voluntary consent to personal data processing under the terms below.",
+        "Адрес электронной почты, идентификатор учетной записи, служебные данные авторизации и устройства.": "Email address, account identifier, service authorization data, and device details.",
+        "Техническая информация, необходимая для обеспечения работоспособности и безопасности сервиса.": "Technical information required to maintain service operation and security.",
+        "Сбор, запись, систематизация, хранение, уточнение, использование, обезличивание, блокирование и удаление.": "Collection, recording, systematization, storage, clarification, usage, anonymization, blocking, and deletion.",
+        "Обработка может выполняться как с использованием автоматизированных средств, так и без их использования.": "Processing may be performed with or without automated means.",
+        "Создание и обслуживание учетной записи, предоставление доступа к функциям сервиса и поддержка пользователя.": "Account creation and maintenance, access to service functions, and user support.",
+        "Информационные уведомления по вопросам работы сервиса, безопасности учетной записи и технических изменений.": "Informational notices about service operation, account security, and technical changes.",
+        "Обеспечение устойчивости работы сервиса и предотвращение злоупотреблений.": "Ensuring service stability and preventing abuse.",
+        "Согласие действует с момента принятия и до достижения целей обработки либо до отзыва согласия пользователем.": "Consent remains valid from acceptance until processing goals are achieved or consent is withdrawn by user.",
+        "Отзыв согласия направляется через поддержку и может повлечь ограничение или прекращение доступа к сервису.": "Consent withdrawal is submitted through support and may result in access limitation or termination.",
+        "Запросы по обработке персональных данных, их уточнению и удалению принимаются службой поддержки сервиса.": "Requests about personal data processing, update, and deletion are handled by service support.",
+      };
+
+      function ensureGlobalSwitches() {
+        document.querySelectorAll(".view header .header-actions").forEach((actions) => {
+          if (actions.querySelector(".lang-switch")) {
+            actions.querySelectorAll("[data-home-lang]").forEach((btn) => btn.setAttribute("data-global-lang", btn.getAttribute("data-home-lang") || "ru"));
+            return;
+          }
+          const sw = document.createElement("div");
+          sw.className = "lang-switch";
+          sw.setAttribute("aria-label", "Language");
+          sw.innerHTML = '<button type="button" data-global-lang="ru" class="is-active">RU</button><button type="button" data-global-lang="en">EN</button>';
+          actions.insertBefore(sw, actions.firstChild);
+        });
+      }
+      ensureGlobalSwitches();
+
+      const textNodes = [];
+      const originals = new WeakMap();
+      const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+        acceptNode(node) {
+          const parent = node.parentElement;
+          if (!parent) return NodeFilter.FILTER_REJECT;
+          if (parent.closest("script,style,svg,path")) return NodeFilter.FILTER_REJECT;
+          if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+          return NodeFilter.FILTER_ACCEPT;
+        },
+      });
+      while (walker.nextNode()) {
+        const node = walker.currentNode;
+        textNodes.push(node);
+        originals.set(node, node.nodeValue);
+      }
+
+      function applyLanguage(lang) {
+        document.documentElement.lang = lang === "en" ? "en" : "ru";
+        document.title = lang === "en" ? "Silent VPN — download" : "Silent VPN — скачать";
+
+        textNodes.forEach((node) => {
+          const ruText = originals.get(node) || node.nodeValue;
+          if (lang !== "en") {
+            node.nodeValue = ruText;
+            return;
+          }
+          const trimmed = ruText.trim();
+          const translated = DICT[trimmed];
+          if (!translated) return;
+          node.nodeValue = ruText.replace(trimmed, translated);
+        });
+
+        const guideTitle = document.querySelector("#view-guide .guide-hero h1");
+        if (guideTitle) {
+          guideTitle.innerHTML = lang === "en" ? "Quick start <br>with Silent VPN" : "Быстрый старт <br>с Silent VPN";
+        }
+
+        document.querySelectorAll("[data-global-lang]").forEach((btn) => {
+          btn.classList.toggle("is-active", btn.getAttribute("data-global-lang") === lang);
+        });
+        localStorage.setItem(LANG_KEY, lang);
+      }
+
+      const saved = localStorage.getItem(LANG_KEY);
+      applyLanguage(saved === "en" ? "en" : "ru");
+
+      document.querySelectorAll("[data-global-lang]").forEach((btn) => {
+        btn.addEventListener("click", () => applyLanguage(btn.getAttribute("data-global-lang") || "ru"));
+      });
+    })();
   </script>
 </body>
 </html>

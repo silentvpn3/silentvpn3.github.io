@@ -3,15 +3,38 @@
   const guideView = document.getElementById("view-guide");
   const paymentView = document.getElementById("view-payment");
   const bonusesView = document.getElementById("view-bonuses");
-  if (!homeView || !guideView || !paymentView || !bonusesView) return;
-  const viewMap = { home: homeView, guide: guideView, payment: paymentView, bonuses: bonusesView };
+  const termsView = document.getElementById("view-terms");
+  const privacyView = document.getElementById("view-privacy");
+  const pdnView = document.getElementById("view-pdn");
+  if (!homeView || !guideView || !paymentView || !bonusesView || !termsView || !privacyView || !pdnView) return;
+  const viewMap = {
+    home: homeView,
+    guide: guideView,
+    payment: paymentView,
+    bonuses: bonusesView,
+    terms: termsView,
+    privacy: privacyView,
+    pdn: pdnView,
+  };
 
   const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   let switching = false;
   const demoControllers = new Map();
 
   function setHash(view) {
-    const next = view === "guide" ? "#guide" : view === "payment" ? "#payment" : view === "bonuses" ? "#bonuses" : "#";
+    const next = view === "guide"
+      ? "#guide"
+      : view === "payment"
+        ? "#payment"
+        : view === "bonuses"
+          ? "#bonuses"
+          : view === "terms"
+            ? "#terms"
+            : view === "privacy"
+              ? "#privacy"
+              : view === "pdn"
+                ? "#pdn"
+                : "#";
     if (location.hash !== next && !(view === "home" && (!location.hash || location.hash === "#"))) {
       history.replaceState(null, "", next === "#" ? location.pathname + location.search : next);
     }
@@ -45,7 +68,7 @@
 
   function routeFromHash() {
     const h = (location.hash || "").replace(/^#/, "");
-    showView(h === "guide" || h === "payment" || h === "bonuses" ? h : "home", { push: false });
+    showView(h === "guide" || h === "payment" || h === "bonuses" || h === "terms" || h === "privacy" || h === "pdn" ? h : "home", { push: false });
   }
 
   document.querySelectorAll("[data-open-guide]").forEach((el) => {
@@ -70,6 +93,24 @@
     el.addEventListener("click", (e) => {
       e.preventDefault();
       showView("bonuses");
+    });
+  });
+  document.querySelectorAll("[data-open-terms]").forEach((el) => {
+    el.addEventListener("click", (e) => {
+      e.preventDefault();
+      showView("terms");
+    });
+  });
+  document.querySelectorAll("[data-open-privacy]").forEach((el) => {
+    el.addEventListener("click", (e) => {
+      e.preventDefault();
+      showView("privacy");
+    });
+  });
+  document.querySelectorAll("[data-open-pdn]").forEach((el) => {
+    el.addEventListener("click", (e) => {
+      e.preventDefault();
+      showView("pdn");
     });
   });
   window.addEventListener("hashchange", routeFromHash);
@@ -867,13 +908,19 @@
   }
 
   const initialHash = (location.hash || "").replace(/^#/, "");
-  if (initialHash === "guide" || initialHash === "payment" || initialHash === "bonuses") {
+  if (initialHash === "guide" || initialHash === "payment" || initialHash === "bonuses" || initialHash === "terms" || initialHash === "privacy" || initialHash === "pdn") {
     homeView.hidden = true;
     guideView.hidden = initialHash !== "guide";
     paymentView.hidden = initialHash !== "payment";
     bonusesView.hidden = initialHash !== "bonuses";
+    termsView.hidden = initialHash !== "terms";
+    privacyView.hidden = initialHash !== "privacy";
+    pdnView.hidden = initialHash !== "pdn";
     startVisibleDemos();
   } else {
+    termsView.hidden = true;
+    privacyView.hidden = true;
+    pdnView.hidden = true;
     bonusesView.hidden = true;
     paymentView.hidden = true;
     guideView.hidden = true;
