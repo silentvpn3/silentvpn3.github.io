@@ -2063,6 +2063,7 @@
         "Выбор сервера": "Server selection",
         "Подключение": "Connection",
         "Сессии": "Sessions",
+        "Исключения": "Exclusions",
         "Оплата и подписка": "Payment and subscription",
         "Как оформить:": "How to activate:",
         "Как на сервере": "As on server",
@@ -2121,6 +2122,7 @@
         "БС — через VPN идут только выбранные приложения": "Whitelist mode: only selected apps use VPN",
         "Сайты — домен или IP (например, `ozon.ru`, `1.2.3.4`, `10.0.0.0/8`) идут мимо VPN": "Websites: domain or IP (for example `ozon.ru`, `1.2.3.4`, `10.0.0.0/8`) bypass VPN",
         "Выделить все — быстро отметить весь видимый список приложений": "\"Select all\" quickly marks the full visible app list",
+        "— быстро отметить весь видимый список приложений": "- quickly mark the full visible app list",
         "Сессия — это устройство, с которого вы вошли в аккаунт. Одновременно VPN могут держать до 3 устройств.": "A session is a device where you signed into your account. Up to 3 devices can keep VPN connected simultaneously.",
         "В меню → «Сессии» видно все входы: ПК, Android, Smart TV": "Menu → \"Sessions\" shows all sign-ins: PC, Android, Smart TV",
         "Зелёная точка — VPN сейчас онлайн; можно подписать устройство и удалить лишнюю сессию": "Green dot means VPN is online; you can label the device and remove extra sessions",
@@ -2182,7 +2184,50 @@
         "Согласие действует с момента принятия и до достижения целей обработки либо до отзыва согласия пользователем.": "Consent remains valid from acceptance until processing goals are achieved or consent is withdrawn by user.",
         "Отзыв согласия направляется через поддержку и может повлечь ограничение или прекращение доступа к сервису.": "Consent withdrawal is submitted through support and may result in access limitation or termination.",
         "Запросы по обработке персональных данных, их уточнению и удалению принимаются службой поддержки сервиса.": "Requests about personal data processing, update, and deletion are handled by service support.",
+        "Переключитесь на вкладку": "Switch to tab",
+        "«Регистрация»": "\"Registration\"",
+        "Подключение… подождите": "Connecting... please wait",
+        "Войти": "Sign in",
+        "Запомнить меня": "Remember me",
+        "Забыли пароль?": "Forgot password?",
+        "Ожидание канала…": "Waiting for channel...",
+        "Следите за курсором": "Follow the cursor",
+        "Уже есть аккаунт? Тот же экран, только вкладка": "Already have an account? Same screen, just the",
+        "«Войти»": "\"Sign in\"",
+        "— введите email и пароль и вы на главном экране.": "- enter email and password to open the main screen.",
+        "Канал готов. Осталось 1:42 — войдите или зарегистрируйтесь": "Channel is ready. Left 1:42 - sign in or register.",
+        "Зачем:": "Why:",
+        "некоторым приложениям и сайтам лучше идти напрямую — например, для меньшей задержки в играх, банковских приложениях или локальных сервисах.": "some apps and websites are better routed directly, for lower latency in games, banking apps, or local services.",
+        "ЧС": "BL",
+        "— выбранные приложения идут мимо VPN": "- selected apps bypass VPN",
+        "БС": "WL",
+        "— через VPN идут только выбранные приложения": "- only selected apps use VPN",
+        "Сайты": "Websites",
+        "— домен или IP (например, `ozon.ru`, `1.2.3.4`, `10.0.0.0/8`) идут мимо VPN": "- domain or IP (for example `ozon.ru`, `1.2.3.4`, `10.0.0.0/8`) bypass VPN",
+        "Выделить все": "Select all",
+        "Отключено": "Disconnected",
+        "Аккаунт: A1B2C3": "Account: A1B2C3",
+        "Подписка": "Subscription",
+        "DNS · Как на сервере": "DNS · As on server",
+        "Выбор сервера · сервер 1": "Server selection · server 1",
+        "Сессии (1/3)": "Sessions (1/3)",
+        "Поддержка": "Support",
+        "О сервисе": "About service",
+        "Выйти": "Sign out",
+        ": если сайты открываются нестабильно, переключите на «Свой DNS»": ": if websites open unstably, switch to \"Custom DNS\"",
+        "Сервер": "Server",
+        ": если текущий сервер загружен и работает медленно, переключитесь на другой": ": if current server is overloaded and slow, switch to another one",
+        "Сессия": "Session",
+        "— это устройство, с которого вы вошли в аккаунт. Одновременно VPN могут держать до": "- this is a device where you signed in. At once VPN can keep up to",
+        "устройств.": "devices.",
+        "Сессии (2/3)": "Sessions (2/3)",
       };
+
+      const normalize = (s) => String(s || "").replace(/\s+/g, " ").trim();
+      const DICT_NORM = {};
+      Object.entries(DICT).forEach(([k, v]) => {
+        DICT_NORM[normalize(k)] = v;
+      });
 
       function ensureGlobalSwitches() {
         document.querySelectorAll(".view header .header-actions").forEach((actions) => {
@@ -2226,10 +2271,12 @@
             node.nodeValue = ruText;
             return;
           }
+          const lead = (ruText.match(/^\s*/) || [""])[0];
+          const tail = (ruText.match(/\s*$/) || [""])[0];
           const trimmed = ruText.trim();
-          const translated = DICT[trimmed];
+          const translated = DICT[trimmed] || DICT_NORM[normalize(trimmed)];
           if (!translated) return;
-          node.nodeValue = ruText.replace(trimmed, translated);
+          node.nodeValue = `${lead}${translated}${tail}`;
         });
 
         const guideTitle = document.querySelector("#view-guide .guide-hero h1");
