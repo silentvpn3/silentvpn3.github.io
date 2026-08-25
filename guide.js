@@ -20,6 +20,95 @@
   const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   let switching = false;
   const demoControllers = new Map();
+  const ANIM_EN = {
+    "Необязательно": "Optional",
+    "Ожидание канала…": "Waiting for channel…",
+    "Подключение… подождите": "Connecting… please wait",
+    "Каналу нужно пару секунд, чтобы подготовиться": "The channel needs a few seconds to prepare",
+    "Готово — теперь можно войти или зарегистрироваться": "Done - now you can sign in or register",
+    "Войти": "Sign in",
+    "Зарегистрироваться": "Register",
+    "Переключаемся на регистрацию": "Switching to registration",
+    "Введите email": "Enter email",
+    "Придумайте пароль": "Create password",
+    "Промокод или реферальный код — необязательно": "Promo or referral code is optional",
+    "Откройте письмо и подтвердите email": "Open email and confirm your account",
+    "Тот же экран — переключаемся на «Войти»": "Same screen - switch to \"Sign in\"",
+    "Введите email аккаунта": "Enter account email",
+    "И пароль": "And password",
+    "Готово — открывается главный экран": "Done - opening main screen",
+    "Вход…": "Signing in…",
+    "Отключено": "Disconnected",
+    "Так выглядит главный экран после входа": "This is the main screen after sign-in",
+    "Нажатие тумблера включает VPN": "Tapping the switch turns VPN on",
+    "Подключение…": "Connecting…",
+    "Подключено": "Connected",
+    "Подключено — трафик идёт через VPN": "Connected - traffic goes through VPN",
+    "Повторное нажатие отключает VPN": "Second tap turns VPN off",
+    "Как на сервере": "As on server",
+    "сервер 1": "server 1",
+    "● Сервер 1": "● Server 1",
+    "○ Сервер 2": "○ Server 2",
+    "○ Сервер 3": "○ Server 3",
+    "Главный экран: тумблер и меню слева": "Main screen: switch and left menu",
+    "Меню слева: DNS и выбор сервера": "Left menu: DNS and server selection",
+    "Меню → DNS: «Как на сервере» или «Свой DNS»": "Menu → DNS: \"As on server\" or \"Custom DNS\"",
+    "Свой DNS: до 3 адресов через запятую": "Custom DNS: up to 3 addresses separated by commas",
+    "Подтверждение: «Использовать свой DNS»": "Confirm: \"Use custom DNS\"",
+    "Применить? Смена DNS после переподключения": "Apply? DNS changes after reconnect",
+    "Свой DNS": "Custom DNS",
+    "Меню → Выбор сервера: Сервер 1 / 2 / 3": "Menu → Server selection: Server 1 / 2 / 3",
+    "○ Сервер 1": "○ Server 1",
+    "● Сервер 2": "● Server 2",
+    "Сервер 2 выбран; примените и переподключите VPN": "Server 2 selected; apply and reconnect VPN",
+    "сервер 2": "server 2",
+    "Главный экран: включаем VPN": "Main screen: turning VPN on",
+    "VPN подключён с новыми параметрами": "VPN connected with new settings",
+    "Выключаем тем же тумблером": "Turn off with the same switch",
+    "ЧС: выбранные мимо VPN": "BL: selected apps bypass VPN",
+    "Меню слева → «Исключения»": "Left menu → \"Exclusions\"",
+    "Открываем исключения": "Opening exclusions",
+    "Приложения: режим ЧС или БС": "Apps: BL or WL mode",
+    "БС: только выбранные через VPN": "WL: only selected apps use VPN",
+    "«Выделить все» отмечает сразу весь список приложений": "\"Select all\" marks the full app list",
+    "Снимаем галку — все приложения снова без отметки": "Uncheck to clear all app marks again",
+    "Дальше можно отметить приложения по одному": "Then mark apps one by one",
+    "Переключаемся на вкладку «Сайты»": "Switching to \"Websites\" tab",
+    "Здесь добавляются домены и IP, которые идут мимо VPN": "Add domains and IPs here that bypass VPN",
+    "Меню слева → «Подписка»": "Left menu → \"Subscription\"",
+    "Открываем раздел подписки": "Opening subscription section",
+    "Выбираем тариф": "Choose a plan",
+    "Ждём подтверждения оплаты": "Waiting for payment confirmation",
+    "Оплата прошла успешно": "Payment successful",
+    "Введите код": "Enter code",
+    "Меню слева → «Бонусы» — рефералка и промокоды": "Left menu → \"Bonuses\" - referrals and promo codes",
+    "Открываем бонусную программу": "Opening bonus program",
+    "Копируем ссылку и отправляем другу": "Copy link and send to a friend",
+    "Или проверяем промокод": "Or check promo code",
+    "Скидка применена к тарифу": "Discount applied to plan",
+    "VPN онлайн: 1 из 2": "VPN online: 1 of 2",
+    "Сессия — вход с устройства. До 3 одновременно": "Session is a device sign-in. Up to 3 simultaneously",
+    "Меню слева → «Сессии»": "Left menu → \"Sessions\"",
+    "Зелёная точка — VPN онлайн на этом устройстве": "Green dot means VPN is online on this device",
+    "Можно подписать устройство — чтобы не перепутать": "You can label device to avoid confusion",
+    "Телефон": "Phone",
+    "Лишнюю сессию можно удалить крестиком": "Extra session can be removed with cross icon",
+  };
+
+  function isEn() {
+    return localStorage.getItem("silent_site_lang") === "en";
+  }
+
+  function tr(text) {
+    if (!isEn()) return text;
+    return ANIM_EN[text] || text;
+  }
+
+  function readyCountdownText(sec) {
+    return isEn()
+      ? `Channel ready. ${Math.floor(sec / 60)}:${String(sec % 60).padStart(2, "0")} left - sign in or register`
+      : `Канал готов. Осталось ${Math.floor(sec / 60)}:${String(sec % 60).padStart(2, "0")} — войдите или зарегистрируйтесь`;
+  }
 
   function setHash(view) {
     const next = view === "guide"
@@ -197,7 +286,7 @@
   function setCaption(node, text) {
     if (!node) return;
     const label = node.querySelector("[data-caption-text]");
-    if (label) label.textContent = text;
+    if (label) label.textContent = tr(text);
     node.classList.add("is-on");
   }
 
@@ -220,7 +309,7 @@
   }
 
   function setBoot(el, mode, text) {
-    el.textContent = text;
+    el.textContent = tr(text);
     el.classList.toggle("is-ready", mode === "ready");
     el.classList.toggle("is-wait", mode === "wait");
   }
@@ -255,12 +344,12 @@
       pass.style.color = "#9CA3AF";
     }
     if (promo) {
-      promo.textContent = "Необязательно";
+      promo.textContent = tr("Необязательно");
       promo.style.color = "#9CA3AF";
     }
     if (btn) {
       btn.classList.add("is-wait");
-      btn.textContent = "Ожидание канала…";
+      btn.textContent = tr("Ожидание канала…");
     }
   }
 
@@ -270,7 +359,7 @@
     const btn = stage.querySelector("[data-btn=submit]");
     setBoot(boot, "wait", "Подключение… подождите");
     btn.classList.add("is-wait");
-    btn.textContent = "Ожидание канала…";
+    btn.textContent = tr("Ожидание канала…");
     setCaption(caption, "Каналу нужно пару секунд, чтобы подготовиться");
     await sleep(1600);
     if (stopSignal.stopped) return false;
@@ -279,7 +368,7 @@
     setBoot(
       boot,
       "ready",
-      `Канал готов. Осталось ${Math.floor(sec / 60)}:${String(sec % 60).padStart(2, "0")} — войдите или зарегистрируйтесь`
+      readyCountdownText(sec)
     );
     setCaption(caption, "Готово — теперь можно войти или зарегистрироваться");
     btn.classList.remove("is-wait");
@@ -291,7 +380,7 @@
       setBoot(
         boot,
         "ready",
-        `Канал готов. Осталось ${Math.floor(sec / 60)}:${String(sec % 60).padStart(2, "0")} — войдите или зарегистрируйтесь`
+        readyCountdownText(sec)
       );
     }
     return true;
@@ -316,14 +405,14 @@
       const ok = await playBootstrapReady(stage, stopSignal, caption);
       if (!ok || stopSignal.stopped) break;
 
-      btn.textContent = "Войти";
+      btn.textContent = tr("Войти");
       await clickEl(cursor, tabReg, stage);
       tabReg.classList.add("is-active");
       stage.querySelector('[data-tab="login"]')?.classList.remove("is-active");
       if (promo) promo.hidden = false;
       const forgot = stage.querySelector("[data-forgot]");
       if (forgot) forgot.hidden = true;
-      btn.textContent = "Зарегистрироваться";
+      btn.textContent = tr("Зарегистрироваться");
       setCaption(caption, "Переключаемся на регистрацию");
       await sleep(650);
       if (stopSignal.stopped) break;
@@ -371,10 +460,10 @@
       setBoot(
         boot,
         "ready",
-        "Канал готов. Осталось 1:42 — войдите или зарегистрируйтесь"
+        readyCountdownText(102)
       );
       btn.classList.remove("is-wait");
-      btn.textContent = "Войти";
+      btn.textContent = tr("Войти");
       setCaption(caption, "Тот же экран — переключаемся на «Войти»");
       await sleep(1100);
       if (stopSignal.stopped) break;
@@ -393,7 +482,7 @@
 
       await clickEl(cursor, btn, stage);
       setCaption(caption, "Готово — открывается главный экран");
-      btn.textContent = "Вход…";
+      btn.textContent = tr("Вход…");
       await sleep(2200);
       if (stopSignal.stopped) break;
     }
@@ -409,7 +498,7 @@
     while (!stopSignal.stopped) {
       toggle.classList.remove("is-on", "is-connecting");
       status.classList.remove("is-on");
-      status.textContent = "Отключено";
+      status.textContent = tr("Отключено");
       setCaption(caption, "Так выглядит главный экран после входа");
       cursor.classList.add("is-on");
       const p = centerOf(toggle, stage);
@@ -422,14 +511,14 @@
       await sleep(350);
       cursor.classList.add("is-click");
       toggle.classList.add("is-connecting");
-      status.textContent = "Подключение…";
+      status.textContent = tr("Подключение…");
       await sleep(220);
       cursor.classList.remove("is-click");
       await sleep(1300);
       toggle.classList.remove("is-connecting");
       toggle.classList.add("is-on");
       status.classList.add("is-on");
-      status.textContent = "Подключено";
+      status.textContent = tr("Подключено");
       setCaption(caption, "Подключено — трафик идёт через VPN");
       await sleep(1800);
       if (stopSignal.stopped) break;
@@ -438,7 +527,7 @@
       await clickEl(cursor, toggle, stage);
       toggle.classList.remove("is-on");
       status.classList.remove("is-on");
-      status.textContent = "Отключено";
+      status.textContent = tr("Отключено");
       await sleep(1200);
     }
   }
@@ -486,14 +575,14 @@
       if (server) server.hidden = true;
       setDnsRadio(false);
       if (dnsDialog) dnsDialog.hidden = true;
-      if (menuDnsLabel) menuDnsLabel.textContent = "Как на сервере";
-      if (menuServerLabel) menuServerLabel.textContent = "сервер 1";
-      server1.textContent = "● Сервер 1";
-      server2.textContent = "○ Сервер 2";
-      server3.textContent = "○ Сервер 3";
+      if (menuDnsLabel) menuDnsLabel.textContent = tr("Как на сервере");
+      if (menuServerLabel) menuServerLabel.textContent = tr("сервер 1");
+      server1.textContent = tr("● Сервер 1");
+      server2.textContent = tr("○ Сервер 2");
+      server3.textContent = tr("○ Сервер 3");
       toggle.classList.remove("is-on", "is-connecting");
       status.classList.remove("is-on");
-      status.textContent = "Отключено";
+      status.textContent = tr("Отключено");
       setCaption(caption, "Главный экран: тумблер и меню слева");
       cursor.classList.add("is-on");
       const p = centerOf(toggle, stage);
@@ -539,7 +628,7 @@
       if (main) main.hidden = false;
       if (menu) menu.hidden = false;
       if (dim) dim.hidden = false;
-      if (menuDnsLabel) menuDnsLabel.textContent = "Свой DNS";
+      if (menuDnsLabel) menuDnsLabel.textContent = tr("Свой DNS");
       setCaption(caption, "Меню → Выбор сервера: Сервер 1 / 2 / 3");
       await clickEl(cursor, openServer, stage);
       if (menu) menu.hidden = true;
@@ -550,9 +639,9 @@
       if (stopSignal.stopped) break;
 
       await clickEl(cursor, server2, stage);
-      server1.textContent = "○ Сервер 1";
-      server2.textContent = "● Сервер 2";
-      server3.textContent = "○ Сервер 3";
+      server1.textContent = tr("○ Сервер 1");
+      server2.textContent = tr("● Сервер 2");
+      server3.textContent = tr("○ Сервер 3");
       setCaption(caption, "Сервер 2 выбран; примените и переподключите VPN");
       await sleep(1400);
       if (stopSignal.stopped) break;
@@ -561,7 +650,7 @@
       if (main) main.hidden = false;
       if (menu) menu.hidden = false;
       if (dim) dim.hidden = false;
-      if (menuServerLabel) menuServerLabel.textContent = "сервер 2";
+      if (menuServerLabel) menuServerLabel.textContent = tr("сервер 2");
       await sleep(450);
       if (stopSignal.stopped) break;
 
@@ -577,14 +666,14 @@
       await sleep(250);
       cursor.classList.add("is-click");
       toggle.classList.add("is-connecting");
-      status.textContent = "Подключение…";
+      status.textContent = tr("Подключение…");
       await sleep(220);
       cursor.classList.remove("is-click");
       await sleep(1200);
       toggle.classList.remove("is-connecting");
       toggle.classList.add("is-on");
       status.classList.add("is-on");
-      status.textContent = "Подключено";
+      status.textContent = tr("Подключено");
       setCaption(caption, "VPN подключён с новыми параметрами");
       await sleep(1200);
       if (stopSignal.stopped) break;
@@ -593,7 +682,7 @@
       await clickEl(cursor, toggle, stage);
       toggle.classList.remove("is-on");
       status.classList.remove("is-on");
-      status.textContent = "Отключено";
+      status.textContent = tr("Отключено");
       await sleep(1300);
     }
   }
@@ -626,7 +715,7 @@
       tabSites.classList.remove("is-active");
       modeBlack.classList.add("is-active");
       modeWhite.classList.remove("is-active");
-      if (hint) hint.textContent = "ЧС: выбранные мимо VPN";
+      if (hint) hint.textContent = tr("ЧС: выбранные мимо VPN");
       selectAll.querySelector(".demo-check")?.classList.remove("is-on");
       items.forEach((it) => {
         it.querySelector(".demo-check")?.classList.remove("is-on");
@@ -652,14 +741,14 @@
       await clickEl(cursor, modeWhite, stage);
       modeBlack.classList.remove("is-active");
       modeWhite.classList.add("is-active");
-      if (hint) hint.textContent = "БС: только выбранные через VPN";
+      if (hint) hint.textContent = tr("БС: только выбранные через VPN");
       await sleep(700);
       if (stopSignal.stopped) break;
 
       await clickEl(cursor, modeBlack, stage);
       modeBlack.classList.add("is-active");
       modeWhite.classList.remove("is-active");
-      if (hint) hint.textContent = "ЧС: выбранные мимо VPN";
+      if (hint) hint.textContent = tr("ЧС: выбранные мимо VPN");
       await sleep(700);
       if (stopSignal.stopped) break;
 
@@ -768,7 +857,7 @@
       if (copyMsg) copyMsg.hidden = true;
       if (promoMsg) promoMsg.hidden = true;
       if (promoField) {
-        promoField.textContent = "Введите код";
+        promoField.textContent = tr("Введите код");
         promoField.style.color = "#9CA3AF";
       }
       setCaption(caption, "Меню слева → «Бонусы» — рефералка и промокоды");
@@ -825,7 +914,7 @@
         customLabel.hidden = true;
         customLabel.textContent = "";
       }
-      if (sub) sub.textContent = "VPN онлайн: 1 из 2";
+      if (sub) sub.textContent = tr("VPN онлайн: 1 из 2");
       setCaption(caption, "Сессия — вход с устройства. До 3 одновременно");
       cursor.classList.add("is-on");
       moveCursor(cursor, 48, 70);
@@ -850,7 +939,7 @@
       await clickEl(cursor, renameBtn, stage);
       if (customLabel) {
         customLabel.hidden = false;
-        customLabel.textContent = "Телефон";
+        customLabel.textContent = tr("Телефон");
       }
       await sleep(1400);
       if (stopSignal.stopped) break;

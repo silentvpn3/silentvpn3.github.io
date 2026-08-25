@@ -1680,7 +1680,7 @@
     </footer>
   </div>
 
-  <script src="guide.js?v=15"></script>
+  <script src="guide.js?v=16"></script>
   <script>
     const API_BASE = "https://132-243-234-162.nip.io";
     const GITHUB_REPO = "silentvpn3/silentvpn3.github.io";
@@ -2221,6 +2221,23 @@
         "— это устройство, с которого вы вошли в аккаунт. Одновременно VPN могут держать до": "- this is a device where you signed in. At once VPN can keep up to",
         "устройств.": "devices.",
         "Сессии (2/3)": "Sessions (2/3)",
+        "меню → «Подписка» → выберите тариф. Оплата откроется в браузере (YuMoney). После оплаты вернитесь в приложение — статус обновится сам.": "menu → \"Subscription\" → choose a plan. Payment opens in browser (YuMoney). After payment return to app - status updates automatically.",
+        "1 месяц": "1 month",
+        "2 месяца": "2 months",
+        "3 месяца": "3 months",
+        "После оплаты вернитесь в страницу YuMoney и нажмите": "After payment return to YuMoney page and tap",
+        "«Вернуться в магазин»": "\"Back to store\"",
+        "(или": "(or",
+        "«Перейти в приложение»": "\"Open app\"",
+        ") — в клиенте появится сообщение «Оплата прошла успешно».": ") - client shows \"Payment successful\".",
+        "* Подробные условия по платежам и использованию сервиса указаны в": "* Detailed payment and service terms are described in",
+        "Пользовательском соглашении": "User Agreement",
+        "** Условия конфиденциальности и обработки данных:": "** Privacy and data processing terms:",
+        "и": "and",
+        "Рефералка": "Referral",
+        "— друг регистрируется по вашей ссылке и оплачивает подписку: оба получаете +30 дней": "- your friend registers via your link and pays subscription: both get +30 days",
+        "Промокод": "Promo code",
+        "— скидка или доп. дни к тарифу; можно ввести при регистрации или проверить здесь": "- discount or extra days for the plan; can be entered at registration or checked here",
       };
 
       const normalize = (s) => String(s || "").replace(/\s+/g, " ").trim();
@@ -2244,28 +2261,31 @@
       }
       ensureGlobalSwitches();
 
-      const textNodes = [];
       const originals = new WeakMap();
-      const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
-        acceptNode(node) {
-          const parent = node.parentElement;
-          if (!parent) return NodeFilter.FILTER_REJECT;
-          if (parent.closest("script,style,svg,path")) return NodeFilter.FILTER_REJECT;
-          if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
-          return NodeFilter.FILTER_ACCEPT;
-        },
-      });
-      while (walker.nextNode()) {
-        const node = walker.currentNode;
-        textNodes.push(node);
-        originals.set(node, node.nodeValue);
+      function collectTextNodes() {
+        const list = [];
+        const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+          acceptNode(node) {
+            const parent = node.parentElement;
+            if (!parent) return NodeFilter.FILTER_REJECT;
+            if (parent.closest("script,style,svg,path")) return NodeFilter.FILTER_REJECT;
+            if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+            return NodeFilter.FILTER_ACCEPT;
+          },
+        });
+        while (walker.nextNode()) {
+          list.push(walker.currentNode);
+        }
+        return list;
       }
 
       function applyLanguage(lang) {
         document.documentElement.lang = lang === "en" ? "en" : "ru";
         document.title = lang === "en" ? "Silent VPN — download" : "Silent VPN — скачать";
 
+        const textNodes = collectTextNodes();
         textNodes.forEach((node) => {
+          if (!originals.has(node)) originals.set(node, node.nodeValue);
           const ruText = originals.get(node) || node.nodeValue;
           if (lang !== "en") {
             node.nodeValue = ruText;
@@ -2283,6 +2303,64 @@
         if (guideTitle) {
           guideTitle.innerHTML = lang === "en" ? "Quick start <br>with Silent VPN" : "Быстрый старт <br>с Silent VPN";
         }
+
+        // Explicitly sync split text fragments used in guide/payment/bonuses blocks.
+        const setHtml = (selector, ruHtml, enHtml) => {
+          const el = document.querySelector(selector);
+          if (el) el.innerHTML = lang === "en" ? enHtml : ruHtml;
+        };
+        const setText = (selector, ruText, enText) => {
+          const el = document.querySelector(selector);
+          if (el) el.textContent = lang === "en" ? enText : ruText;
+        };
+
+        setHtml(
+          "#view-guide #g-excl .guide-bullets li:nth-child(4)",
+          "<strong>Выделить все</strong> — быстро отметить весь видимый список приложений",
+          "<strong>Select all</strong> - quickly mark the full visible app list"
+        );
+        setText("#view-guide .toc-chip[data-jump='g-excl']", "Исключения", "Exclusions");
+
+        setHtml(
+          "#view-payment .guide-section-text p",
+          "<strong>Как оформить:</strong> меню → «Подписка» → выберите тариф. Оплата откроется в браузере (YuMoney). После оплаты вернитесь в приложение — статус обновится сам.",
+          "<strong>How to activate:</strong> menu → \"Subscription\" → choose a plan. Payment opens in browser (YuMoney). After payment, return to the app - status updates automatically."
+        );
+        setHtml(
+          "#view-payment .guide-bullets li:nth-child(1)",
+          "<strong>1 месяц</strong> — 199 ₽ · <strong>2 месяца</strong> — 359 ₽ (<strong>-10%</strong>) · <strong>3 месяца</strong> — 478 ₽ (<strong>-20%</strong>)",
+          "<strong>1 month</strong> - 199 RUB · <strong>2 months</strong> - 359 RUB (<strong>-10%</strong>) · <strong>3 months</strong> - 478 RUB (<strong>-20%</strong>)"
+        );
+        setHtml(
+          "#view-payment .guide-bullets li:nth-child(3)",
+          "После оплаты вернитесь в страницу YuMoney и нажмите <strong>«Вернуться в магазин»</strong> (или <strong>«Перейти в приложение»</strong>) — в клиенте появится сообщение «Оплата прошла успешно».",
+          "After payment, return to the YuMoney page and tap <strong>\"Back to store\"</strong> (or <strong>\"Open app\"</strong>) - the client will show \"Payment successful\"."
+        );
+        setHtml(
+          "#view-payment .legal-note",
+          "* Подробные условия по платежам и использованию сервиса указаны в <a href=\"#terms\" data-open-terms>Пользовательском соглашении</a>.<br />\n          ** Условия конфиденциальности и обработки данных: <a href=\"#privacy\" data-open-privacy>Политика конфиденциальности</a> и <a href=\"#pdn\" data-open-pdn>Согласие на обработку персональных данных</a>.",
+          "* Detailed payment and service usage terms are described in the <a href=\"#terms\" data-open-terms>User Agreement</a>.<br />\n          ** Privacy and data processing terms: <a href=\"#privacy\" data-open-privacy>Privacy Policy</a> and <a href=\"#pdn\" data-open-pdn>Consent to Personal Data Processing</a>."
+        );
+
+        setHtml(
+          "#view-bonuses .guide-bullets li:nth-child(1)",
+          "<strong>Рефералка</strong> — друг регистрируется по вашей ссылке и оплачивает подписку: оба получаете +30 дней",
+          "<strong>Referral</strong> - your friend registers via your link and pays for subscription: both get +30 days"
+        );
+        setHtml(
+          "#view-bonuses .guide-bullets li:nth-child(3)",
+          "<strong>Промокод</strong> — скидка или доп. дни к тарифу; можно ввести при регистрации или проверить здесь",
+          "<strong>Promo code</strong> - discount or extra days for the plan; can be entered at registration or checked here"
+        );
+
+        document.querySelectorAll(".demo-drawer-item").forEach((item) => {
+          const txt = item.textContent?.trim() || "";
+          const first = item.firstChild;
+          if (!first || first.nodeType !== Node.TEXT_NODE) return;
+          if (txt.startsWith("Исключения")) {
+            first.nodeValue = lang === "en" ? "Exclusions " : "Исключения ";
+          }
+        });
 
         document.querySelectorAll("[data-global-lang]").forEach((btn) => {
           btn.classList.toggle("is-active", btn.getAttribute("data-global-lang") === lang);
