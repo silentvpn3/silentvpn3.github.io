@@ -2,15 +2,16 @@
   const homeView = document.getElementById("view-home");
   const guideView = document.getElementById("view-guide");
   const paymentView = document.getElementById("view-payment");
-  if (!homeView || !guideView || !paymentView) return;
-  const viewMap = { home: homeView, guide: guideView, payment: paymentView };
+  const bonusesView = document.getElementById("view-bonuses");
+  if (!homeView || !guideView || !paymentView || !bonusesView) return;
+  const viewMap = { home: homeView, guide: guideView, payment: paymentView, bonuses: bonusesView };
 
   const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   let switching = false;
   const demoControllers = new Map();
 
   function setHash(view) {
-    const next = view === "guide" ? "#guide" : view === "payment" ? "#payment" : "#";
+    const next = view === "guide" ? "#guide" : view === "payment" ? "#payment" : view === "bonuses" ? "#bonuses" : "#";
     if (location.hash !== next && !(view === "home" && (!location.hash || location.hash === "#"))) {
       history.replaceState(null, "", next === "#" ? location.pathname + location.search : next);
     }
@@ -36,7 +37,7 @@
     target.classList.add("is-entering");
     window.scrollTo({ top: 0, behavior: prefersReduced ? "auto" : "smooth" });
     if (push) setHash(viewName);
-    if (viewName === "guide" || viewName === "payment") startVisibleDemos();
+    if (viewName === "guide" || viewName === "payment" || viewName === "bonuses") startVisibleDemos();
     await new Promise((r) => setTimeout(r, prefersReduced ? 0 : 420));
     target.classList.remove("is-entering");
     switching = false;
@@ -44,7 +45,7 @@
 
   function routeFromHash() {
     const h = (location.hash || "").replace(/^#/, "");
-    showView(h === "guide" || h === "payment" ? h : "home", { push: false });
+    showView(h === "guide" || h === "payment" || h === "bonuses" ? h : "home", { push: false });
   }
 
   document.querySelectorAll("[data-open-guide]").forEach((el) => {
@@ -65,7 +66,24 @@
       showView("payment");
     });
   });
+  document.querySelectorAll("[data-open-bonuses-page]").forEach((el) => {
+    el.addEventListener("click", (e) => {
+      e.preventDefault();
+      showView("bonuses");
+    });
+  });
   window.addEventListener("hashchange", routeFromHash);
+
+  function reorderGuideSections() {
+    const order = ["g-register", "g-login", "g-excl", "g-server", "g-connect", "g-sessions"];
+    const anchor = guideView.querySelector(".guide-footer-cta");
+    if (!anchor) return;
+    order.forEach((id) => {
+      const section = document.getElementById(id);
+      if (section) guideView.insertBefore(section, anchor);
+    });
+  }
+  reorderGuideSections();
 
   const toc = document.querySelectorAll(".toc-chip");
   const sections = [...document.querySelectorAll(".guide-section[id]")];
@@ -849,12 +867,14 @@
   }
 
   const initialHash = (location.hash || "").replace(/^#/, "");
-  if (initialHash === "guide" || initialHash === "payment") {
+  if (initialHash === "guide" || initialHash === "payment" || initialHash === "bonuses") {
     homeView.hidden = true;
     guideView.hidden = initialHash !== "guide";
     paymentView.hidden = initialHash !== "payment";
+    bonusesView.hidden = initialHash !== "bonuses";
     startVisibleDemos();
   } else {
+    bonusesView.hidden = true;
     paymentView.hidden = true;
     guideView.hidden = true;
     homeView.hidden = false;
