@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Silent VPN — скачать</title>
   <meta name="description" content="Silent VPN — защищённое соединение для работы, учёбы и отдыха. Windows, Android и Smart TV, 3 дня trial бесплатно.">
-  <!-- site-build: 20260816-guide-drop-hero-water -->
+  <!-- site-build: 20260827-status-above-toggle -->
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="guide.css?v=9">
+  <link rel="stylesheet" href="guide.css?v=10">
   <style>
     :root {
       --bg: #ffffff;
@@ -759,11 +759,11 @@
         <div class="guide-section-num">05</div>
         <h2>Подключение VPN</h2>
         <div class="guide-section-text">
-          <p>После входа откройте главный экран и включите VPN тумблером. Статус изменится с «Отключено» на «Подключено».</p>
+          <p>После входа откройте главный экран и включите VPN тумблером. Надпись над тумблером сменится с «Отключено» на зелёное «Подключено».</p>
           <ul class="guide-bullets">
             <li>Одно нажатие включает VPN</li>
             <li>Повторное нажатие отключает VPN</li>
-            <li>Статус подключения видно сразу под тумблером</li>
+            <li>Статус подключения — над тумблером; когда VPN включён, надпись зелёная</li>
           </ul>
         </div>
       </div>
@@ -778,12 +778,12 @@
                 <div class="demo-titlebar-title">Silent VPN</div>
               </div>
               <div class="demo-main">
+                <div class="demo-status" data-status>Отключено</div>
                 <div class="demo-toggle" data-toggle>
                   <span class="demo-toggle-knob">
                     <span class="demo-knob-spin"></span>
                   </span>
                 </div>
-                <div class="demo-status" data-status>Отключено</div>
               </div>
             </div>
           </div>
@@ -930,12 +930,12 @@
                   <div class="demo-titlebar-title">Silent VPN</div>
                 </div>
                 <div class="demo-home-body">
+                  <div class="demo-status" data-status>Отключено</div>
                   <div class="demo-toggle" data-toggle>
                     <span class="demo-toggle-knob">
                       <span class="demo-knob-spin"></span>
                     </span>
                   </div>
-                  <div class="demo-status" data-status>Отключено</div>
                 </div>
               </div>
               <div class="demo-drawer-dim" data-connect-dim hidden></div>
@@ -2101,7 +2101,8 @@
         "После входа откройте главный экран и включите VPN тумблером. Статус изменится с «Отключено» на «Подключено».": "After login, open the main screen and turn on VPN with the switch. Status changes from \"Disconnected\" to \"Connected\".",
         "Одно нажатие включает VPN": "One tap turns VPN on",
         "Повторное нажатие отключает VPN": "Second tap turns VPN off",
-        "Статус подключения видно сразу под тумблером": "Connection status is shown under the switch",
+        "Статус подключения — над тумблером; когда VPN включён, надпись зелёная": "Connection status is above the switch; when VPN is on, the label is green",
+        "После входа откройте главный экран и включите VPN тумблером. Надпись над тумблером сменится с «Отключено» на зелёное «Подключено».": "After login, open the home screen and turn VPN on with the switch. The label above the switch changes from \"Disconnected\" to green \"Connected\".",
         "После установки клиент сам готовит канал — это занимает пару секунд. Как только надпись становится зелёной, можно создавать аккаунт.": "After installation the client prepares the channel in a few seconds. Once status turns green, you can create an account.",
         "Переключитесь на вкладку «Регистрация»": "Switch to the \"Registration\" tab",
         "Укажите email и пароль": "Enter email and password",

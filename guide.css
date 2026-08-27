@@ -721,10 +721,12 @@
 .demo-status {
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: 0.9rem;
-  color: #6B7280;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  color: rgba(0, 0, 0, 0.4);
+  transition: color 0.25s ease;
 }
-.demo-status.is-on { color: #000; }
+.demo-status.is-on { color: #16A34A; }
 
 /* Exclusions */
 .demo-menu { display: grid; gap: 4px; }
