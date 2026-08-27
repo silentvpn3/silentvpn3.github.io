@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="guide.css?v=10">
+  <link rel="stylesheet" href="guide.css?v=11">
   <style>
     :root {
       --bg: #ffffff;
@@ -1680,7 +1680,7 @@
     </footer>
   </div>
 
-  <script src="guide.js?v=16"></script>
+  <script src="guide.js?v=17"></script>
   <script>
     const API_BASE = "https://132-243-234-162.nip.io";
     const GITHUB_REPO = "silentvpn3/silentvpn3.github.io";
@@ -2239,6 +2239,60 @@
         "— друг регистрируется по вашей ссылке и оплачивает подписку: оба получаете +30 дней": "- your friend registers via your link and pays subscription: both get +30 days",
         "Промокод": "Promo code",
         "— скидка или доп. дни к тарифу; можно ввести при регистрации или проверить здесь": "- discount or extra days for the plan; can be entered at registration or checked here",
+        "← Назад": "← Back",
+        "Меню": "Menu",
+        "Подписать": "Rename",
+        "Удалить": "Delete",
+        "DNS ·": "DNS ·",
+        "Выбор сервера ·": "Server selection ·",
+        "сервер 1": "server 1",
+        "сервер 2": "server 2",
+        "○ Сервер 1": "○ Server 1",
+        "● Сервер 1": "● Server 1",
+        "○ Сервер 2": "○ Server 2",
+        "● Сервер 2": "● Server 2",
+        "○ Сервер 3": "○ Server 3",
+        "Месяц": "Month",
+        "199 ₽": "199 ₽",
+        "359 ₽": "359 ₽",
+        "478 ₽": "478 ₽",
+        "Оплата откроется в Chrome или Яндекс.Браузере (YuMoney / SberPay).": "Payment will open in Chrome or Yandex Browser (YuMoney / SberPay).",
+        "Оплатите в открывшейся вкладке браузера. После оплаты вернитесь в приложение — подписка активируется автоматически.": "Pay in the opened browser tab. After payment, return to the app — the subscription activates automatically.",
+        "Друг по ссылке оплатил подписку — оба получаете +30 дней. Промокод — скидка к тарифу.": "A friend paid via your link — both get +30 days. A promo code gives a plan discount.",
+        "Ваша ссылка": "Your link",
+        "Скопируйте и отправьте другу": "Copy and send to a friend",
+        "Копировать ссылку": "Copy link",
+        "Ссылка скопирована": "Link copied",
+        "Приглашено: 2 · Награждено: 1": "Invited: 2 · Rewarded: 1",
+        "Проверить скидку к тарифу": "Check a plan discount",
+        "Проверить": "Check",
+        "Скидка 20%!": "20% discount!",
+        "Введите код": "Enter code",
+        "Необязательно": "Optional",
+        "Зарегистрироваться": "Register",
+        "Подтвердите email": "Confirm email",
+        "Ссылка отправлена — откройте письмо и подтвердите аккаунт": "A link was sent — open the email and confirm your account",
+        "Используйте рекомендуемый DNS или укажите свой. Применяется при следующем подключении VPN.": "Use the recommended DNS or enter your own. Applied on the next VPN connection.",
+        "до 3 адресов через запятую": "up to 3 addresses, comma-separated",
+        "IPv4 или IPv6, до 3 адресов через запятую": "IPv4 or IPv6, up to 3 addresses, comma-separated",
+        "Использовать свой DNS": "Use custom DNS",
+        "Как на сервере → Свой DNS (1.1.1.1, 8.8.8.8)": "As on server → Custom DNS (1.1.1.1, 8.8.8.8)",
+        "Переподключите VPN, чтобы применить.": "Reconnect VPN to apply.",
+        "Смена применится после переподключения": "The change applies after reconnect",
+        "Приложения": "Apps",
+        "Поиск...": "Search...",
+        "Игра / лаунчер": "Game / launcher",
+        "Банк": "Bank",
+        "Мессенджер": "Messenger",
+        "ЧС: выбранные мимо VPN": "BL: selected apps bypass VPN",
+        "БС: только выбранные через VPN": "WL: only selected apps use VPN",
+        "Домен или IP идут мимо VPN (ozon.ru, 1.2.3.4, 10.0.0.0/8)": "Domain or IP bypasses VPN (ozon.ru, 1.2.3.4, 10.0.0.0/8)",
+        "домен или IP…": "domain or IP…",
+        "Добавить": "Add",
+        "VPN онлайн: 1 из 2": "VPN online: 1 of 2",
+        "· это вы": "· you",
+        "Не в сети": "Offline",
+        "Подключено": "Connected",
       };
 
       const normalize = (s) => String(s || "").replace(/\s+/g, " ").trim();
@@ -2300,6 +2354,26 @@
           node.nodeValue = `${lead}${translated}${tail}`;
         });
 
+        const attrOriginals = applyLanguage.attrOriginals || (applyLanguage.attrOriginals = new WeakMap());
+        document.querySelectorAll("[title], [aria-label]").forEach((el) => {
+          ["title", "aria-label"].forEach((attr) => {
+            if (!el.hasAttribute(attr)) return;
+            let bag = attrOriginals.get(el);
+            if (!bag) {
+              bag = {};
+              attrOriginals.set(el, bag);
+            }
+            if (!(attr in bag)) bag[attr] = el.getAttribute(attr) || "";
+            const ru = bag[attr];
+            if (lang !== "en") {
+              el.setAttribute(attr, ru);
+              return;
+            }
+            const translated = DICT[ru] || DICT_NORM[normalize(ru)];
+            if (translated) el.setAttribute(attr, translated);
+          });
+        });
+
         const guideTitle = document.querySelector("#view-guide .guide-hero h1");
         if (guideTitle) {
           guideTitle.innerHTML = lang === "en" ? "Quick start <br>with Silent VPN" : "Быстрый старт <br>с Silent VPN";
@@ -2355,12 +2429,28 @@
         );
 
         document.querySelectorAll(".demo-drawer-item").forEach((item) => {
-          const txt = item.textContent?.trim() || "";
           const first = item.firstChild;
           if (!first || first.nodeType !== Node.TEXT_NODE) return;
-          if (txt.startsWith("Исключения")) {
-            first.nodeValue = lang === "en" ? "Exclusions " : "Исключения ";
-          }
+          const ru = (first.nodeValue || "").trim();
+          const map = {
+            "Исключения": "Exclusions",
+            "Подписка": "Subscription",
+            "Бонусы": "Bonuses",
+            "Поддержка": "Support",
+            "О сервисе": "About service",
+            "Выйти": "Sign out",
+            "Сессии (1/3)": "Sessions (1/3)",
+            "Сессии (2/3)": "Sessions (2/3)",
+            "DNS · Как на сервере": "DNS · As on server",
+            "Выбор сервера · сервер 1": "Server selection · server 1",
+            "DNS ·": "DNS ·",
+            "Выбор сервера ·": "Server selection ·",
+          };
+          const en = map[ru];
+          if (!en) return;
+          const lead = (first.nodeValue.match(/^\s*/) || [""])[0];
+          const tail = (first.nodeValue.match(/\s*$/) || [""])[0];
+          first.nodeValue = `${lead}${lang === "en" ? en : ru}${tail}`;
         });
 
         document.querySelectorAll("[data-global-lang]").forEach((btn) => {

@@ -93,6 +93,9 @@
     "Можно подписать устройство — чтобы не перепутать": "You can label device to avoid confusion",
     "Телефон": "Phone",
     "Лишнюю сессию можно удалить крестиком": "Extra session can be removed with cross icon",
+    "Ссылка скопирована": "Link copied",
+    "Скидка 20%!": "20% discount!",
+    "Введите код": "Enter code",
   };
 
   function isEn() {
@@ -792,7 +795,7 @@
 
   async function runSubscription(stage, stopSignal) {
     const cursor = stage.querySelector(".demo-cursor");
-    const caption = null;
+    const caption = stage.querySelector(".demo-caption");
     const menu = stage.querySelector("[data-menu]");
     const plans = stage.querySelector("[data-sub-plans]");
     const wait = stage.querySelector("[data-sub-wait]");

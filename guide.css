@@ -104,7 +104,7 @@
   display: grid;
   grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
   gap: 40px;
-  align-items: center;
+  align-items: start;
   padding: 48px 0;
   border-top: 1px solid var(--line);
 }
@@ -919,6 +919,11 @@
   font-size: 0.68rem;
   color: #6B7280;
   margin: 2px 0 8px;
+  min-height: 1.2em;
+}
+.demo-copy-msg[hidden] {
+  display: block !important;
+  visibility: hidden;
 }
 .demo-stats {
   font-size: 0.65rem;
@@ -1087,4 +1092,19 @@
 
 @media (prefers-reduced-motion: reduce) {
   .demo-cursor::after { animation: none !important; }
+}
+
+#view-bonuses .guide-section,
+#view-payment .guide-section {
+  align-items: start;
+}
+#view-bonuses .demo-stage,
+#view-payment .demo-stage {
+  min-height: 560px;
+}
+#view-bonuses .demo-screen.is-app,
+#view-payment .demo-screen.is-app {
+  height: 420px;
+  min-height: 420px;
+  max-height: 420px;
 }
