@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Приглашение — Silent VPN</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --fg: #000000;
+      --muted: #666666;
+      --font-display: "Instrument Sans", system-ui, sans-serif;
+      --font-body: "Inter", system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--font-body);
+      -webkit-font-smoothing: antialiased;
+    }
+    .wrap {
+      min-height: 100%;
+      display: grid;
+      place-items: center;
+      padding: 32px 20px;
+    }
+    .card { width: min(420px, 100%); text-align: center; }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 28px;
+      text-decoration: none;
+      color: inherit;
+    }
+    .logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: #000;
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 18px;
+    }
+    .brand span { font-family: var(--font-display); font-weight: 600; font-size: 15px; }
+    .kicker {
+      margin-bottom: 8px;
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    h1 {
+      font-family: var(--font-display);
+      font-size: 32px;
+      line-height: 1.15;
+      font-weight: 650;
+      margin-bottom: 12px;
+    }
+    .lead { color: #444; font-size: 15px; line-height: 1.5; margin-bottom: 22px; }
+    .code {
+      font-family: var(--font-display);
+      font-size: 28px;
+      letter-spacing: 0.14em;
+      font-weight: 700;
+      margin-bottom: 22px;
+    }
+    button {
+      width: 100%;
+      border: 0;
+      border-radius: 14px;
+      padding: 14px 18px;
+      background: #000;
+      color: #fff;
+      font: inherit;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    button[hidden] { display: none; }
+    .status { margin-top: 14px; color: var(--muted); font-size: 13px; line-height: 1.45; min-height: 2.8em; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <a class="brand" href="/">
+        <div class="logo" aria-hidden="true">S</div>
+        <span>Silent VPN</span>
+      </a>
+      <p class="kicker">Приглашение</p>
+      <h1>Регистрация в Silent VPN</h1>
+      <p class="lead">Код уже в ссылке. Откройте приложение — он встанет в поле регистрации.</p>
+      <p class="code" id="code">—</p>
+      <button type="button" id="open">Открыть приложение</button>
+      <p class="status" id="status"></p>
+    </div>
+  </div>
+  <script>
+    (function () {
+      var params = new URLSearchParams(location.search);
+      var code = (params.get("code") || params.get("ref") || "").trim().toUpperCase();
+      var label = document.getElementById("code");
+      var status = document.getElementById("status");
+      var btn = document.getElementById("open");
+      if (!/^[A-Z0-9]{4,32}$/.test(code)) {
+        status.textContent = "В ссылке нет кода приглашения.";
+        btn.hidden = true;
+        return;
+      }
+      label.textContent = code;
+      var appUrl = "silentvpn://ref?code=" + encodeURIComponent(code);
+      var intentUrl = "intent://ref?code=" + encodeURIComponent(code) +
+        "#Intent;scheme=silentvpn;package=com.silent.vpn;end";
+      var android = /Android/i.test(navigator.userAgent);
+      var hive = "https://89-125-188-100.nip.io";
+      var cells = [
+        "http://87.58.213.193:9100",
+        "http://78.17.74.27:9100"
+      ];
+      function openApp() {
+        location.href = android ? intentUrl : appUrl;
+      }
+      btn.addEventListener("click", openApp);
+      function probe(base) {
+        var ctrl = new AbortController();
+        var timer = setTimeout(function () { ctrl.abort(); }, 4000);
+        return fetch(base + "/api/health", { cache: "no-store", signal: ctrl.signal })
+          .then(function (r) { return r.ok; })
+          .catch(function () { return false; })
+          .finally(function () { clearTimeout(timer); });
+      }
+      function hop(index) {
+        if (index >= cells.length) {
+          status.textContent = "Соты не ответили. Нажмите кнопку — код откроется в приложении.";
+          return;
+        }
+        status.textContent = "Улей недоступен. Открываем через соту " + (index + 1) + "…";
+        var url = cells[index] + "/api/auth/r/" + encodeURIComponent(code);
+        var moved = false;
+        function left() { moved = true; }
+        window.addEventListener("pagehide", left);
+        setTimeout(function () {
+          window.removeEventListener("pagehide", left);
+          if (!moved) hop(index + 1);
+        }, 5000);
+        location.href = url;
+      }
+      status.textContent = "Спрашиваем Улей…";
+      probe(hive).then(function (ok) {
+        if (ok) {
+          status.textContent = "Улей ответил. Открываем приложение…";
+          openApp();
+          return;
+        }
+        hop(0);
+      });
+    })();
+  </script>
+</body>
+</html>
