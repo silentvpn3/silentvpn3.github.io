@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="guide.css?v=12">
+  <link rel="stylesheet" href="guide.css?v=21">
   <style>
     :root {
       --bg: #ffffff;
@@ -712,6 +712,24 @@
             <svg viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
           </span>
         </a>
+
+        <a class="dl-card" id="macGuide" href="#mac" data-open-mac>
+          <div class="dl-top">
+            <div class="dl-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+            </div>
+            <span class="version-badge" id="macVersion" data-version="1.0.168">v1.0.168</span>
+          </div>
+          <div>
+            <div class="dl-title">Mac</div>
+            <p class="dl-meta" id="macMeta">Intel и Apple Silicon</p>
+          </div>
+          <span class="dl-action">
+            Как установить
+            <svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+          </span>
+        </a>
+
       </section>
 
       <section class="telegram-block" aria-label="Telegram-канал">
@@ -759,6 +777,7 @@
     <footer>
       <span>© 2026 Silent VPN</span>
       <div style="display:flex;gap:16px;flex-wrap:wrap">
+        <a href="#mac" data-open-mac>Mac</a>
         <a href="#guide" data-open-guide>Инструкция</a>
         <a href="#payment" data-open-payment>Оплата</a>
         <a href="#bonuses" data-open-bonuses-page>Бонусы</a>
@@ -767,6 +786,110 @@
         <a href="#privacy" data-open-privacy>Политика конфиденциальности</a>
         <a href="#pdn" data-open-pdn>Обработка персональных данных</a>
       </div>
+    </footer>
+  </div>
+
+  <!-- ========== MAC INSTALL VIEW ========== -->
+  <div class="guide-page view" id="view-mac" hidden>
+    <header style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:8px">
+      <a class="brand" href="#" data-open-home>
+        <div class="logo" aria-hidden="true">S</div>
+        <span class="brand-name">Silent VPN</span>
+      </a>
+      <div class="header-actions">
+        <a class="nav-link" href="#" data-open-home>← На главную</a>
+        <div class="status-pill">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span>Mac</span>
+        </div>
+      </div>
+    </header>
+
+    <section class="guide-hero install-doc">
+      <p class="eyebrow">macOS</p>
+      <h1>Установка на Mac</h1>
+    </section>
+
+    <div class="mac-downloads">
+      <a class="dl-card" id="macX64Download" href="https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.168/Silent.VPN.Setup.1.0.168-x64.dmg" download>
+        <div class="dl-top">
+          <span class="version-badge" id="macX64Version">v1.0.168</span>
+        </div>
+        <div>
+          <div class="dl-title">Intel</div>
+          <p class="dl-meta" id="macX64Meta">Процессоры Intel</p>
+        </div>
+        <span class="dl-action">Скачать x64</span>
+      </a>
+      <a class="dl-card" id="macArmDownload" href="https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.168/Silent.VPN.Setup.1.0.168-arm64.dmg" download>
+        <div class="dl-top">
+          <span class="version-badge" id="macArmVersion">v1.0.168</span>
+        </div>
+        <div>
+          <div class="dl-title">Apple Silicon</div>
+          <p class="dl-meta" id="macArmMeta">M1, M2, M3, M4</p>
+        </div>
+        <span class="dl-action">Скачать arm64</span>
+      </a>
+    </div>
+
+    <div class="mac-stage" aria-hidden="true">
+      <div class="mac-window">
+        <div class="mac-titlebar">
+          <div class="mac-dots"><span></span><span></span><span></span></div>
+          <span class="mac-wtitle">Silent VPN 1.0.168</span>
+        </div>
+        <div class="mac-finder">
+          <div class="mac-slot">
+            <div class="mac-appico">S</div>
+            <span class="mac-label">Silent VPN</span>
+          </div>
+          <svg class="mac-arrow" viewBox="0 0 72 60" aria-hidden="true">
+            <path d="M5 21 H30 V9 L66 30 L30 51 V39 H5 Z" fill="none" stroke="#6a6a6e" stroke-width="2.15" stroke-dasharray="5.2 3.7" stroke-linejoin="miter"/>
+          </svg>
+          <div class="mac-slot">
+            <img class="mac-folder" src="mac-applications-folder.png" alt="" width="104" height="104">
+            <span class="mac-label">Applications</span>
+          </div>
+          <div class="mac-ghost">S</div>
+        </div>
+      </div>
+      <p class="mac-caption mac-cap-1">Откройте DMG и перетащите в Applications</p>
+      <p class="mac-caption mac-cap-2">Один раз введите пароль Mac</p>
+      <p class="mac-caption mac-cap-3">Войдите и включите тумблер</p>
+    </div>
+
+    <div class="install-doc">
+      <section class="install-step">
+        <div class="guide-section-num">01</div>
+        <h2>Выберите сборку</h2>
+        <p>Меню Apple → «Об этом Mac». Если процессор Intel — кнопка x64. Если чип Apple M1, M2, M3 или M4 — кнопка arm64.</p>
+      </section>
+      <section class="install-step">
+        <div class="guide-section-num">02</div>
+        <h2>Перетащите в Applications</h2>
+        <p>Откройте скачанный DMG. Перетащите значок Silent VPN на папку Applications в том же окне.</p>
+      </section>
+      <section class="install-step">
+        <div class="guide-section-num">03</div>
+        <h2>Первый запуск</h2>
+        <p>Откройте Silent VPN из папки Applications. Если macOS пишет, что файл не был открыт, нажмите «Готово» (не в корзину), затем правый клик по значку → «Открыть».</p>
+      </section>
+      <section class="install-step">
+        <div class="guide-section-num">04</div>
+        <h2>Пароль один раз</h2>
+        <p>При первом подключении macOS спросит пароль администратора. Это установка службы VPN. Повторно пароль не спрашивается.</p>
+      </section>
+      <section class="install-step">
+        <div class="guide-section-num">05</div>
+        <h2>Вход и тумблер</h2>
+        <p>Зарегистрируйтесь или войдите. После входа включите тумблер на главном экране — соединение поднимется само.</p>
+      </section>
+    </div>
+
+    <footer style="margin-top:40px;padding-top:24px;border-top:1px solid var(--line);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:0.82rem;color:var(--muted)">
+      <span>© 2026 Silent VPN</span>
+      <a href="#" data-open-home style="color:inherit;text-decoration:none">На главную</a>
     </footer>
   </div>
 
@@ -1728,7 +1851,7 @@
     </footer>
   </div>
 
-  <script src="guide.js?v=17"></script>
+  <script src="guide.js?v=19"></script>
   <script>
     const API_BASE = "https://132-243-234-162.nip.io";
     const GITHUB_REPO = "silentvpn3/silentvpn3.github.io";
@@ -1961,6 +2084,30 @@
         const els = DOWNLOADS[platform];
         applyRelease(platform, data, els.versionEl(), els.metaEl(), els.linkEl());
       }
+      applyMacDownloads(remote);
+    }
+
+    function applyMacDownloads(remote) {
+      const mac = (remote && remote.mac) || INLINE_FALLBACK.mac;
+      if (!mac) return;
+      const arches = mac.arches || {};
+      const slots = [
+        ["x64", "macX64Download", "macX64Version", "macX64Meta", mac],
+        ["arm64", "macArmDownload", "macArmVersion", "macArmMeta", arches.arm64 || null],
+      ];
+      const x64 = arches.x64 || mac;
+      slots[0][4] = x64;
+      for (const [arch, linkId, verId, metaId, data] of slots) {
+        const link = document.getElementById(linkId);
+        const ver = document.getElementById(verId);
+        const meta = document.getElementById(metaId);
+        if (!link || !ver || !meta || !data || !data.download_url) continue;
+        link.href = data.download_url;
+        if (data.version) ver.textContent = `v${data.version}`;
+        if (data.size) meta.textContent = `${arch === "x64" ? "Intel" : "Apple Silicon"} · ${formatSize(data.size)}`;
+      }
+      const badge = document.getElementById("macVersion");
+      if (badge && mac.version) badge.textContent = `v${mac.version}`;
     }
 
     async function refreshRelease(platform, remoteFallback) {
@@ -2101,6 +2248,26 @@
         "Скачать для ПК": "Download for PC",
         "Скачать для Android": "Download for Android",
         "Скачать для Linux": "Download for Linux",
+        "Mac": "Mac",
+        "Intel и Apple Silicon": "Intel and Apple Silicon",
+        "Установка на Mac": "Install on Mac",
+        "Intel": "Intel",
+        "Процессоры Intel": "Intel processors",
+        "Скачать x64": "Download x64",
+        "Apple Silicon": "Apple Silicon",
+        "M1, M2, M3, M4": "M1, M2, M3, M4",
+        "Скачать arm64": "Download arm64",
+        "Выберите сборку": "Pick a build",
+        "Меню Apple → «Об этом Mac». Если процессор Intel — кнопка x64. Если чип Apple M1, M2, M3 или M4 — кнопка arm64.": "Apple menu → About This Mac. Intel processor: the x64 button. Apple M1, M2, M3, or M4: the arm64 button.",
+        "Перетащите в Applications": "Drag into Applications",
+        "Откройте скачанный DMG. Перетащите значок Silent VPN на папку Applications в том же окне.": "Open the downloaded DMG. Drag the Silent VPN icon onto the Applications folder in the same window.",
+        "Откройте DMG и перетащите в Applications": "Open the DMG and drag it into Applications",
+        "Первый запуск": "First launch",
+        "Откройте Silent VPN из папки Applications. Если macOS пишет, что файл не был открыт, нажмите «Готово» (не в корзину), затем правый клик по значку → «Открыть».": "Open Silent VPN from Applications. If macOS says the file was not opened, click Done (do not move it to Trash), then right-click the icon and choose Open.",
+        "Пароль один раз": "Password once",
+        "При первом подключении macOS спросит пароль администратора. Это установка службы VPN. Повторно пароль не спрашивается.": "On the first connection macOS asks for the administrator password. That installs the VPN service. It is not asked again.",
+        "Вход и тумблер": "Sign in and the switch",
+        "Зарегистрируйтесь или войдите. После входа включите тумблер на главном экране — соединение поднимется само.": "Register or sign in. Then turn the switch on the main screen — the connection comes up on its own.",
         "Linux": "Linux",
         "Windows": "Windows",
         "Android": "Android",

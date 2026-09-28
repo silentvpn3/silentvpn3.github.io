@@ -6,7 +6,8 @@
   const termsView = document.getElementById("view-terms");
   const privacyView = document.getElementById("view-privacy");
   const pdnView = document.getElementById("view-pdn");
-  if (!homeView || !guideView || !paymentView || !bonusesView || !termsView || !privacyView || !pdnView) return;
+  const macView = document.getElementById("view-mac");
+  if (!homeView || !guideView || !paymentView || !bonusesView || !termsView || !privacyView || !pdnView || !macView) return;
   const viewMap = {
     home: homeView,
     guide: guideView,
@@ -15,6 +16,7 @@
     terms: termsView,
     privacy: privacyView,
     pdn: pdnView,
+    mac: macView,
   };
 
   const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -126,7 +128,9 @@
               ? "#privacy"
               : view === "pdn"
                 ? "#pdn"
-                : "#";
+                : view === "mac"
+                  ? "#mac"
+                  : "#";
     if (location.hash !== next && !(view === "home" && (!location.hash || location.hash === "#"))) {
       history.replaceState(null, "", next === "#" ? location.pathname + location.search : next);
     }
@@ -160,7 +164,7 @@
 
   function routeFromHash() {
     const h = (location.hash || "").replace(/^#/, "");
-    showView(h === "guide" || h === "payment" || h === "bonuses" || h === "terms" || h === "privacy" || h === "pdn" ? h : "home", { push: false });
+    showView(h === "guide" || h === "payment" || h === "bonuses" || h === "terms" || h === "privacy" || h === "pdn" || h === "mac" ? h : "home", { push: false });
   }
 
   document.querySelectorAll("[data-open-guide]").forEach((el) => {
@@ -197,6 +201,12 @@
     el.addEventListener("click", (e) => {
       e.preventDefault();
       showView("privacy");
+    });
+  });
+  document.querySelectorAll("[data-open-mac]").forEach((el) => {
+    el.addEventListener("click", (e) => {
+      e.preventDefault();
+      showView("mac");
     });
   });
   document.querySelectorAll("[data-open-pdn]").forEach((el) => {
@@ -1000,7 +1010,7 @@
   }
 
   const initialHash = (location.hash || "").replace(/^#/, "");
-  if (initialHash === "guide" || initialHash === "payment" || initialHash === "bonuses" || initialHash === "terms" || initialHash === "privacy" || initialHash === "pdn") {
+  if (initialHash === "guide" || initialHash === "payment" || initialHash === "bonuses" || initialHash === "terms" || initialHash === "privacy" || initialHash === "pdn" || initialHash === "mac") {
     homeView.hidden = true;
     guideView.hidden = initialHash !== "guide";
     paymentView.hidden = initialHash !== "payment";
@@ -1008,6 +1018,7 @@
     termsView.hidden = initialHash !== "terms";
     privacyView.hidden = initialHash !== "privacy";
     pdnView.hidden = initialHash !== "pdn";
+    macView.hidden = initialHash !== "mac";
     startVisibleDemos();
   } else {
     termsView.hidden = true;
@@ -1016,6 +1027,7 @@
     bonusesView.hidden = true;
     paymentView.hidden = true;
     guideView.hidden = true;
+    macView.hidden = true;
     homeView.hidden = false;
   }
 })();
