@@ -80,6 +80,11 @@
     "Меню слева → «Подписка»": "Left menu → \"Subscription\"",
     "Открываем раздел подписки": "Opening subscription section",
     "Выбираем тариф": "Choose a plan",
+    "Подписка активна — можно оплатить заранее": "An active subscription can be prepaid",
+    "Нажимаем «Оплатить заранее»": "Tap Pay in advance",
+    "Выбираем 5 устройств": "Choose 5 devices",
+    "Проверяем перенос остатка и сумму": "Check the carried balance and amount",
+    "Подтверждаем переход в ЮMoney": "Confirm and open YooMoney",
     "Ждём подтверждения оплаты": "Waiting for payment confirmation",
     "Оплата прошла успешно": "Payment successful",
     "Введите код": "Enter code",
@@ -803,23 +808,39 @@
     }
   }
 
+  function setSubscriptionDemoTier(stage, tier) {
+    stage.querySelectorAll("[data-tier]").forEach((item) => {
+      item.classList.toggle("is-active", item.getAttribute("data-tier") === String(tier));
+    });
+    stage.querySelectorAll("[data-price]").forEach((item) => {
+      item.textContent = item.getAttribute(`data-price-${tier}`);
+    });
+  }
+
   async function runSubscription(stage, stopSignal) {
     const cursor = stage.querySelector(".demo-cursor");
     const caption = stage.querySelector(".demo-caption");
-    const menu = stage.querySelector("[data-menu]");
+    const active = stage.querySelector("[data-sub-active]");
     const plans = stage.querySelector("[data-sub-plans]");
+    const confirm = stage.querySelector("[data-sub-confirm]");
     const wait = stage.querySelector("[data-sub-wait]");
     const ok = stage.querySelector("[data-sub-ok]");
     const openBtn = stage.querySelector("[data-open-sub]");
+    const earlyBtn = stage.querySelector("[data-pay-early]");
+    const fiveBtn = stage.querySelector('[data-tier="5"]');
     const planBtn = stage.querySelector('[data-plan="monthly"]');
+    const confirmBtn = stage.querySelector("[data-confirm-payment]");
 
     while (!stopSignal.stopped) {
       setDrawerOpen(stage, true);
+      active.hidden = true;
       plans.hidden = true;
+      confirm.hidden = true;
       wait.hidden = true;
       ok.hidden = true;
       openBtn.classList.remove("is-hot");
       planBtn?.classList.remove("is-press");
+      setSubscriptionDemoTier(stage, 3);
       setCaption(caption, "Меню слева → «Подписка»");
       cursor.classList.add("is-on");
       moveCursor(cursor, 48, 70);
@@ -831,14 +852,36 @@
       setCaption(caption, "Открываем раздел подписки");
       await sleep(350);
       hideDrawerForPage(stage);
+      active.hidden = false;
+      setCaption(caption, "Подписка активна — можно оплатить заранее");
+      await sleep(1500);
+      if (stopSignal.stopped) break;
+
+      setCaption(caption, "Нажимаем «Оплатить заранее»");
+      await clickEl(cursor, earlyBtn, stage);
+      active.hidden = true;
       plans.hidden = false;
       await sleep(700);
+      if (stopSignal.stopped) break;
+
+      setCaption(caption, "Выбираем 5 устройств");
+      await clickEl(cursor, fiveBtn, stage);
+      setSubscriptionDemoTier(stage, 5);
+      await sleep(1000);
       if (stopSignal.stopped) break;
 
       setCaption(caption, "Выбираем тариф");
       await clickEl(cursor, planBtn, stage);
       await sleep(400);
       plans.hidden = true;
+      confirm.hidden = false;
+      setCaption(caption, "Проверяем перенос остатка и сумму");
+      await sleep(2400);
+      if (stopSignal.stopped) break;
+
+      setCaption(caption, "Подтверждаем переход в ЮMoney");
+      await clickEl(cursor, confirmBtn, stage);
+      confirm.hidden = true;
       wait.hidden = false;
       setCaption(caption, "Ждём подтверждения оплаты");
       await sleep(2200);

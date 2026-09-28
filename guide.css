@@ -823,6 +823,53 @@
 }
 
 /* Subscription / bonuses / sessions — same client chrome */
+.payment-prices {
+  width: 100%;
+  margin: 20px 0;
+  border-collapse: collapse;
+  font-size: 0.94rem;
+}
+.payment-prices caption {
+  text-align: left;
+  font-weight: 600;
+  padding-bottom: 10px;
+}
+.payment-prices th,
+.payment-prices td {
+  padding: 10px 8px;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: left;
+}
+.payment-prices thead th { font-weight: 600; }
+.payment-prices tbody th { font-weight: 400; }
+.payment-subtitle { margin: 28px 0 12px; font-size: 1.25rem; }
+.demo-tiers {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+  margin-top: 10px;
+}
+.demo-tier {
+  padding: 8px 4px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 0.65rem;
+  color: #4b5563;
+}
+.demo-tier.is-active { background: #000; color: #fff; border-color: #000; }
+.demo-payment-action {
+  margin-top: 12px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #000;
+  color: #fff;
+  text-align: center;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+.demo-payment-action.is-press { opacity: 0.7; }
+.demo-pay-text + .demo-pay-text { margin-top: 8px; }
 .demo-plans {
   display: grid;
   gap: 8px;
