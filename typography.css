@@ -1,0 +1,16 @@
+/* Shared type roles for the landing, guides, legal pages, and invitation. */
+:root {
+  --font-display: "Instrument Sans", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --type-page: clamp(2.2rem, 8vw, 5.2rem);
+  --type-section: clamp(1.55rem, 3.2vw, 2.1rem);
+  --type-subsection: 1.35rem;
+  --type-lead: 1.05rem;
+  --type-body: 1rem;
+  --type-action: 0.92rem;
+  --type-meta: 0.82rem;
+  --weight-body: 400;
+  --weight-emphasis: 600;
+  --weight-display: 700;
+  --leading-body: 1.65;
+}

@@ -26,8 +26,8 @@
   padding: 8px 14px;
   border: 1px solid var(--line);
   border-radius: 999px;
-  font-size: 0.78rem;
-  font-weight: 600;
+  font-size: var(--type-action);
+  font-weight: var(--weight-emphasis);
   color: var(--fg);
   text-decoration: none;
   background: rgba(255, 255, 255, 0.6);
@@ -57,16 +57,19 @@
 
 .guide-hero {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 18px;
   max-width: 640px;
   padding: 20px 0 40px;
 }
 .guide-hero h1 {
   font-family: var(--font-display);
-  font-size: clamp(2.4rem, 6vw, 4rem);
-  line-height: 0.98;
+  font-size: var(--type-page);
+  line-height: 0.95;
   letter-spacing: -0.045em;
-  font-weight: 700;
+  font-weight: var(--weight-display);
+  hyphens: auto;
+  overflow-wrap: anywhere;
 }
 
 .guide-toc {
@@ -86,8 +89,8 @@
   background: rgba(255, 255, 255, 0.75);
   color: var(--muted);
   font-family: var(--font-body);
-  font-size: 0.78rem;
-  font-weight: 600;
+  font-size: var(--type-action);
+  font-weight: var(--weight-emphasis);
   padding: 8px 14px;
   border-radius: 999px;
   cursor: pointer;
@@ -130,20 +133,29 @@
 }
 .guide-section h2 {
   font-family: var(--font-display);
-  font-size: clamp(1.55rem, 3.2vw, 2.1rem);
+  font-size: var(--type-section);
   letter-spacing: -0.03em;
-  font-weight: 700;
+  font-weight: var(--weight-display);
   line-height: 1.1;
   margin-bottom: 14px;
 }
 .guide-section-text {
-  font-size: 0.98rem;
-  line-height: 1.65;
+  font-size: var(--type-body);
+  line-height: var(--leading-body);
   color: var(--muted);
   display: grid;
   gap: 12px;
+  max-width: 70ch;
 }
-.guide-section-text strong { color: var(--fg); font-weight: 600; }
+.guide-section-text strong { color: var(--fg); font-weight: var(--weight-emphasis); }
+.guide-section-text h3,
+.guide-section-text .payment-subtitle {
+  font-family: var(--font-display);
+  font-size: var(--type-subsection);
+  font-weight: var(--weight-emphasis);
+  line-height: 1.2;
+  color: var(--fg);
+}
 .guide-bullets {
   list-style: none;
   display: grid;
@@ -153,8 +165,8 @@
 .guide-bullets li {
   position: relative;
   padding-left: 22px;
-  font-size: 0.92rem;
-  line-height: 1.5;
+  font-size: var(--type-body);
+  line-height: var(--leading-body);
   color: var(--muted);
 }
 .guide-bullets li::before {
@@ -827,7 +839,7 @@
   width: 100%;
   margin: 20px 0;
   border-collapse: collapse;
-  font-size: 0.94rem;
+  font-size: var(--type-body);
 }
 .payment-prices caption {
   text-align: left;
@@ -842,7 +854,7 @@
 }
 .payment-prices thead th { font-weight: 600; }
 .payment-prices tbody th { font-weight: 400; }
-.payment-subtitle { margin: 28px 0 12px; font-size: 1.25rem; }
+.payment-subtitle { margin: 28px 0 12px; }
 .demo-tiers {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -929,8 +941,8 @@
   margin-top: 6px;
 }
 .guide-alert {
-  font-size: 0.88rem;
-  line-height: 1.5;
+  font-size: var(--type-body);
+  line-height: var(--leading-body);
   color: #4B5563;
   background: rgba(0, 0, 0, 0.03);
   border: 1px solid rgba(0, 0, 0, 0.08);
@@ -1105,16 +1117,17 @@
   gap: 16px;
 }
 .guide-footer-cta p {
-  font-size: 0.95rem;
+  font-size: var(--type-body);
   color: var(--muted);
-  line-height: 1.5;
+  line-height: var(--leading-body);
   max-width: 420px;
 }
 .guide-footer-cta strong {
   display: block;
   color: var(--fg);
   font-family: var(--font-display);
-  font-size: 1.15rem;
+  font-size: var(--type-subsection);
+  font-weight: var(--weight-emphasis);
   margin-bottom: 4px;
   letter-spacing: -0.02em;
 }
@@ -1128,8 +1141,8 @@
   background: #000;
   color: #fff;
   text-decoration: none;
-  font-weight: 600;
-  font-size: 0.88rem;
+  font-weight: var(--weight-emphasis);
+  font-size: var(--type-action);
 }
 .cta-btn.ghost {
   background: #fff;

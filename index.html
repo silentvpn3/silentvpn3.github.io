@@ -10,7 +10,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="guide.css?v=22">
+  <link rel="stylesheet" href="typography.css?v=1">
+  <link rel="stylesheet" href="guide.css?v=23">
   <style>
     :root {
       --bg: #ffffff;
@@ -21,8 +22,6 @@
       --card: rgba(255, 255, 255, 0.72);
       --shadow: 0 24px 80px rgba(0, 0, 0, 0.08);
       --radius: 20px;
-      --font-display: "Instrument Sans", system-ui, sans-serif;
-      --font-body: "Inter", system-ui, sans-serif;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -35,6 +34,7 @@
     body {
       min-height: 100vh;
       font-family: var(--font-body);
+      font-weight: var(--weight-body);
       color: var(--fg);
       background: var(--bg);
       overflow-x: hidden;
@@ -171,10 +171,10 @@
 
     h1 {
       font-family: var(--font-display);
-      font-size: clamp(2.8rem, 8vw, 5.2rem);
+      font-size: var(--type-page);
       line-height: 0.95;
       letter-spacing: -0.045em;
-      font-weight: 700;
+      font-weight: var(--weight-display);
     }
 
     .title-line {
@@ -202,8 +202,8 @@
 
     .hero-desc {
       max-width: 520px;
-      font-size: 1.05rem;
-      line-height: 1.65;
+      font-size: var(--type-lead);
+      line-height: var(--leading-body);
       color: var(--muted);
       animation: fadeUp 0.9s 0.32s cubic-bezier(0.16, 1, 0.3, 1) both;
     }
@@ -352,8 +352,8 @@
 
     .dl-title {
       font-family: var(--font-display);
-      font-size: 1.35rem;
-      font-weight: 600;
+      font-size: var(--type-subsection);
+      font-weight: var(--weight-emphasis);
       letter-spacing: -0.02em;
     }
 
@@ -500,8 +500,8 @@
     }
 
     .feature-text {
-      font-size: 0.86rem;
-      line-height: 1.55;
+      font-size: var(--type-body);
+      line-height: var(--leading-body);
       color: var(--muted);
     }
 

@@ -8,14 +8,13 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="typography.css?v=1">
   <style>
     :root {
       --bg: #ffffff;
       --fg: #000000;
       --muted: #666666;
-      --font-display: "Instrument Sans", system-ui, sans-serif;
-      --font-body: "Inter", system-ui, sans-serif;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { height: 100%; }
@@ -23,6 +22,7 @@
       background: var(--bg);
       color: var(--fg);
       font-family: var(--font-body);
+      font-weight: var(--weight-body);
       -webkit-font-smoothing: antialiased;
     }
     .wrap {
@@ -31,7 +31,7 @@
       place-items: center;
       padding: 32px 20px;
     }
-    .card { width: min(420px, 100%); text-align: center; }
+    .card { width: min(460px, 100%); text-align: center; }
     .brand {
       display: inline-flex;
       align-items: center;
@@ -41,38 +41,39 @@
       color: inherit;
     }
     .logo {
-      width: 36px;
-      height: 36px;
-      border-radius: 10px;
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
       background: #000;
       color: #fff;
       display: grid;
       place-items: center;
       font-family: var(--font-display);
-      font-weight: 700;
-      font-size: 18px;
+      font-weight: var(--weight-display);
+      font-size: var(--type-subsection);
     }
-    .brand span { font-family: var(--font-display); font-weight: 600; font-size: 15px; }
+    .brand span { font-family: var(--font-display); font-weight: var(--weight-emphasis); font-size: var(--type-lead); }
     .kicker {
       margin-bottom: 8px;
-      font-size: 12px;
+      font-size: var(--type-meta);
+      font-weight: var(--weight-emphasis);
       letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--muted);
     }
     h1 {
       font-family: var(--font-display);
-      font-size: 28px;
-      line-height: 1.2;
-      font-weight: 650;
+      font-size: var(--type-section);
+      line-height: 1.1;
+      font-weight: var(--weight-display);
       margin-bottom: 12px;
     }
-    .lead { color: #444; font-size: 15px; line-height: 1.5; margin-bottom: 22px; }
+    .lead { color: #444; font-size: var(--type-body); line-height: var(--leading-body); margin-bottom: 22px; }
     .code {
       font-family: var(--font-display);
-      font-size: 28px;
+      font-size: var(--type-section);
       letter-spacing: 0.14em;
-      font-weight: 700;
+      font-weight: var(--weight-display);
       margin-bottom: 22px;
     }
     button {
@@ -83,8 +84,8 @@
       background: #000;
       color: #fff;
       font: inherit;
-      font-size: 15px;
-      font-weight: 600;
+      font-size: var(--type-action);
+      font-weight: var(--weight-emphasis);
       cursor: pointer;
     }
     button[hidden] { display: none; }
