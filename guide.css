@@ -1169,6 +1169,27 @@
   max-height: 420px;
 }
 
+.install-doc {
+  max-width: 720px;
+}
+.install-step {
+  padding: 36px 0;
+  border-top: 1px solid var(--line);
+}
+.install-step h2 {
+  font-family: var(--font-display);
+  font-size: var(--type-section);
+  letter-spacing: -0.03em;
+  font-weight: var(--weight-display);
+  line-height: 1.15;
+  margin: 8px 0 12px;
+}
+.install-step p {
+  font-size: var(--type-body);
+  line-height: var(--leading-body);
+  color: var(--muted);
+}
+
 .mac-downloads {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
