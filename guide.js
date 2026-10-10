@@ -87,7 +87,7 @@
     "Нажимаем «Оплатить заранее»": "Tap Pay in advance",
     "Выбираем 5 устройств": "Choose 5 devices",
     "Проверяем перенос остатка и сумму": "Check the carried balance and amount",
-    "Подтверждаем переход в ЮMoney": "Confirm and open YooMoney",
+    "Подтверждаем переход в платёжную систему": "Confirm and open the payment system",
     "Ждём подтверждения оплаты": "Waiting for payment confirmation",
     "Оплата прошла успешно": "Payment successful",
     "Введите код": "Enter code",
@@ -874,7 +874,7 @@
       await sleep(2400);
       if (stopSignal.stopped) break;
 
-      setCaption(caption, "Подтверждаем переход в ЮMoney");
+      setCaption(caption, "Подтверждаем переход в платёжную систему");
       await clickEl(cursor, confirmBtn, stage);
       confirm.hidden = true;
       wait.hidden = false;
