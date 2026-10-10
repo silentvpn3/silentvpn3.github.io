@@ -7,7 +7,8 @@
   const privacyView = document.getElementById("view-privacy");
   const pdnView = document.getElementById("view-pdn");
   const macView = document.getElementById("view-mac");
-  if (!homeView || !guideView || !paymentView || !bonusesView || !termsView || !privacyView || !pdnView || !macView) return;
+  const openwrtView = document.getElementById("view-openwrt");
+  if (!homeView || !guideView || !paymentView || !bonusesView || !termsView || !privacyView || !pdnView || !macView || !openwrtView) return;
   const viewMap = {
     home: homeView,
     guide: guideView,
@@ -17,7 +18,9 @@
     privacy: privacyView,
     pdn: pdnView,
     mac: macView,
+    openwrt: openwrtView,
   };
+  const HASH_VIEWS = ["guide", "payment", "bonuses", "terms", "privacy", "pdn", "mac", "openwrt"];
 
   const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   let switching = false;
@@ -121,21 +124,7 @@
   }
 
   function setHash(view) {
-    const next = view === "guide"
-      ? "#guide"
-      : view === "payment"
-        ? "#payment"
-        : view === "bonuses"
-          ? "#bonuses"
-          : view === "terms"
-            ? "#terms"
-            : view === "privacy"
-              ? "#privacy"
-              : view === "pdn"
-                ? "#pdn"
-                : view === "mac"
-                  ? "#mac"
-                  : "#";
+    const next = HASH_VIEWS.includes(view) ? `#${view}` : "#";
     if (location.hash !== next && !(view === "home" && (!location.hash || location.hash === "#"))) {
       history.replaceState(null, "", next === "#" ? location.pathname + location.search : next);
     }
@@ -169,7 +158,7 @@
 
   function routeFromHash() {
     const h = (location.hash || "").replace(/^#/, "");
-    showView(h === "guide" || h === "payment" || h === "bonuses" || h === "terms" || h === "privacy" || h === "pdn" || h === "mac" ? h : "home", { push: false });
+    showView(HASH_VIEWS.includes(h) ? h : "home", { push: false });
   }
 
   document.querySelectorAll("[data-open-guide]").forEach((el) => {
@@ -212,6 +201,12 @@
     el.addEventListener("click", (e) => {
       e.preventDefault();
       showView("mac");
+    });
+  });
+  document.querySelectorAll("[data-open-openwrt]").forEach((el) => {
+    el.addEventListener("click", (e) => {
+      e.preventDefault();
+      showView("openwrt");
     });
   });
   document.querySelectorAll("[data-open-pdn]").forEach((el) => {
@@ -1052,25 +1047,63 @@
     document.querySelectorAll(".demo-stage[data-demo]").forEach((s) => demoObs.observe(s));
   }
 
+  function copyCommand(text) {
+    const area = document.createElement("textarea");
+    area.value = text;
+    area.setAttribute("readonly", "");
+    area.style.position = "fixed";
+    area.style.top = "0";
+    area.style.left = "0";
+    area.style.opacity = "0";
+    document.body.appendChild(area);
+    area.focus();
+    area.select();
+    area.setSelectionRange(0, area.value.length);
+    let ok = false;
+    try {
+      ok = document.execCommand("copy");
+    } catch (_) {
+      ok = false;
+    }
+    area.remove();
+    return ok;
+  }
+
+  document.querySelectorAll("[data-copy-cmd]").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const pre = btn.closest(".cmd-block")?.querySelector("pre");
+      if (!pre) return;
+      const text = pre.textContent.replace(/\n$/, "");
+      let ok = false;
+      if (navigator.clipboard && window.isSecureContext) {
+        try {
+          await navigator.clipboard.writeText(text);
+          ok = true;
+        } catch (_) {
+          ok = false;
+        }
+      }
+      if (!ok) ok = copyCommand(text);
+      if (!ok) return;
+      const prev = btn.textContent;
+      btn.textContent = isEn() ? "Copied" : "Скопировано";
+      setTimeout(() => {
+        btn.textContent = prev;
+      }, 1600);
+    });
+  });
+
   const initialHash = (location.hash || "").replace(/^#/, "");
-  if (initialHash === "guide" || initialHash === "payment" || initialHash === "bonuses" || initialHash === "terms" || initialHash === "privacy" || initialHash === "pdn" || initialHash === "mac") {
+  if (HASH_VIEWS.includes(initialHash)) {
     homeView.hidden = true;
-    guideView.hidden = initialHash !== "guide";
-    paymentView.hidden = initialHash !== "payment";
-    bonusesView.hidden = initialHash !== "bonuses";
-    termsView.hidden = initialHash !== "terms";
-    privacyView.hidden = initialHash !== "privacy";
-    pdnView.hidden = initialHash !== "pdn";
-    macView.hidden = initialHash !== "mac";
+    HASH_VIEWS.forEach((name) => {
+      viewMap[name].hidden = name !== initialHash;
+    });
     startVisibleDemos();
   } else {
-    termsView.hidden = true;
-    privacyView.hidden = true;
-    pdnView.hidden = true;
-    bonusesView.hidden = true;
-    paymentView.hidden = true;
-    guideView.hidden = true;
-    macView.hidden = true;
+    HASH_VIEWS.forEach((name) => {
+      viewMap[name].hidden = true;
+    });
     homeView.hidden = false;
   }
 })();

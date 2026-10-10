@@ -1189,6 +1189,95 @@
   line-height: var(--leading-body);
   color: var(--muted);
 }
+.install-step p + p { margin-top: 10px; }
+.install-step strong { color: var(--fg); font-weight: var(--weight-emphasis); }
+.install-step code {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.88em;
+  color: var(--fg);
+  background: rgba(0, 0, 0, 0.05);
+  padding: 1px 6px;
+  border-radius: 6px;
+}
+.install-spoiler {
+  margin-top: 16px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 0 16px 4px;
+  background: rgba(255, 255, 255, 0.55);
+}
+.install-spoiler > summary {
+  cursor: pointer;
+  font-weight: var(--weight-emphasis);
+  font-size: var(--type-action);
+  padding: 12px 0;
+  list-style: none;
+  color: var(--fg);
+}
+.install-spoiler > summary::-webkit-details-marker { display: none; }
+.install-spoiler > summary::after {
+  content: "▾";
+  float: right;
+  color: var(--muted);
+  font-weight: 400;
+}
+.install-spoiler[open] > summary::after { content: "▴"; }
+.install-spoiler ul {
+  list-style: none;
+  display: grid;
+  gap: 8px;
+  padding: 0 0 12px;
+  margin: 0;
+}
+.install-spoiler li {
+  font-size: var(--type-body);
+  line-height: var(--leading-body);
+  color: var(--muted);
+  padding-left: 16px;
+  position: relative;
+}
+.install-spoiler li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #000;
+}
+.cmd-block {
+  position: relative;
+  margin-top: 16px;
+  background: #111;
+  color: #f3f3f3;
+  border-radius: 16px;
+  padding: 16px 18px;
+}
+.cmd-block pre {
+  margin: 0;
+  padding-right: 96px;
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.cmd-copy {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  border-radius: 999px;
+  padding: 5px 10px;
+  font-size: var(--type-action);
+  font-weight: var(--weight-emphasis);
+  cursor: pointer;
+  font-family: var(--font-body);
+}
+.cmd-copy:hover { background: rgba(255, 255, 255, 0.16); }
 
 .mac-downloads {
   display: grid;
