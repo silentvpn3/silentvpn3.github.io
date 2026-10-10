@@ -794,7 +794,7 @@
         <article class="feature">
           <div class="feature-num">03</div>
           <h2 class="feature-title">Стабильное соединение</h2>
-          <p class="feature-text">Оптимизированная маршрутизация для повседневных задач: мессенджеры, браузер, стриминг и работа онлайн.</p>
+          <p class="feature-text">Оптимизированная маршрутизация для повседневных задач: мессенджеры, браузер и работа онлайн.</p>
         </article>
         <article class="feature">
           <div class="feature-num">04</div>
@@ -1698,20 +1698,99 @@
       <h1>Бонусная программа</h1>
     </section>
 
-    <section class="guide-section" style="padding-top:24px">
+    <section class="guide-section" data-bonus-topic="referral" style="padding-top:24px">
       <div>
+        <h2>Реферальная ссылка</h2>
         <div class="guide-section-text">
           <p>В меню → «Бонусы»: реферальная ссылка и проверка промокода — как в клиенте.</p>
           <ul class="guide-bullets">
             <li><strong>Рефералка</strong> — друг регистрируется по вашей ссылке и оплачивает подписку: оба получаете +30 дней</li>
             <li>Один бонус на одного друга, до 10 наград за 30 дней</li>
+          </ul>
+        </div>
+      </div>
+      <div class="demo-shell">
+        <div class="demo-stage" data-demo="referral">
+          <div class="demo-device">
+            <div class="demo-screen is-app">
+              <div class="demo-home" data-home>
+                <div class="demo-titlebar">
+                  <button type="button" class="demo-menu-trigger" aria-label="Меню">
+                    <span></span><span></span><span></span>
+                  </button>
+                  <div class="demo-titlebar-title">Silent VPN</div>
+                </div>
+                <div class="demo-home-body">
+                  <div class="demo-logo-wrap">
+                    <div class="demo-logo-s" aria-hidden="true">S</div>
+                    <div class="demo-brand-name">Silent VPN</div>
+                  </div>
+                  <div class="demo-toggle"></div>
+                  <div class="demo-status">Отключено</div>
+                </div>
+              </div>
+              <div class="demo-drawer-dim" data-dim></div>
+              <div class="demo-drawer" data-menu>
+                <div class="demo-drawer-head">
+                  <div>
+                    <div class="demo-drawer-email">you@example.com</div>
+                    <div class="demo-drawer-meta">Аккаунт: A1B2C3</div>
+                  </div>
+                  <span class="demo-drawer-close" aria-hidden="true">×</span>
+                </div>
+                <div class="demo-drawer-nav">
+                  <div class="demo-drawer-item">Подписка <span>›</span></div>
+                  <div class="demo-drawer-item">Исключения <span>›</span></div>
+                  <div class="demo-drawer-item">DNS · Как на сервере <span>›</span></div>
+                  <div class="demo-drawer-item">Выбор сервера · сервер 1 <span>›</span></div>
+                  <div class="demo-drawer-item" data-open-bonuses>Бонусы <span>›</span></div>
+                  <div class="demo-drawer-item">Сессии (1/3) <span>›</span></div>
+                  <div class="demo-drawer-item">Поддержка <span>›</span></div>
+                  <div class="demo-drawer-item">О сервисе <span>›</span></div>
+                  <div class="demo-drawer-item demo-drawer-logout">Выйти</div>
+                </div>
+              </div>
+              <div class="demo-page" data-bonuses hidden>
+                <div class="demo-back">← Назад</div>
+                <div class="demo-excl-title">Бонусы</div>
+                <p class="demo-intro">Друг по ссылке оплатил подписку — оба получаете +30 дней. Промокод — скидка к тарифу.</p>
+                <div class="demo-label">Ваша ссылка</div>
+                <p class="demo-hint tight">Скопируйте и отправьте другу</p>
+                <div class="demo-field demo-field-sm" data-ref-link>https://silentvpn3.github.io/?ref=SILENT30</div>
+                <div class="demo-btn demo-btn-sm" data-copy-ref>Копировать ссылку</div>
+                <p class="demo-copy-msg" data-copy-msg hidden>Ссылка скопирована</p>
+                <div class="demo-stats" data-ref-stats>Приглашено: 2 · Награждено: 1</div>
+                <div class="demo-label" style="margin-top:8px">Промокод</div>
+                <p class="demo-hint tight">Проверить скидку к тарифу</p>
+                <div class="demo-field demo-field-sm" data-field="promo-check">Введите код</div>
+                <div class="demo-btn demo-btn-sm" data-check-promo>Проверить</div>
+                <p class="demo-copy-msg" data-promo-msg hidden>Скидка 20%!</p>
+              </div>
+            </div>
+          </div>
+          <div class="demo-cursor" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4 3.5 19 12l-7.2 1.6L9.2 21 4 3.5z"/></svg>
+          </div>
+          <div class="demo-caption">
+            <span class="demo-caption-dot"></span>
+            <span data-caption-text>Следите за курсором</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="guide-section reverse" data-bonus-topic="promo">
+      <div>
+        <h2>Промокод</h2>
+        <div class="guide-section-text">
+          <ul class="guide-bullets">
             <li><strong>Промокод</strong> — скидка или доп. дни к тарифу; можно ввести при регистрации или проверить здесь</li>
             <li>Условия программы могут измениться</li>
           </ul>
         </div>
       </div>
       <div class="demo-shell">
-        <div class="demo-stage" data-demo="bonuses">
+        <div class="demo-stage" data-demo="promo">
           <div class="demo-device">
             <div class="demo-screen is-app">
               <div class="demo-home" data-home>
@@ -1993,7 +2072,7 @@
     </footer>
   </div>
 
-  <script src="guide.js?v=22"></script>
+  <script src="guide.js?v=24"></script>
   <script>
     const API_BASE = "https://132-243-234-162.nip.io";
     const GITHUB_REPO = "silentvpn3/silentvpn3.github.io";
@@ -2379,6 +2458,7 @@
     (() => {
       const LANG_KEY = "silent_site_lang";
       const DICT = {
+        "Реферальная ссылка": "Referral link",
         "3 или 5 устройств": "3 or 5 devices",
         "Выберите лимит устройств в тарифе. Одна подписка действует на всех устройствах аккаунта.": "Choose a device limit for your plan. One subscription covers all devices on your account.",
         "Откройте меню → «Подписка». Выберите 3 или 5 устройств и срок: 1, 2 или 3 месяца. Перед переходом в платёжную систему приложение покажет сумму, лимит устройств и дату окончания подписки.": "Open the menu → Subscription. Choose 3 or 5 devices and a term of 1, 2 or 3 months. Before opening the payment system, the app shows the amount, device limit and subscription end date.",
@@ -2466,7 +2546,7 @@
         "Без лишних настроек": "No extra setup",
         "Включили тумблер — VPN работает. Не нужно разбираться в протоколах и технических деталях.": "Turn on the switch and VPN is ready. No protocol tuning needed.",
         "Стабильное соединение": "Stable connection",
-        "Оптимизированная маршрутизация для повседневных задач: мессенджеры, браузер, стриминг и работа онлайн.": "Optimized routing for messaging, browsing, streaming, and online work.",
+        "Оптимизированная маршрутизация для повседневных задач: мессенджеры, браузер и работа онлайн.": "Optimized routing for messaging, browsing, and online work.",
         "Работает на Smart TV": "Works on Smart TV",
         "Тот же APK — на Android TV, Google TV, Fire TV и большинстве Smart TV-приставок. Управление привычным пультом.": "Same APK works on Android TV, Google TV, Fire TV, and most TV boxes.",
         "Пользовательское соглашение": "User Agreement",
@@ -2814,12 +2894,12 @@
         );
 
         setHtml(
-          "#view-bonuses .guide-bullets li:nth-child(1)",
+          "#view-bonuses [data-bonus-topic='referral'] .guide-bullets li:nth-child(1)",
           "<strong>Рефералка</strong> — друг регистрируется по вашей ссылке и оплачивает подписку: оба получаете +30 дней",
           "<strong>Referral</strong> - your friend registers via your link and pays for subscription: both get +30 days"
         );
         setHtml(
-          "#view-bonuses .guide-bullets li:nth-child(3)",
+          "#view-bonuses [data-bonus-topic='promo'] .guide-bullets li:nth-child(1)",
           "<strong>Промокод</strong> — скидка или доп. дни к тарифу; можно ввести при регистрации или проверить здесь",
           "<strong>Promo code</strong> - discount or extra days for the plan; can be entered at registration or checked here"
         );

@@ -26,6 +26,9 @@
   let switching = false;
   const demoControllers = new Map();
   const ANIM_EN = {
+    "Меню слева → «Бонусы» — реферальная ссылка": "Left menu → Bonuses — referral link",
+    "Меню слева → «Бонусы» — промокод": "Left menu → Bonuses — promo code",
+    "Проверяем промокод": "Check the promo code",
     "Необязательно": "Optional",
     "Ожидание канала…": "Waiting for channel…",
     "Подключение… подождите": "Connecting… please wait",
@@ -889,7 +892,7 @@
     }
   }
 
-  async function runBonuses(stage, stopSignal) {
+  async function runReferral(stage, stopSignal) {
     const cursor = stage.querySelector(".demo-cursor");
     const caption = stage.querySelector(".demo-caption");
     const menu = stage.querySelector("[data-menu]");
@@ -911,7 +914,7 @@
         promoField.textContent = tr("Введите код");
         promoField.style.color = "#9CA3AF";
       }
-      setCaption(caption, "Меню слева → «Бонусы» — рефералка и промокоды");
+      setCaption(caption, "Меню слева → «Бонусы» — реферальная ссылка");
       cursor.classList.add("is-on");
       moveCursor(cursor, 48, 70);
       await sleep(1000);
@@ -932,8 +935,49 @@
       await sleep(1200);
       if (stopSignal.stopped) break;
 
+      await sleep(2400);
+    }
+  }
+
+  async function runPromo(stage, stopSignal) {
+    const cursor = stage.querySelector(".demo-cursor");
+    const caption = stage.querySelector(".demo-caption");
+    const menu = stage.querySelector("[data-menu]");
+    const page = stage.querySelector("[data-bonuses]");
+    const openBtn = stage.querySelector("[data-open-bonuses]");
+    const copyBtn = stage.querySelector("[data-copy-ref]");
+    const copyMsg = stage.querySelector("[data-copy-msg]");
+    const promoField = stage.querySelector("[data-field=promo-check]");
+    const checkBtn = stage.querySelector("[data-check-promo]");
+    const promoMsg = stage.querySelector("[data-promo-msg]");
+
+    while (!stopSignal.stopped) {
+      setDrawerOpen(stage, true);
+      page.hidden = true;
+      openBtn.classList.remove("is-hot");
+      if (copyMsg) copyMsg.hidden = true;
+      if (promoMsg) promoMsg.hidden = true;
+      if (promoField) {
+        promoField.textContent = tr("Введите код");
+        promoField.style.color = "#9CA3AF";
+      }
+      setCaption(caption, "Меню слева → «Бонусы» — промокод");
+      cursor.classList.add("is-on");
+      moveCursor(cursor, 48, 70);
+      await sleep(1000);
+      if (stopSignal.stopped) break;
+
+      openBtn.classList.add("is-hot");
+      await clickEl(cursor, openBtn, stage);
+      setCaption(caption, "Открываем бонусную программу");
+      await sleep(350);
+      hideDrawerForPage(stage);
+      page.hidden = false;
+      await sleep(700);
+      if (stopSignal.stopped) break;
+
       moveCursor(cursor, ...Object.values(centerOf(promoField, stage)));
-      setCaption(caption, "Или проверяем промокод");
+      setCaption(caption, "Проверяем промокод");
       promoField.style.color = "#000";
       await typeInto(promoField, "SILENT20", 45);
       if (stopSignal.stopped) break;
@@ -1008,7 +1052,8 @@
     connect: runConnect,
     exclusions: runExclusions,
     subscription: runSubscription,
-    bonuses: runBonuses,
+    referral: runReferral,
+    promo: runPromo,
     sessions: runSessions,
   };
 
