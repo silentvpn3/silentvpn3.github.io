@@ -357,11 +357,6 @@
       color: #999;
     }
 
-    .version-badge-ow {
-      text-transform: none;
-      letter-spacing: 0.02em;
-    }
-
     .dl-title {
       font-family: var(--font-display);
       font-size: var(--type-subsection);
@@ -754,10 +749,10 @@
                 <circle class="r-led" cx="7.2" cy="13" r="0.7"/>
               </svg>
             </div>
-            <span class="version-badge version-badge-ow">OpenWrt 23.05+</span>
+            <span class="version-badge" id="openwrtVersion" data-version="1.0.169">v1.0.169</span>
           </div>
           <div>
-            <div class="dl-title">Роутер</div>
+            <div class="dl-title">Роутер OpenWrt 23.05+</div>
             <p class="dl-meta">aarch64, arm, mipsel, x86_64</p>
           </div>
           <span class="dl-action">
@@ -990,7 +985,7 @@
         <div class="guide-section-num">04</div>
         <h2>Вход</h2>
         <p>Откройте <strong>http://192.168.1.1.silent.vpn</strong>. Если имя не открывается — <strong>http://192.168.1.1</strong>.</p>
-        <p>Войдите в аккаунт и включите тумблер.</p>
+        <p>Войдите в аккаунт. В «Исключениях» включите «Российские сервисы мимо VPN», затем включите VPN.</p>
       </section>
 
       <section class="install-step">
@@ -2445,6 +2440,7 @@
         "Дождитесь статуса «Подключено»": "Wait for the Connected status",
         "Linux": "Linux",
         "Роутер": "Router",
+        "Роутер OpenWrt 23.05+": "Router OpenWrt 23.05+",
         "OpenWrt 23.05+": "OpenWrt 23.05+",
         "Как установить": "How to install",
         "aarch64, arm, mipsel, x86_64": "aarch64, arm, mipsel, x86_64",
@@ -2459,7 +2455,7 @@
         "Роутер должен быть подключён к интернету. Выполните и дождитесь «Готово»:": "The router needs internet access. Run and wait for “Done”:",
         "Откройте": "Open",
         ". Если имя не открывается —": ". If the name does not open, use",
-        "Войдите в аккаунт и включите тумблер.": "Sign in and turn the switch on.",
+        "Войдите в аккаунт. В «Исключениях» включите «Российские сервисы мимо VPN», затем включите VPN.": "Sign in. In Exclusions, enable “Russian services bypass VPN”, then turn VPN on.",
         "Копировать": "Copy",
         "Скопировано": "Copied",
         "Удаление": "Uninstall",
