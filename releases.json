@@ -1,7 +1,7 @@
 {
   "api_base": "https://89-125-188-100.nip.io",
   "github_repo": "silentvpn3/silentvpn3.github.io",
-  "updated_at": "2026-10-14T13:25:50Z",
+  "updated_at": "2026-10-14T18:35:05Z",
   "pc": {
     "version": "1.0.169",
     "filename": "Silent.VPN.Setup.1.0.169.exe",
@@ -43,39 +43,39 @@
   "openwrt": {
     "version": "1.0.170",
     "filename": "silent-vpn-openwrt-1.0.170-x86_64.tar.gz",
-    "size": 4869288,
+    "size": 4869768,
     "download_url": "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.170/silent-vpn-openwrt-1.0.170-x86_64.tar.gz",
     "arches": {
       "aarch64": {
         "version": "1.0.170",
         "filename": "silent-vpn-openwrt-1.0.170-aarch64.tar.gz",
-        "size": 4392935,
+        "size": 4393579,
         "download_url": "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.170/silent-vpn-openwrt-1.0.170-aarch64.tar.gz",
-        "sha256": "e3de3612c7566ea0263b2b43d68bb996596987bd4ebd2de0ab80b92befa9090f",
+        "sha256": "9ebeca14a767f3e4fbc8d82b2f45d55b7fbbbadbc5b159a26d87bd41f23cbddf",
         "unpacked_size": 11603968
       },
       "arm": {
         "version": "1.0.170",
         "filename": "silent-vpn-openwrt-1.0.170-arm.tar.gz",
-        "size": 4655825,
+        "size": 4656416,
         "download_url": "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.170/silent-vpn-openwrt-1.0.170-arm.tar.gz",
-        "sha256": "ec39511a3b845ddd46175c10dad5acc06c84a77955d291a2028200df2f21f6f4",
+        "sha256": "6173dfdc90e95fd5dfe0321e374c61504a0c267a892070b5d0e6ca68c38affdf",
         "unpacked_size": 11931648
       },
       "mipsel": {
         "version": "1.0.170",
         "filename": "silent-vpn-openwrt-1.0.170-mipsel.tar.gz",
-        "size": 4434195,
+        "size": 4434351,
         "download_url": "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.170/silent-vpn-openwrt-1.0.170-mipsel.tar.gz",
-        "sha256": "70916b8310416f1f899748371284dbe8922bb57ac2a74d8a27a8354e3f2126b9",
+        "sha256": "8bb770bcb9d617cafbdd403bab2da5500820f1d8449614718a2f740277bde5b7",
         "unpacked_size": 13438976
       },
       "x86_64": {
         "version": "1.0.170",
         "filename": "silent-vpn-openwrt-1.0.170-x86_64.tar.gz",
-        "size": 4869288,
+        "size": 4869768,
         "download_url": "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.170/silent-vpn-openwrt-1.0.170-x86_64.tar.gz",
-        "sha256": "74eb7c8775c2543f45517a7ea874bb326a62b4c356798441b82f5948a6394adc",
+        "sha256": "d5d4005f36a687ef6d043cc354046149ba5bd2a42fb8cd8d308c54b22565a09c",
         "unpacked_size": 12439552
       }
     }
