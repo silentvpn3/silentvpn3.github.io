@@ -996,6 +996,26 @@
           <pre>sh /usr/sbin/silent-vpn-uninstall</pre>
         </div>
       </section>
+
+      <section class="install-step">
+        <div class="guide-section-num">06</div>
+        <h2>Обновление</h2>
+        <p><strong>Способ 1 — через SSH</strong></p>
+        <p>Подключитесь к роутеру по SSH и удалите старую версию:</p>
+        <div class="cmd-block">
+          <button type="button" class="cmd-copy" data-copy-cmd>Копировать</button>
+          <pre>sh /usr/sbin/silent-vpn-uninstall</pre>
+        </div>
+        <p>Установите новую версию:</p>
+        <div class="cmd-block">
+          <button type="button" class="cmd-copy" data-copy-cmd>Копировать</button>
+          <pre>wget -O /tmp/sv.sh https://silentvpn3.github.io/openwrt-install.sh &amp;&amp; sh /tmp/sv.sh</pre>
+        </div>
+        <p>После установки войдите в аккаунт и включите VPN.</p>
+        <p><strong>Способ 2 — через панель, начиная с версии 1.0.170</strong></p>
+        <p>Когда выйдет новая версия, внизу главного экрана панели появится кнопка обновления. Нажмите её и дождитесь завершения.</p>
+        <p>Во время установки обновления VPN временно отключится, затем подключится автоматически. Настройки и вход в аккаунт сохранятся.</p>
+      </section>
     </div>
 
     <footer style="margin-top:40px;padding-top:24px;border-top:1px solid var(--line);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:0.82rem;color:var(--muted)">
@@ -2540,6 +2560,14 @@
         "Копировать": "Copy",
         "Скопировано": "Copied",
         "Удаление": "Uninstall",
+        "Обновление": "Update",
+        "Способ 1 — через SSH": "Method 1 — over SSH",
+        "Подключитесь к роутеру по SSH и удалите старую версию:": "Connect to the router over SSH and remove the old version:",
+        "Установите новую версию:": "Install the new version:",
+        "После установки войдите в аккаунт и включите VPN.": "After installation, sign in and turn VPN on.",
+        "Способ 2 — через панель, начиная с версии 1.0.170": "Method 2 — from the panel, available from version 1.0.170",
+        "Когда выйдет новая версия, внизу главного экрана панели появится кнопка обновления. Нажмите её и дождитесь завершения.": "When a new version is available, an update button appears at the bottom of the panel’s main screen. Press it and wait for the update to finish.",
+        "Во время установки обновления VPN временно отключится, затем подключится автоматически. Настройки и вход в аккаунт сохранятся.": "VPN disconnects temporarily while the update is installed, then reconnects automatically. Your settings and sign-in are preserved.",
         "Windows": "Windows",
         "Android": "Android",
         "Наш канал в Telegram": "Our Telegram channel",
