@@ -966,9 +966,9 @@
         <p>Выполните на роутере:</p>
         <div class="cmd-block">
           <button type="button" class="cmd-copy" data-copy-cmd>Копировать</button>
-          <pre>df -h /tmp /usr; free -m</pre>
+          <pre>df -h /tmp /usr; awk '/^MemAvailable:/ {printf "RAM available: %.1f MB\n", $2 / 1024}' /proc/meminfo</pre>
         </div>
-        <p>Нужно свободно: 30 МБ в /tmp, 25 МБ во внутренней памяти (/usr) и 30 МБ оперативной памяти.</p>
+        <p>Смотрите колонку Available: в строке /tmp нужно от 30 МБ, в строке внутренней памяти (обычно overlayfs:/overlay) — от 25 МБ. RAM available — от 30 МБ.</p>
       </section>
 
       <section class="install-step">
@@ -2530,7 +2530,7 @@
         "Укажите IP своего роутера. Пароль — как в его веб-панели.": "Use your router IP. The password is the same as its web panel.",
         "Проверьте свободное место": "Check free space",
         "Выполните на роутере:": "Run on the router:",
-        "Нужно свободно: 30 МБ в /tmp, 25 МБ во внутренней памяти (/usr) и 30 МБ оперативной памяти.": "Required free space: 30 MB in /tmp, 25 MB in internal storage (/usr), and 30 MB of available RAM.",
+        "Смотрите колонку Available: в строке /tmp нужно от 30 МБ, в строке внутренней памяти (обычно overlayfs:/overlay) — от 25 МБ. RAM available — от 30 МБ.": "Check the Available column: at least 30 MB for /tmp and 25 MB for internal storage (usually overlayfs:/overlay). RAM available must be at least 30 MB.",
         "Установка": "Install",
         "Роутеру нужен интернет. Скрипт сам проверит память, скачает сборку для вашего процессора и удалит временные файлы. Выполните и дождитесь «Готово»:": "The router needs internet access. The script checks memory, downloads the build for your CPU, and removes temporary files. Run and wait for “Done”:",
         "Откройте": "Open",
