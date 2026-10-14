@@ -979,6 +979,11 @@
           <button type="button" class="cmd-copy" data-copy-cmd>Копировать</button>
           <pre>wget -O /tmp/sv.sh https://silentvpn3.github.io/openwrt-install.sh &amp;&amp; sh /tmp/sv.sh</pre>
         </div>
+        <p>Если появляется ошибка SSL/сертификата («Unable to establish SSL connection»), выполните:</p>
+        <div class="cmd-block">
+          <button type="button" class="cmd-copy" data-copy-cmd>Копировать</button>
+          <pre>wget -O /tmp/sv.sh http://silentvpn3.github.io/openwrt-install.sh &amp;&amp; sh /tmp/sv.sh</pre>
+        </div>
       </section>
 
       <section class="install-step">
@@ -2553,6 +2558,7 @@
         "Смотрите колонку Available: в строке /tmp нужно от 30 МБ, в строке внутренней памяти (обычно overlayfs:/overlay) — от 25 МБ. RAM available — от 30 МБ.": "Check the Available column: at least 30 MB for /tmp and 25 MB for internal storage (usually overlayfs:/overlay). RAM available must be at least 30 MB.",
         "Установка": "Install",
         "Роутеру нужен интернет. Скрипт сам проверит память, скачает сборку для вашего процессора и удалит временные файлы. Выполните и дождитесь «Готово»:": "The router needs internet access. The script checks memory, downloads the build for your CPU, and removes temporary files. Run and wait for “Done”:",
+        "Если появляется ошибка SSL/сертификата («Unable to establish SSL connection»), выполните:": "If you get an SSL/certificate error (“Unable to establish SSL connection”), run:",
         "Откройте": "Open",
         "(Где": "(Where",
         "это адрес вашего роутера, может быть другой)": "is your router’s address; yours may be different)",
