@@ -968,13 +968,13 @@
           <button type="button" class="cmd-copy" data-copy-cmd>Копировать</button>
           <pre>df -h /tmp /usr; free -m</pre>
         </div>
-        <p>Для установки нужно свободно: 30 МБ в /tmp, 25 МБ во внутренней памяти (/usr) и 30 МБ оперативной памяти. Скрипт проверит это автоматически.</p>
+        <p>Нужно свободно: 30 МБ в /tmp, 25 МБ во внутренней памяти (/usr) и 30 МБ оперативной памяти.</p>
       </section>
 
       <section class="install-step">
         <div class="guide-section-num">03</div>
         <h2>Установка</h2>
-        <p>Роутер должен быть подключён к интернету. Выполните и дождитесь «Готово»:</p>
+        <p>Роутеру нужен интернет. Скрипт сам проверит память, скачает сборку для вашего процессора и удалит временные файлы. Выполните и дождитесь «Готово»:</p>
         <div class="cmd-block">
           <button type="button" class="cmd-copy" data-copy-cmd>Копировать</button>
           <pre>wget -O /tmp/sv.sh https://silentvpn3.github.io/openwrt-install.sh &amp;&amp; sh /tmp/sv.sh</pre>
@@ -2530,9 +2530,9 @@
         "Укажите IP своего роутера. Пароль — как в его веб-панели.": "Use your router IP. The password is the same as its web panel.",
         "Проверьте свободное место": "Check free space",
         "Выполните на роутере:": "Run on the router:",
-        "Для установки нужно свободно: 30 МБ в /tmp, 25 МБ во внутренней памяти (/usr) и 30 МБ оперативной памяти. Скрипт проверит это автоматически.": "Installation requires 30 MB free in /tmp, 25 MB in internal storage (/usr), and 30 MB of available RAM. The script checks this automatically.",
+        "Нужно свободно: 30 МБ в /tmp, 25 МБ во внутренней памяти (/usr) и 30 МБ оперативной памяти.": "Required free space: 30 MB in /tmp, 25 MB in internal storage (/usr), and 30 MB of available RAM.",
         "Установка": "Install",
-        "Роутер должен быть подключён к интернету. Выполните и дождитесь «Готово»:": "The router needs internet access. Run and wait for “Done”:",
+        "Роутеру нужен интернет. Скрипт сам проверит память, скачает сборку для вашего процессора и удалит временные файлы. Выполните и дождитесь «Готово»:": "The router needs internet access. The script checks memory, downloads the build for your CPU, and removes temporary files. Run and wait for “Done”:",
         "Откройте": "Open",
         ". Укажите IP своего роутера —": ". Use your router’s IP —",
         "Войдите в аккаунт. В «Исключениях» включите «Российские сервисы мимо VPN», затем включите VPN.": "Sign in. In Exclusions, enable “Russian services bypass VPN”, then turn VPN on.",
