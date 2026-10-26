@@ -1,7 +1,7 @@
 {
   "api_base": "https://89-125-188-100.nip.io",
   "github_repo": "silentvpn3/silentvpn3.github.io",
-  "updated_at": "2026-10-22T10:48:47Z",
+  "updated_at": "2026-10-26T13:44:58Z",
   "pc": {
     "version": "1.0.170",
     "filename": "Silent.VPN.Setup.1.0.170.exe",
@@ -41,42 +41,42 @@
     }
   },
   "openwrt": {
-    "version": "1.0.170",
-    "filename": "silent-vpn-openwrt-1.0.170-x86_64.tar.gz",
-    "size": 4873224,
-    "download_url": "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.170/silent-vpn-openwrt-1.0.170-x86_64.tar.gz",
+    "version": "1.0.171",
+    "filename": "silent-vpn-openwrt-1.0.171-x86_64.tar.gz",
+    "size": 4874545,
+    "download_url": "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.171/silent-vpn-openwrt-1.0.171-x86_64.tar.gz",
     "arches": {
       "aarch64": {
-        "version": "1.0.170",
-        "filename": "silent-vpn-openwrt-1.0.170-aarch64.tar.gz",
-        "size": 4397341,
-        "download_url": "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.170/silent-vpn-openwrt-1.0.170-aarch64.tar.gz",
-        "sha256": "8f689738327d05be073f335836673e01050f6a06dbc12f980aa266fe9f82f284",
-        "unpacked_size": 11624448
+        "version": "1.0.171",
+        "filename": "silent-vpn-openwrt-1.0.171-aarch64.tar.gz",
+        "size": 4398558,
+        "download_url": "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.171/silent-vpn-openwrt-1.0.171-aarch64.tar.gz",
+        "sha256": "705099a4ea05415c210280148f64a630297afa2d5d05b196077ae4104c4a073f",
+        "unpacked_size": 11636736
       },
       "arm": {
-        "version": "1.0.170",
-        "filename": "silent-vpn-openwrt-1.0.170-arm.tar.gz",
-        "size": 4660237,
-        "download_url": "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.170/silent-vpn-openwrt-1.0.170-arm.tar.gz",
-        "sha256": "50a4b557ec7b20fb7f494b3dbf44671096f386bb0c5dd8e86c658084f05f2887",
-        "unpacked_size": 11952128
+        "version": "1.0.171",
+        "filename": "silent-vpn-openwrt-1.0.171-arm.tar.gz",
+        "size": 4661605,
+        "download_url": "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.171/silent-vpn-openwrt-1.0.171-arm.tar.gz",
+        "sha256": "2e24397ae26b60cd08e20c97dedeca6b727774b6e180335d727df6cbe530e1e2",
+        "unpacked_size": 11964416
       },
       "mipsel": {
-        "version": "1.0.170",
-        "filename": "silent-vpn-openwrt-1.0.170-mipsel.tar.gz",
-        "size": 4436602,
-        "download_url": "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.170/silent-vpn-openwrt-1.0.170-mipsel.tar.gz",
-        "sha256": "5b6493de0ce91c81ff80b71ba78253c935508b7ee8a3fc3ed44ada8b5f0fe11c",
-        "unpacked_size": 13459456
+        "version": "1.0.171",
+        "filename": "silent-vpn-openwrt-1.0.171-mipsel.tar.gz",
+        "size": 4437760,
+        "download_url": "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.171/silent-vpn-openwrt-1.0.171-mipsel.tar.gz",
+        "sha256": "bc1f8ac5faf7fe84fe51e3c96bacfafadbec77b3444973a6aa1683ea97b1aad6",
+        "unpacked_size": 13471744
       },
       "x86_64": {
-        "version": "1.0.170",
-        "filename": "silent-vpn-openwrt-1.0.170-x86_64.tar.gz",
-        "size": 4873224,
-        "download_url": "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.170/silent-vpn-openwrt-1.0.170-x86_64.tar.gz",
-        "sha256": "a2db35a0499b561ccf4829dfb8e7cfdb4f19909cea03c7f1e7837f956e8149e5",
-        "unpacked_size": 12460032
+        "version": "1.0.171",
+        "filename": "silent-vpn-openwrt-1.0.171-x86_64.tar.gz",
+        "size": 4874545,
+        "download_url": "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.171/silent-vpn-openwrt-1.0.171-x86_64.tar.gz",
+        "sha256": "767b65312c07bf29b703214a9f080cdbfcf66b953e41e1eda0d59edf513f5a8a",
+        "unpacked_size": 12472320
       }
     }
   }
