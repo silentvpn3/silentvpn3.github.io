@@ -79,5 +79,87 @@
         "unpacked_size": 12472320
       }
     }
+  },
+  "keenetic": {
+    "version": "1.0.171",
+    "arches": {
+      "aarch64": {
+        "platform": "keenetic",
+        "arch": "aarch64",
+        "version": "1.0.171",
+        "build_id": "311d76116229ee4852b79ac54cc393104abc53015d92c68348bf4105ec07cbc6",
+        "size": 7463500,
+        "unpacked_size": 19360434,
+        "sha256": "5dc96066459acdf0bbb00b862a36708c40580d744ae96003caa2712af6e8b597",
+        "filename": "silent-vpn-keenetic-1.0.171-aarch64.tar.gz",
+        "download_url": "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.171/silent-vpn-keenetic-1.0.171-aarch64.tar.gz"
+      },
+      "armv7": {
+        "platform": "keenetic",
+        "arch": "armv7",
+        "version": "1.0.171",
+        "build_id": "311d76116229ee4852b79ac54cc393104abc53015d92c68348bf4105ec07cbc6",
+        "size": 7891346,
+        "unpacked_size": 20015790,
+        "sha256": "fc870c7d2378c0a0e9126ec781a01930b38cd4a309d5387e291f101a3517e436",
+        "filename": "silent-vpn-keenetic-1.0.171-armv7.tar.gz",
+        "download_url": "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.171/silent-vpn-keenetic-1.0.171-armv7.tar.gz"
+      },
+      "armv5": {
+        "platform": "keenetic",
+        "arch": "armv5",
+        "version": "1.0.171",
+        "build_id": "311d76116229ee4852b79ac54cc393104abc53015d92c68348bf4105ec07cbc6",
+        "size": 7927109,
+        "unpacked_size": 20015790,
+        "sha256": "fa07a76d1246d302b4c4b54c8e9656daf5f623df91d53a5c99668a3016fe8c57",
+        "filename": "silent-vpn-keenetic-1.0.171-armv5.tar.gz",
+        "download_url": "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.171/silent-vpn-keenetic-1.0.171-armv5.tar.gz"
+      },
+      "mipsel": {
+        "platform": "keenetic",
+        "arch": "mipsel",
+        "version": "1.0.171",
+        "build_id": "311d76116229ee4852b79ac54cc393104abc53015d92c68348bf4105ec07cbc6",
+        "size": 7565944,
+        "unpacked_size": 22571758,
+        "sha256": "da87c6c854f6f5b1e084319b520c55cd2320cd157bb50b99ca443eb22669bd18",
+        "filename": "silent-vpn-keenetic-1.0.171-mipsel.tar.gz",
+        "download_url": "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.171/silent-vpn-keenetic-1.0.171-mipsel.tar.gz"
+      },
+      "mips": {
+        "platform": "keenetic",
+        "arch": "mips",
+        "version": "1.0.171",
+        "build_id": "311d76116229ee4852b79ac54cc393104abc53015d92c68348bf4105ec07cbc6",
+        "size": 7616915,
+        "unpacked_size": 22571754,
+        "sha256": "18d8ede89932856b18327a5e36608fa7dac3c4e39612269f3d7c2afa492bbf32",
+        "filename": "silent-vpn-keenetic-1.0.171-mips.tar.gz",
+        "download_url": "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.171/silent-vpn-keenetic-1.0.171-mips.tar.gz"
+      },
+      "x86_64": {
+        "platform": "keenetic",
+        "arch": "x86_64",
+        "version": "1.0.171",
+        "build_id": "311d76116229ee4852b79ac54cc393104abc53015d92c68348bf4105ec07cbc6",
+        "size": 8287939,
+        "unpacked_size": 20843184,
+        "sha256": "5bdd28398bdad95ce5caa1d945111f208e5c2a22a21db82bb68a4b2158e339e8",
+        "filename": "silent-vpn-keenetic-1.0.171-x86_64.tar.gz",
+        "download_url": "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.171/silent-vpn-keenetic-1.0.171-x86_64.tar.gz"
+      },
+      "i386": {
+        "platform": "keenetic",
+        "arch": "i386",
+        "version": "1.0.171",
+        "build_id": "311d76116229ee4852b79ac54cc393104abc53015d92c68348bf4105ec07cbc6",
+        "size": 7988328,
+        "unpacked_size": 19921580,
+        "sha256": "16c499215f9f3b22b103b03e9c3cdd7f30b19862fea4defccf4390f8badb3115",
+        "filename": "silent-vpn-keenetic-1.0.171-i386.tar.gz",
+        "download_url": "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.171/silent-vpn-keenetic-1.0.171-i386.tar.gz"
+      }
+    }
   }
 }
