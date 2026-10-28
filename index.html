@@ -957,8 +957,7 @@
         </div>
         <div class="router-platform">
           <h3>Подготовка Keenetic</h3>
-          <p>Перед установкой настройте Entware и включите компонент «Поддержка открытых пакетов» (OPKG). Подключайтесь к SSH Entware на порту 22 или 222; точный порт указан в журнале его установки.</p>
-          <p>Для адреса панели без порта нужен штатный HTTP-порт Keenetic 80. Установщик настраивает адрес панели автоматически.</p>
+          <p>Перед установкой настройте Entware и включите компонент «Поддержка открытых пакетов» (OPKG).</p>
         </div>
         <p>Для обеих систем установщик сам выбирает сборку под процессор и устанавливает нужные пакеты.</p>
       </aside>
@@ -1000,7 +999,7 @@
             <button type="button" class="cmd-copy" data-copy-cmd>Копировать</button>
             <pre>df -h /tmp /usr; awk '/^MemAvailable:/ {a=$2} /^MemFree:/ {f=$2} END {printf "RAM available: %.1f MB\n", (a ? a : f) / 1024}' /proc/meminfo</pre>
           </div>
-          <p>Смотрите колонку Available: для новых сборок в строке /tmp нужно от 40 МБ, во внутренней памяти (обычно overlayfs:/overlay) — от 30 МБ. RAM available — от 40 МБ. Установщик дополнительно проверит место по размеру пакета вашего процессора.</p>
+          <p>Смотрите колонку Available: в строке /tmp нужно от 30 МБ, в строке внутренней памяти (обычно overlayfs:/overlay) — от 25 МБ. RAM available — от 30 МБ.</p>
         </div>
         <div class="router-platform">
           <h3>Память Keenetic</h3>
@@ -1008,7 +1007,7 @@
             <button type="button" class="cmd-copy" data-copy-cmd>Копировать</button>
             <pre>df -h /opt; awk '/^MemAvailable:/ {a=$2} /^MemFree:/ {f=$2} END {printf "RAM available: %.1f MB\n", (a ? a : f) / 1024}' /proc/meminfo</pre>
           </div>
-          <p>Скачивается только пакет вашего процессора: около 7–8 МБ, после установки — около 19–22 МБ. На накопителе Entware (/opt) нужен временный запас для распаковки и отката: ориентировочно 60 МБ при первой установке и 80 МБ при обновлении, плюс место под зависимости Entware. Точный объём установщик проверит сам. Для установки нужно от 32 МБ свободной RAM; рабочее потребление VPN зависит от устройства.</p>
+          <p>Смотрите колонку Available: в строке /opt нужно от 60 МБ. RAM available — от 32 МБ.</p>
         </div>
       </section>
 
@@ -2625,7 +2624,7 @@
         "Если порт 222:": "For port 222:",
         "SSH Keenetic": "Keenetic SSH",
         "Память OpenWrt": "OpenWrt storage and RAM",
-        "Скачивается только пакет вашего процессора: около 7–8 МБ, после установки — около 19–22 МБ. На накопителе Entware (/opt) нужен временный запас для распаковки и отката: ориентировочно 60 МБ при первой установке и 80 МБ при обновлении, плюс место под зависимости Entware. Точный объём установщик проверит сам. Для установки нужно от 32 МБ свободной RAM; рабочее потребление VPN зависит от устройства.": "Only the package for your CPU is downloaded: about 7–8 MB compressed and 19–22 MB installed. The Entware drive (/opt) also needs temporary space for extraction and rollback: roughly 60 MB for a first installation or 80 MB for an update, plus room for Entware dependencies. The installer checks the exact amount. Installation needs at least 32 MB of available RAM; VPN memory use depends on your device.",
+        "Смотрите колонку Available: в строке /opt нужно от 60 МБ. RAM available — от 32 МБ.": "Check the Available column: at least 60 MB for /opt. RAM available must be at least 32 MB.",
         "Память Keenetic": "Keenetic storage and RAM",
         "Установка OpenWrt": "Install on OpenWrt",
         "Установка Keenetic": "Install on Keenetic",
@@ -2645,7 +2644,6 @@
         "OpenWrt: обновление из панели доступно начиная с 1.0.170.": "OpenWrt: panel updates are available from version 1.0.170.",
         "Keenetic: обновление из панели доступно в сборке 1.0.171.": "Keenetic: panel updates are available in build 1.0.171.",
         "Подготовка": "Preparation",
-        "Для адреса панели без порта нужен штатный HTTP-порт Keenetic 80. Установщик настраивает адрес панели автоматически.": "The panel address without a port requires the standard Keenetic HTTP port 80. The installer sets up the panel address automatically.",
         "Инструкция": "Guide",
         "Оплата": "Payment",
         "Бонусы": "Bonuses",
@@ -2700,7 +2698,7 @@
         "Способ 2 — через панель": "Method 2 — from the panel",
         "На OpenWrt обновление из панели доступно начиная с 1.0.170, на Keenetic — в сборке 1.0.171. Если уже установлена 1.0.171, исправленную сборку той же версии установите повторной командой через SSH.": "Panel updates are available from OpenWrt 1.0.170 and in Keenetic 1.0.171. If 1.0.171 is already installed, reinstall the corrected build of the same version using the SSH command.",
 
-        "Перед установкой настройте Entware и включите компонент «Поддержка открытых пакетов» (OPKG). Подключайтесь к SSH Entware на порту 22 или 222; точный порт указан в журнале его установки.": "Before installation, set up Entware and enable the Open Package support (OPKG) component. Connect to Entware over SSH on port 22 or 222; its installation log shows the exact port.",
+        "Перед установкой настройте Entware и включите компонент «Поддержка открытых пакетов» (OPKG).": "Before installation, set up Entware and enable the Open Package support (OPKG) component.",
         "Скрипт сам определяет OpenWrt или Keenetic, устанавливает нужные пакеты и выбирает сборку для вашего процессора. Команда установки ниже общая для обеих систем.": "The script detects OpenWrt or Keenetic, installs the required packages, and selects the build for your CPU. The installation command below is shared by both systems.",
         "Как установить": "How to install",
         "aarch64, arm, mipsel, x86_64": "aarch64, arm, mipsel, x86_64",
@@ -2710,7 +2708,7 @@
         "Укажите IP своего роутера. Пароль — как в его веб-панели.": "Use your router IP. The password is the same as its web panel.",
         "Проверьте свободное место": "Check free space",
         "Выполните на роутере:": "Run on the router:",
-        "Смотрите колонку Available: для новых сборок в строке /tmp нужно от 40 МБ, во внутренней памяти (обычно overlayfs:/overlay) — от 30 МБ. RAM available — от 40 МБ. Установщик дополнительно проверит место по размеру пакета вашего процессора.": "Check the Available column: new builds need at least 40 MB in /tmp and 30 MB in internal storage (usually overlayfs:/overlay). RAM available must be at least 40 MB. The installer also checks space against the package size for your CPU.",
+        "Смотрите колонку Available: в строке /tmp нужно от 30 МБ, в строке внутренней памяти (обычно overlayfs:/overlay) — от 25 МБ. RAM available — от 30 МБ.": "Check the Available column: at least 30 MB for /tmp and 25 MB for internal storage (usually overlayfs:/overlay). RAM available must be at least 30 MB.",
         "Установка": "Install",
         "Роутеру нужен интернет. Скрипт сам проверит память, скачает сборку для вашего процессора и удалит временные файлы. Выполните и дождитесь «Готово»:": "The router needs internet access. The script checks memory, downloads the build for your CPU, and removes temporary files. Run and wait for “Done”:",
         "Если появляется ошибка SSL/сертификата («Unable to establish SSL connection»), выполните:": "If you get an SSL/certificate error (“Unable to establish SSL connection”), run:",
