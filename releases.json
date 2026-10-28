@@ -1,7 +1,7 @@
 {
   "api_base": "https://89-125-188-100.nip.io",
   "github_repo": "silentvpn3/silentvpn3.github.io",
-  "updated_at": "2026-10-26T13:49:26Z",
+  "updated_at": "2026-10-28T05:46:05Z",
   "pc": {
     "version": "1.0.171",
     "filename": "Silent.VPN.Setup.1.0.171.exe",
@@ -82,83 +82,86 @@
   },
   "keenetic": {
     "version": "1.0.171",
+    "filename": "silent-vpn-keenetic-1.0.171-i386.tar.gz",
+    "size": 7989251,
+    "download_url": "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.171/silent-vpn-keenetic-1.0.171-i386.tar.gz",
     "arches": {
       "aarch64": {
-        "platform": "keenetic",
-        "arch": "aarch64",
         "version": "1.0.171",
-        "build_id": "311d76116229ee4852b79ac54cc393104abc53015d92c68348bf4105ec07cbc6",
-        "size": 7463500,
-        "unpacked_size": 19360434,
-        "sha256": "5dc96066459acdf0bbb00b862a36708c40580d744ae96003caa2712af6e8b597",
         "filename": "silent-vpn-keenetic-1.0.171-aarch64.tar.gz",
-        "download_url": "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.171/silent-vpn-keenetic-1.0.171-aarch64.tar.gz"
+        "size": 7465055,
+        "download_url": "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.171/silent-vpn-keenetic-1.0.171-aarch64.tar.gz",
+        "sha256": "34562ea2c8b54a7808d32cdfea55a41419d40f12c897bdcb9b2a087d4c432a5d",
+        "unpacked_size": 19360530,
+        "build_id": "d707d15795e45f64ea8baac85e35285c9a3e02487b31e74f52278e5327198f6a",
+        "platform": "keenetic",
+        "arch": "aarch64"
       },
       "armv7": {
-        "platform": "keenetic",
-        "arch": "armv7",
         "version": "1.0.171",
-        "build_id": "311d76116229ee4852b79ac54cc393104abc53015d92c68348bf4105ec07cbc6",
-        "size": 7891346,
-        "unpacked_size": 20015790,
-        "sha256": "fc870c7d2378c0a0e9126ec781a01930b38cd4a309d5387e291f101a3517e436",
         "filename": "silent-vpn-keenetic-1.0.171-armv7.tar.gz",
-        "download_url": "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.171/silent-vpn-keenetic-1.0.171-armv7.tar.gz"
+        "size": 7892218,
+        "download_url": "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.171/silent-vpn-keenetic-1.0.171-armv7.tar.gz",
+        "sha256": "f2e0493619431065abe5c8c8395fe01de76b39cd90c08b92a4c03521ba121553",
+        "unpacked_size": 20015886,
+        "build_id": "d707d15795e45f64ea8baac85e35285c9a3e02487b31e74f52278e5327198f6a",
+        "platform": "keenetic",
+        "arch": "armv7"
       },
       "armv5": {
-        "platform": "keenetic",
-        "arch": "armv5",
         "version": "1.0.171",
-        "build_id": "311d76116229ee4852b79ac54cc393104abc53015d92c68348bf4105ec07cbc6",
-        "size": 7927109,
-        "unpacked_size": 20015790,
-        "sha256": "fa07a76d1246d302b4c4b54c8e9656daf5f623df91d53a5c99668a3016fe8c57",
         "filename": "silent-vpn-keenetic-1.0.171-armv5.tar.gz",
-        "download_url": "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.171/silent-vpn-keenetic-1.0.171-armv5.tar.gz"
+        "size": 7928574,
+        "download_url": "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.171/silent-vpn-keenetic-1.0.171-armv5.tar.gz",
+        "sha256": "30426dde8224e5de43884b9c7841075b3ceafaff3ac00d526d36c0794aeb19ec",
+        "unpacked_size": 20015886,
+        "build_id": "d707d15795e45f64ea8baac85e35285c9a3e02487b31e74f52278e5327198f6a",
+        "platform": "keenetic",
+        "arch": "armv5"
       },
       "mipsel": {
-        "platform": "keenetic",
-        "arch": "mipsel",
         "version": "1.0.171",
-        "build_id": "311d76116229ee4852b79ac54cc393104abc53015d92c68348bf4105ec07cbc6",
-        "size": 7565944,
-        "unpacked_size": 22571758,
-        "sha256": "da87c6c854f6f5b1e084319b520c55cd2320cd157bb50b99ca443eb22669bd18",
         "filename": "silent-vpn-keenetic-1.0.171-mipsel.tar.gz",
-        "download_url": "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.171/silent-vpn-keenetic-1.0.171-mipsel.tar.gz"
+        "size": 7566407,
+        "download_url": "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.171/silent-vpn-keenetic-1.0.171-mipsel.tar.gz",
+        "sha256": "a4e05493266f745657464799ca38b4965cf72d24ba9f1fef2f9584d779eec1c3",
+        "unpacked_size": 22571854,
+        "build_id": "d707d15795e45f64ea8baac85e35285c9a3e02487b31e74f52278e5327198f6a",
+        "platform": "keenetic",
+        "arch": "mipsel"
       },
       "mips": {
-        "platform": "keenetic",
-        "arch": "mips",
         "version": "1.0.171",
-        "build_id": "311d76116229ee4852b79ac54cc393104abc53015d92c68348bf4105ec07cbc6",
-        "size": 7616915,
-        "unpacked_size": 22571754,
-        "sha256": "18d8ede89932856b18327a5e36608fa7dac3c4e39612269f3d7c2afa492bbf32",
         "filename": "silent-vpn-keenetic-1.0.171-mips.tar.gz",
-        "download_url": "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.171/silent-vpn-keenetic-1.0.171-mips.tar.gz"
+        "size": 7617993,
+        "download_url": "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.171/silent-vpn-keenetic-1.0.171-mips.tar.gz",
+        "sha256": "299e91c70e0da972dd820a1ef0a3dc3c31934c3ec5417db4e73d3b6cbd78237b",
+        "unpacked_size": 22571850,
+        "build_id": "d707d15795e45f64ea8baac85e35285c9a3e02487b31e74f52278e5327198f6a",
+        "platform": "keenetic",
+        "arch": "mips"
       },
       "x86_64": {
-        "platform": "keenetic",
-        "arch": "x86_64",
         "version": "1.0.171",
-        "build_id": "311d76116229ee4852b79ac54cc393104abc53015d92c68348bf4105ec07cbc6",
-        "size": 8287939,
-        "unpacked_size": 20843184,
-        "sha256": "5bdd28398bdad95ce5caa1d945111f208e5c2a22a21db82bb68a4b2158e339e8",
         "filename": "silent-vpn-keenetic-1.0.171-x86_64.tar.gz",
-        "download_url": "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.171/silent-vpn-keenetic-1.0.171-x86_64.tar.gz"
+        "size": 8289368,
+        "download_url": "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.171/silent-vpn-keenetic-1.0.171-x86_64.tar.gz",
+        "sha256": "dd73f3c03dd6aba9ca189cae06cf617a9dae78318ed8279efb09af430c9f89a5",
+        "unpacked_size": 20847376,
+        "build_id": "d707d15795e45f64ea8baac85e35285c9a3e02487b31e74f52278e5327198f6a",
+        "platform": "keenetic",
+        "arch": "x86_64"
       },
       "i386": {
-        "platform": "keenetic",
-        "arch": "i386",
         "version": "1.0.171",
-        "build_id": "311d76116229ee4852b79ac54cc393104abc53015d92c68348bf4105ec07cbc6",
-        "size": 7988328,
-        "unpacked_size": 19921580,
-        "sha256": "16c499215f9f3b22b103b03e9c3cdd7f30b19862fea4defccf4390f8badb3115",
         "filename": "silent-vpn-keenetic-1.0.171-i386.tar.gz",
-        "download_url": "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.171/silent-vpn-keenetic-1.0.171-i386.tar.gz"
+        "size": 7989251,
+        "download_url": "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.171/silent-vpn-keenetic-1.0.171-i386.tar.gz",
+        "sha256": "c490b6cf1105fbd7f313ef3f7fe2428aee750ea87fe98e6f8b641b0d9fab8d61",
+        "unpacked_size": 19929868,
+        "build_id": "d707d15795e45f64ea8baac85e35285c9a3e02487b31e74f52278e5327198f6a",
+        "platform": "keenetic",
+        "arch": "i386"
       }
     }
   }
