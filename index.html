@@ -1000,7 +1000,7 @@
             <button type="button" class="cmd-copy" data-copy-cmd>Копировать</button>
             <pre>df -h /tmp /usr; awk '/^MemAvailable:/ {a=$2} /^MemFree:/ {f=$2} END {printf "RAM available: %.1f MB\n", (a ? a : f) / 1024}' /proc/meminfo</pre>
           </div>
-          <p>Смотрите колонку Available: в строке /tmp нужно от 30 МБ, в строке внутренней памяти (обычно overlayfs:/overlay) — от 25 МБ. RAM available — от 30 МБ.</p>
+          <p>Смотрите колонку Available: для новых сборок в строке /tmp нужно от 40 МБ, во внутренней памяти (обычно overlayfs:/overlay) — от 30 МБ. RAM available — от 40 МБ. Установщик дополнительно проверит место по размеру пакета вашего процессора.</p>
         </div>
         <div class="router-platform">
           <h3>Память Keenetic</h3>
@@ -2710,7 +2710,7 @@
         "Укажите IP своего роутера. Пароль — как в его веб-панели.": "Use your router IP. The password is the same as its web panel.",
         "Проверьте свободное место": "Check free space",
         "Выполните на роутере:": "Run on the router:",
-        "Смотрите колонку Available: в строке /tmp нужно от 30 МБ, в строке внутренней памяти (обычно overlayfs:/overlay) — от 25 МБ. RAM available — от 30 МБ.": "Check the Available column: at least 30 MB for /tmp and 25 MB for internal storage (usually overlayfs:/overlay). RAM available must be at least 30 MB.",
+        "Смотрите колонку Available: для новых сборок в строке /tmp нужно от 40 МБ, во внутренней памяти (обычно overlayfs:/overlay) — от 30 МБ. RAM available — от 40 МБ. Установщик дополнительно проверит место по размеру пакета вашего процессора.": "Check the Available column: new builds need at least 40 MB in /tmp and 30 MB in internal storage (usually overlayfs:/overlay). RAM available must be at least 40 MB. The installer also checks space against the package size for your CPU.",
         "Установка": "Install",
         "Роутеру нужен интернет. Скрипт сам проверит память, скачает сборку для вашего процессора и удалит временные файлы. Выполните и дождитесь «Готово»:": "The router needs internet access. The script checks memory, downloads the build for your CPU, and removes temporary files. Run and wait for “Done”:",
         "Если появляется ошибка SSL/сертификата («Unable to establish SSL connection»), выполните:": "If you get an SSL/certificate error (“Unable to establish SSL connection”), run:",
