@@ -752,7 +752,7 @@
             <span class="version-badge" id="openwrtVersion" data-version="1.0.171">v1.0.171</span>
           </div>
           <div>
-            <div class="dl-title">Роутер OpenWrt 23.05+</div>
+            <div class="dl-title">Роутер OpenWrt / Keenetic</div>
             <p class="dl-meta">aarch64, arm, mipsel, x86_64</p>
           </div>
           <span class="dl-action">
@@ -943,12 +943,18 @@
     </header>
 
     <section class="guide-hero install-doc">
-      <p class="eyebrow">OpenWrt 23.05+</p>
+      <p class="eyebrow">OpenWrt 23.05+ / Keenetic + Entware</p>
       <h1>Установка на роутер</h1>
-      <p class="hero-desc">aarch64, arm, mipsel, x86_64</p>
+      <p class="hero-desc">Система и процессор определяются автоматически</p>
     </section>
 
     <div class="install-doc">
+      <aside class="install-step" aria-label="Для Keenetic">
+        <p><strong>Для Keenetic</strong></p>
+        <p>Перед установкой настройте Entware и включите компонент «Поддержка открытых пакетов» (OPKG). Подключайтесь к SSH Entware на порту 22 или 222; точный порт указан в журнале его установки.</p>
+        <p>Скрипт сам определяет OpenWrt или Keenetic, устанавливает нужные пакеты и выбирает сборку для вашего процессора. Команда установки ниже общая для обеих систем.</p>
+      </aside>
+
       <section class="install-step">
         <div class="guide-section-num">01</div>
         <h2>Подключитесь по SSH</h2>
@@ -958,17 +964,19 @@
           <pre>ssh root@192.168.1.1</pre>
         </div>
         <p>Укажите IP своего роутера. Пароль — как в его веб-панели.</p>
+        <p>Для Keenetic используйте пароль Entware. Если его SSH работает на порту 222, подключитесь командой <code>ssh -p 222 root@192.168.1.1</code>.</p>
       </section>
 
       <section class="install-step">
         <div class="guide-section-num">02</div>
         <h2>Проверьте свободное место</h2>
-        <p>Выполните на роутере:</p>
+        <p>Для OpenWrt выполните на роутере:</p>
         <div class="cmd-block">
           <button type="button" class="cmd-copy" data-copy-cmd>Копировать</button>
           <pre>df -h /tmp /usr; awk '/^MemAvailable:/ {printf "RAM available: %.1f MB\n", $2 / 1024}' /proc/meminfo</pre>
         </div>
         <p>Смотрите колонку Available: в строке /tmp нужно от 30 МБ, в строке внутренней памяти (обычно overlayfs:/overlay) — от 25 МБ. RAM available — от 30 МБ.</p>
+        <p>Для Keenetic проверьте накопитель Entware командой <code>df -h /opt</code>: желательно от 128 МБ свободного места. Для установки нужно от 32 МБ свободной RAM; рабочее потребление VPN зависит от устройства.</p>
       </section>
 
       <section class="install-step">
@@ -990,23 +998,26 @@
         <div class="guide-section-num">04</div>
         <h2>Вход</h2>
         <p>Откройте <a href="http://192.168.1.1.silent.vpn" target="_blank" rel="noopener noreferrer"><strong>http://192.168.1.1.silent.vpn</strong></a> (Где <strong>http://192.168.1.1</strong> это адрес вашего роутера, может быть другой)</p>
+        <p>На Keenetic откройте <strong>http://IP-роутера:8787</strong>. Локальный логин — admin, случайный пароль панели покажет установщик. Затем войдите в аккаунт Silent VPN.</p>
         <p>Войдите в аккаунт. В «Исключениях» включите «Российские сервисы мимо VPN», затем включите VPN.</p>
       </section>
 
       <section class="install-step">
         <div class="guide-section-num">05</div>
         <h2>Удаление</h2>
+        <p>Для OpenWrt:</p>
         <div class="cmd-block">
           <button type="button" class="cmd-copy" data-copy-cmd>Копировать</button>
           <pre>sh /usr/sbin/silent-vpn-uninstall</pre>
         </div>
+        <p>Для Keenetic: <code>sh /opt/lib/silent-keenetic/uninstall.sh</code>. Настройки сохранятся; для их удаления добавьте <code>--purge</code>.</p>
       </section>
 
       <section class="install-step">
         <div class="guide-section-num">06</div>
         <h2>Обновление</h2>
         <p><strong>Способ 1 — через SSH</strong></p>
-        <p>Подключитесь к роутеру по SSH и удалите старую версию:</p>
+        <p>На OpenWrt подключитесь по SSH и удалите старую версию:</p>
         <div class="cmd-block">
           <button type="button" class="cmd-copy" data-copy-cmd>Копировать</button>
           <pre>sh /usr/sbin/silent-vpn-uninstall</pre>
@@ -1017,7 +1028,9 @@
           <pre>wget -O /tmp/sv.sh https://silentvpn3.github.io/openwrt-install.sh &amp;&amp; sh /tmp/sv.sh</pre>
         </div>
         <p>После установки войдите в аккаунт и включите VPN.</p>
-        <p><strong>Способ 2 — через панель, начиная с версии 1.0.170</strong></p>
+        <p>На Keenetic повторите общую команду установки без удаления: аккаунт и настройки сохранятся.</p>
+        <p><strong>Способ 2 — через панель</strong></p>
+        <p>На OpenWrt обновление из панели доступно начиная с 1.0.170, на Keenetic — в сборке 1.0.171. Если уже установлена 1.0.171, исправленную сборку той же версии установите повторной командой через SSH.</p>
         <p>Когда выйдет новая версия, внизу главного экрана панели появится кнопка обновления. Нажмите её и дождитесь завершения.</p>
         <p>Во время установки обновления VPN временно отключится, затем подключится автоматически. Настройки и вход в аккаунт сохранятся.</p>
       </section>
@@ -2545,8 +2558,28 @@
         "Дождитесь статуса «Подключено»": "Wait for the Connected status",
         "Linux": "Linux",
         "Роутер": "Router",
-        "Роутер OpenWrt 23.05+": "Router OpenWrt 23.05+",
+        "Роутер OpenWrt / Keenetic": "Router OpenWrt / Keenetic",
         "OpenWrt 23.05+": "OpenWrt 23.05+",
+        "Для Keenetic": "For Keenetic",
+        "OpenWrt 23.05+ / Keenetic + Entware": "OpenWrt 23.05+ / Keenetic + Entware",
+        "Система и процессор определяются автоматически": "System and CPU are detected automatically",
+        "Для Keenetic используйте пароль Entware. Если его SSH работает на порту 222, подключитесь командой": "For Keenetic, use your Entware password. If its SSH uses port 222, connect with",
+        "Для OpenWrt выполните на роутере:": "For OpenWrt, run on the router:",
+        "Для Keenetic проверьте накопитель Entware командой": "For Keenetic, check Entware storage with",
+        ": желательно от 128 МБ свободного места. Для установки нужно от 32 МБ свободной RAM; рабочее потребление VPN зависит от устройства.": ": preferably at least 128 MB free. Installation requires at least 32 MB free RAM; VPN runtime usage depends on the device.",
+        "На Keenetic откройте": "On Keenetic, open",
+        "http://IP-роутера:8787": "http://ROUTER-IP:8787",
+        ". Локальный логин — admin, случайный пароль панели покажет установщик. Затем войдите в аккаунт Silent VPN.": ". The local username is admin; the installer shows a random panel password. Then sign in to your Silent VPN account.",
+        "Для OpenWrt:": "For OpenWrt:",
+        "Для Keenetic:": "For Keenetic:",
+        ". Настройки сохранятся; для их удаления добавьте": ". Settings are preserved; to remove them, add",
+        "На OpenWrt подключитесь по SSH и удалите старую версию:": "On OpenWrt, connect over SSH and remove the old version:",
+        "На Keenetic повторите общую команду установки без удаления: аккаунт и настройки сохранятся.": "On Keenetic, repeat the shared installation command without uninstalling: your account and settings are preserved.",
+        "Способ 2 — через панель": "Method 2 — from the panel",
+        "На OpenWrt обновление из панели доступно начиная с 1.0.170, на Keenetic — в сборке 1.0.171. Если уже установлена 1.0.171, исправленную сборку той же версии установите повторной командой через SSH.": "Panel updates are available from OpenWrt 1.0.170 and in Keenetic 1.0.171. If 1.0.171 is already installed, reinstall the corrected build of the same version using the SSH command.",
+
+        "Перед установкой настройте Entware и включите компонент «Поддержка открытых пакетов» (OPKG). Подключайтесь к SSH Entware на порту 22 или 222; точный порт указан в журнале его установки.": "Before installation, set up Entware and enable the Open Package support (OPKG) component. Connect to Entware over SSH on port 22 or 222; its installation log shows the exact port.",
+        "Скрипт сам определяет OpenWrt или Keenetic, устанавливает нужные пакеты и выбирает сборку для вашего процессора. Команда установки ниже общая для обеих систем.": "The script detects OpenWrt or Keenetic, installs the required packages, and selects the build for your CPU. The installation command below is shared by both systems.",
         "Как установить": "How to install",
         "aarch64, arm, mipsel, x86_64": "aarch64, arm, mipsel, x86_64",
         "Установка на роутер": "Install on a router",
