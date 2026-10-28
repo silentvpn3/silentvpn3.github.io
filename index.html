@@ -958,6 +958,7 @@
         <div class="router-platform">
           <h3>Подготовка Keenetic</h3>
           <p>Перед установкой настройте Entware и включите компонент «Поддержка открытых пакетов» (OPKG). Подключайтесь к SSH Entware на порту 22 или 222; точный порт указан в журнале его установки.</p>
+          <p>Для адреса панели без порта нужен штатный HTTP-порт Keenetic 80. Установщик настраивает адрес панели автоматически.</p>
         </div>
         <p>Для обеих систем установщик сам выбирает сборку под процессор и устанавливает нужные пакеты.</p>
       </aside>
@@ -1056,9 +1057,9 @@
           <h3>Панель Keenetic</h3>
           <div class="cmd-block">
             <button type="button" class="cmd-copy" data-copy-cmd>Копировать</button>
-            <pre>http://192.168.1.1:8787</pre>
+            <pre>http://192.168.1.1.silent.vpn</pre>
           </div>
-          <p>Локальный логин — admin. Случайный пароль панели покажет установщик.</p>
+          <p>Адрес, дизайн и вход в аккаунт такие же, как на OpenWrt. Дополнительный логин admin не нужен.</p>
         </div>
         <p>Войдите в аккаунт Silent VPN. В «Исключениях» включите «Российские сервисы мимо VPN», затем включите VPN.</p>
       </section>
@@ -2630,7 +2631,7 @@
         "Установка Keenetic": "Install on Keenetic",
         "Откройте адрес панели в браузере. Замените 192.168.1.1 на IP своего роутера.": "Open the panel address in your browser. Replace 192.168.1.1 with your router IP.",
         "Панель OpenWrt": "OpenWrt panel",
-        "Локальный логин — admin. Случайный пароль панели покажет установщик.": "The local username is admin. The installer shows a random panel password.",
+        "Адрес, дизайн и вход в аккаунт такие же, как на OpenWrt. Дополнительный логин admin не нужен.": "The address, design, and account sign-in are the same as on OpenWrt. No additional admin login is needed.",
         "Панель Keenetic": "Keenetic panel",
         "Войдите в аккаунт Silent VPN. В «Исключениях» включите «Российские сервисы мимо VPN», затем включите VPN.": "Sign in to your Silent VPN account. In Exclusions, enable “Russian services bypass VPN”, then turn VPN on.",
         "Удаление OpenWrt": "Uninstall from OpenWrt",
@@ -2644,6 +2645,7 @@
         "OpenWrt: обновление из панели доступно начиная с 1.0.170.": "OpenWrt: panel updates are available from version 1.0.170.",
         "Keenetic: обновление из панели доступно в сборке 1.0.171.": "Keenetic: panel updates are available in build 1.0.171.",
         "Подготовка": "Preparation",
+        "Для адреса панели без порта нужен штатный HTTP-порт Keenetic 80. Установщик настраивает адрес панели автоматически.": "The panel address without a port requires the standard Keenetic HTTP port 80. The installer sets up the panel address automatically.",
         "Инструкция": "Guide",
         "Оплата": "Payment",
         "Бонусы": "Bonuses",
