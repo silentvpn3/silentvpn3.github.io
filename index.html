@@ -1067,11 +1067,16 @@
         <div class="guide-section-num">05</div>
         <h2>Удаление</h2>
         <div class="router-platform">
-          <h3>Полное удаление OpenWrt</h3>
-          <p>Данные входа и настройки на роутере будут удалены.</p>
+          <h3>Удаление OpenWrt</h3>
+          <p>Данные входа и настройки сохранятся.</p>
           <div class="cmd-block">
             <button type="button" class="cmd-copy" data-copy-cmd>Копировать</button>
-            <pre>sh /usr/sbin/silent-vpn-uninstall</pre>
+            <pre>wget -O /tmp/sv-rm.sh https://silentvpn3.github.io/openwrt-uninstall.sh &amp;&amp; sh /tmp/sv-rm.sh --keep-data</pre>
+          </div>
+          <p>Для полного удаления вместе с данными входа и настройками:</p>
+          <div class="cmd-block">
+            <button type="button" class="cmd-copy" data-copy-cmd>Копировать</button>
+            <pre>wget -O /tmp/sv-rm.sh https://silentvpn3.github.io/openwrt-uninstall.sh &amp;&amp; sh /tmp/sv-rm.sh --purge</pre>
           </div>
         </div>
         <div class="router-platform">
@@ -1097,7 +1102,7 @@
           <p>Удалите старую версию:</p>
           <div class="cmd-block">
             <button type="button" class="cmd-copy" data-copy-cmd>Копировать</button>
-            <pre>sh /usr/sbin/silent-vpn-uninstall</pre>
+            <pre>wget -O /tmp/sv-rm.sh https://silentvpn3.github.io/openwrt-uninstall.sh &amp;&amp; sh /tmp/sv-rm.sh --keep-data</pre>
           </div>
           <p>Установите новую версию:</p>
           <div class="cmd-block">
@@ -2634,8 +2639,9 @@
         "Адрес, дизайн и вход в аккаунт такие же, как на OpenWrt. Дополнительный логин admin не нужен.": "The address, design, and account sign-in are the same as on OpenWrt. No additional admin login is needed.",
         "Панель Keenetic": "Keenetic panel",
         "Войдите в аккаунт Silent VPN. В «Исключениях» включите «Российские сервисы мимо VPN», затем включите VPN. В новых сборках обоих роутерных клиентов общий каталог российских сервисов объединён с ручными правилами администратора.": "Sign in to your Silent VPN account. In Exclusions, enable “Russian services bypass VPN”, then turn VPN on. New builds of both router clients combine the shared catalog of Russian services with the administrator’s manual rules.",
-        "Полное удаление OpenWrt": "Full uninstall from OpenWrt",
-        "Данные входа и настройки на роутере будут удалены.": "Saved sign-in data and settings will be removed from the router.",
+        "Удаление OpenWrt": "Uninstall from OpenWrt",
+        "Данные входа и настройки сохранятся.": "Saved sign-in data and settings are preserved.",
+        "Для полного удаления вместе с данными входа и настройками:": "To fully uninstall, including saved sign-in data and settings:",
         "Аккаунт и настройки сохранятся. Если хотите удалить и их, используйте команду ниже:": "Your account and settings are preserved. To remove them too, use the command below:",
         "Удаление Keenetic": "Uninstall from Keenetic",
         "Удалите старую версию:": "Remove the old version:",
