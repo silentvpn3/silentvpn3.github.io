@@ -1008,7 +1008,7 @@
             <button type="button" class="cmd-copy" data-copy-cmd>Копировать</button>
             <pre>df -h /opt; awk '/^MemAvailable:/ {a=$2} /^MemFree:/ {f=$2} END {printf "RAM available: %.1f MB\n", (a ? a : f) / 1024}' /proc/meminfo</pre>
           </div>
-          <p>На накопителе Entware (/opt) желательно от 128 МБ свободного места. Для установки нужно от 32 МБ свободной RAM; рабочее потребление VPN зависит от устройства.</p>
+          <p>Скачивается только пакет вашего процессора: около 7–8 МБ, после установки — около 19–22 МБ. На накопителе Entware (/opt) нужен временный запас для распаковки и отката: ориентировочно 60 МБ при первой установке и 80 МБ при обновлении, плюс место под зависимости Entware. Точный объём установщик проверит сам. Для установки нужно от 32 МБ свободной RAM; рабочее потребление VPN зависит от устройства.</p>
         </div>
       </section>
 
@@ -1061,7 +1061,7 @@
           </div>
           <p>Адрес, дизайн и вход в аккаунт такие же, как на OpenWrt. Дополнительный логин admin не нужен.</p>
         </div>
-        <p>Войдите в аккаунт Silent VPN. В «Исключениях» включите «Российские сервисы мимо VPN», затем включите VPN.</p>
+        <p>Войдите в аккаунт Silent VPN. В «Исключениях» включите «Российские сервисы мимо VPN», затем включите VPN. В новых сборках обоих роутерных клиентов общий каталог российских сервисов объединён с ручными правилами администратора.</p>
       </section>
 
       <section class="install-step">
@@ -2625,7 +2625,7 @@
         "Если порт 222:": "For port 222:",
         "SSH Keenetic": "Keenetic SSH",
         "Память OpenWrt": "OpenWrt storage and RAM",
-        "На накопителе Entware (/opt) желательно от 128 МБ свободного места. Для установки нужно от 32 МБ свободной RAM; рабочее потребление VPN зависит от устройства.": "At least 128 MB of free space on the Entware drive (/opt) is recommended. Installation needs at least 32 MB of available RAM; VPN memory use depends on your device.",
+        "Скачивается только пакет вашего процессора: около 7–8 МБ, после установки — около 19–22 МБ. На накопителе Entware (/opt) нужен временный запас для распаковки и отката: ориентировочно 60 МБ при первой установке и 80 МБ при обновлении, плюс место под зависимости Entware. Точный объём установщик проверит сам. Для установки нужно от 32 МБ свободной RAM; рабочее потребление VPN зависит от устройства.": "Only the package for your CPU is downloaded: about 7–8 MB compressed and 19–22 MB installed. The Entware drive (/opt) also needs temporary space for extraction and rollback: roughly 60 MB for a first installation or 80 MB for an update, plus room for Entware dependencies. The installer checks the exact amount. Installation needs at least 32 MB of available RAM; VPN memory use depends on your device.",
         "Память Keenetic": "Keenetic storage and RAM",
         "Установка OpenWrt": "Install on OpenWrt",
         "Установка Keenetic": "Install on Keenetic",
@@ -2633,7 +2633,7 @@
         "Панель OpenWrt": "OpenWrt panel",
         "Адрес, дизайн и вход в аккаунт такие же, как на OpenWrt. Дополнительный логин admin не нужен.": "The address, design, and account sign-in are the same as on OpenWrt. No additional admin login is needed.",
         "Панель Keenetic": "Keenetic panel",
-        "Войдите в аккаунт Silent VPN. В «Исключениях» включите «Российские сервисы мимо VPN», затем включите VPN.": "Sign in to your Silent VPN account. In Exclusions, enable “Russian services bypass VPN”, then turn VPN on.",
+        "Войдите в аккаунт Silent VPN. В «Исключениях» включите «Российские сервисы мимо VPN», затем включите VPN. В новых сборках обоих роутерных клиентов общий каталог российских сервисов объединён с ручными правилами администратора.": "Sign in to your Silent VPN account. In Exclusions, enable “Russian services bypass VPN”, then turn VPN on. New builds of both router clients combine the shared catalog of Russian services with the administrator’s manual rules.",
         "Удаление OpenWrt": "Uninstall from OpenWrt",
         "Аккаунт и настройки сохранятся. Если хотите удалить и их, используйте команду ниже:": "Your account and settings are preserved. To remove them too, use the command below:",
         "Удаление Keenetic": "Uninstall from Keenetic",
