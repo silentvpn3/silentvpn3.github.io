@@ -959,7 +959,6 @@
           <h3>Подготовка Keenetic</h3>
           <p>Перед установкой настройте Entware и включите компонент «Поддержка открытых пакетов» (OPKG).</p>
         </div>
-        <p>Для обеих систем установщик сам выбирает сборку под процессор и устанавливает нужные пакеты.</p>
       </aside>
 
       <section class="install-step">
@@ -1058,9 +1057,8 @@
             <button type="button" class="cmd-copy" data-copy-cmd>Копировать</button>
             <pre>http://192.168.1.1.silent.vpn</pre>
           </div>
-          <p>Адрес, дизайн и вход в аккаунт такие же, как на OpenWrt. Дополнительный логин admin не нужен.</p>
         </div>
-        <p>Войдите в аккаунт Silent VPN. В «Исключениях» включите «Российские сервисы мимо VPN», затем включите VPN. В новых сборках обоих роутерных клиентов общий каталог российских сервисов объединён с ручными правилами администратора.</p>
+        <p>Войдите в аккаунт Silent VPN. В «Исключениях» включите «Российские сервисы мимо VPN», затем включите VPN.</p>
       </section>
 
       <section class="install-step">
@@ -1083,12 +1081,12 @@
           <h3>Удаление Keenetic</h3>
           <div class="cmd-block">
             <button type="button" class="cmd-copy" data-copy-cmd>Копировать</button>
-            <pre>sh /opt/lib/silent-keenetic/uninstall.sh</pre>
+            <pre>wget -O /tmp/svk-rm.sh https://silentvpn3.github.io/keenetic-uninstall.sh &amp;&amp; sh /tmp/svk-rm.sh</pre>
           </div>
           <p>Аккаунт и настройки сохранятся. Если хотите удалить и их, используйте команду ниже:</p>
           <div class="cmd-block">
             <button type="button" class="cmd-copy" data-copy-cmd>Копировать</button>
-            <pre>sh /opt/lib/silent-keenetic/uninstall.sh --purge</pre>
+            <pre>wget -O /tmp/svk-rm.sh https://silentvpn3.github.io/keenetic-uninstall.sh &amp;&amp; sh /tmp/svk-rm.sh --purge</pre>
           </div>
         </div>
       </section>
@@ -1122,8 +1120,6 @@
         </div>
         <div class="router-platform">
           <h3>Способ 2 — через панель</h3>
-          <p>OpenWrt: обновление из панели доступно начиная с 1.0.170.</p>
-          <p>Keenetic: обновление из панели доступно в сборке 1.0.171.</p>
           <p>Когда выйдет новая версия, внизу главного экрана панели появится кнопка обновления. Нажмите её и дождитесь завершения.</p>
           <p>Во время установки обновления VPN временно отключится, затем подключится автоматически. Настройки и вход в аккаунт сохранятся.</p>
         </div>
@@ -2621,7 +2617,6 @@
         "Нужен OpenWrt 23.05 или новее и доступ к роутеру по SSH.": "You need OpenWrt 23.05 or later and SSH access to the router.",
         "Подготовка OpenWrt": "Prepare OpenWrt",
         "Подготовка Keenetic": "Prepare Keenetic",
-        "Для обеих систем установщик сам выбирает сборку под процессор и устанавливает нужные пакеты.": "For both systems, the installer selects the build for your CPU and installs the required packages.",
         "Откройте PowerShell или терминал на компьютере. В командах замените 192.168.1.1 на IP своего роутера.": "Open PowerShell or Terminal on your computer. Replace 192.168.1.1 with your router IP in the commands.",
         "Пароль — как в веб-панели роутера.": "The password is the same as your router web panel.",
         "SSH OpenWrt": "OpenWrt SSH",
@@ -2636,9 +2631,8 @@
         "Установка Keenetic": "Install on Keenetic",
         "Откройте адрес панели в браузере. Замените 192.168.1.1 на IP своего роутера.": "Open the panel address in your browser. Replace 192.168.1.1 with your router IP.",
         "Панель OpenWrt": "OpenWrt panel",
-        "Адрес, дизайн и вход в аккаунт такие же, как на OpenWrt. Дополнительный логин admin не нужен.": "The address, design, and account sign-in are the same as on OpenWrt. No additional admin login is needed.",
         "Панель Keenetic": "Keenetic panel",
-        "Войдите в аккаунт Silent VPN. В «Исключениях» включите «Российские сервисы мимо VPN», затем включите VPN. В новых сборках обоих роутерных клиентов общий каталог российских сервисов объединён с ручными правилами администратора.": "Sign in to your Silent VPN account. In Exclusions, enable “Russian services bypass VPN”, then turn VPN on. New builds of both router clients combine the shared catalog of Russian services with the administrator’s manual rules.",
+        "Войдите в аккаунт Silent VPN. В «Исключениях» включите «Российские сервисы мимо VPN», затем включите VPN.": "Sign in to your Silent VPN account. In Exclusions, enable “Russian services bypass VPN”, then turn VPN on.",
         "Удаление OpenWrt": "Uninstall from OpenWrt",
         "Данные входа и настройки сохранятся.": "Saved sign-in data and settings are preserved.",
         "Для полного удаления вместе с данными входа и настройками:": "To fully uninstall, including saved sign-in data and settings:",
@@ -2649,8 +2643,6 @@
         "Повторите установку без удаления. Аккаунт и настройки сохранятся.": "Repeat installation without uninstalling. Your account and settings are preserved.",
         "Если уже установлена 1.0.171, этой же командой можно поставить исправленную сборку 1.0.171. Обновление той же версии в панели не появится.": "If 1.0.171 is already installed, use this command to install the corrected 1.0.171 build. The panel does not offer updates with the same version number.",
         "Обновление Keenetic": "Update Keenetic",
-        "OpenWrt: обновление из панели доступно начиная с 1.0.170.": "OpenWrt: panel updates are available from version 1.0.170.",
-        "Keenetic: обновление из панели доступно в сборке 1.0.171.": "Keenetic: panel updates are available in build 1.0.171.",
         "Подготовка": "Preparation",
         "Инструкция": "Guide",
         "Оплата": "Payment",
@@ -2704,7 +2696,6 @@
         "На OpenWrt подключитесь по SSH и удалите старую версию:": "On OpenWrt, connect over SSH and remove the old version:",
         "На Keenetic повторите общую команду установки без удаления: аккаунт и настройки сохранятся.": "On Keenetic, repeat the shared installation command without uninstalling: your account and settings are preserved.",
         "Способ 2 — через панель": "Method 2 — from the panel",
-        "На OpenWrt обновление из панели доступно начиная с 1.0.170, на Keenetic — в сборке 1.0.171. Если уже установлена 1.0.171, исправленную сборку той же версии установите повторной командой через SSH.": "Panel updates are available from OpenWrt 1.0.170 and in Keenetic 1.0.171. If 1.0.171 is already installed, reinstall the corrected build of the same version using the SSH command.",
 
         "Перед установкой настройте Entware и включите компонент «Поддержка открытых пакетов» (OPKG).": "Before installation, set up Entware and enable the Open Package support (OPKG) component.",
         "Скрипт сам определяет OpenWrt или Keenetic, устанавливает нужные пакеты и выбирает сборку для вашего процессора. Команда установки ниже общая для обеих систем.": "The script detects OpenWrt or Keenetic, installs the required packages, and selects the build for your CPU. The installation command below is shared by both systems.",
