@@ -1190,6 +1190,20 @@
   color: var(--muted);
 }
 .install-step p + p { margin-top: 10px; }
+.router-architectures { display: grid; gap: 10px; margin-top: 8px; }
+.router-architectures strong { color: var(--fg); font-weight: var(--weight-emphasis); }
+.router-platform { margin-top: 24px; }
+.router-platform + .router-platform { margin-top: 32px; }
+.router-platform + p { margin-top: 16px; }
+.router-platform h3 {
+  font-family: var(--font-display);
+  font-size: var(--type-subsection);
+  font-weight: var(--weight-emphasis);
+  line-height: 1.3;
+  margin: 0 0 12px;
+}
+.router-platform .cmd-block + p { margin-top: 12px; }
+.router-platform .cmd-block { margin-bottom: 12px; }
 .install-step strong { color: var(--fg); font-weight: var(--weight-emphasis); }
 .install-step code {
   font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;

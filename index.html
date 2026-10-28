@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="typography.css?v=1">
-  <link rel="stylesheet" href="guide.css?v=24">
+  <link rel="stylesheet" href="guide.css?v=25">
   <style>
     :root {
       --bg: #ffffff;
@@ -753,7 +753,7 @@
           </div>
           <div>
             <div class="dl-title">Роутер OpenWrt / Keenetic</div>
-            <p class="dl-meta">aarch64, arm, mipsel, x86_64</p>
+            <div class="router-architectures"><p class="dl-meta"><strong>OpenWrt</strong><br>aarch64, arm, mipsel, x86_64</p><p class="dl-meta"><strong>Keenetic</strong><br>aarch64, armv7, armv5, mipsel, mips, x86_64, i386</p></div>
           </div>
           <span class="dl-action">
             Как установить
@@ -949,90 +949,178 @@
     </section>
 
     <div class="install-doc">
-      <aside class="install-step" aria-label="Для Keenetic">
-        <p><strong>Для Keenetic</strong></p>
-        <p>Перед установкой настройте Entware и включите компонент «Поддержка открытых пакетов» (OPKG). Подключайтесь к SSH Entware на порту 22 или 222; точный порт указан в журнале его установки.</p>
-        <p>Скрипт сам определяет OpenWrt или Keenetic, устанавливает нужные пакеты и выбирает сборку для вашего процессора. Команда установки ниже общая для обеих систем.</p>
+      <aside class="install-step" aria-label="Подготовка">
+        <h2>Подготовка</h2>
+        <div class="router-platform">
+          <h3>Подготовка OpenWrt</h3>
+          <p>Нужен OpenWrt 23.05 или новее и доступ к роутеру по SSH.</p>
+        </div>
+        <div class="router-platform">
+          <h3>Подготовка Keenetic</h3>
+          <p>Перед установкой настройте Entware и включите компонент «Поддержка открытых пакетов» (OPKG). Подключайтесь к SSH Entware на порту 22 или 222; точный порт указан в журнале его установки.</p>
+        </div>
+        <p>Для обеих систем установщик сам выбирает сборку под процессор и устанавливает нужные пакеты.</p>
       </aside>
 
       <section class="install-step">
         <div class="guide-section-num">01</div>
         <h2>Подключитесь по SSH</h2>
-        <p>Подключитесь к роутеру. Откройте PowerShell или терминал:</p>
-        <div class="cmd-block">
-          <button type="button" class="cmd-copy" data-copy-cmd>Копировать</button>
-          <pre>ssh root@192.168.1.1</pre>
+        <p>Откройте PowerShell или терминал на компьютере. В командах замените 192.168.1.1 на IP своего роутера.</p>
+        <div class="router-platform">
+          <h3>SSH OpenWrt</h3>
+          <div class="cmd-block">
+            <button type="button" class="cmd-copy" data-copy-cmd>Копировать</button>
+            <pre>ssh root@192.168.1.1</pre>
+          </div>
+          <p>Пароль — как в веб-панели роутера.</p>
         </div>
-        <p>Укажите IP своего роутера. Пароль — как в его веб-панели.</p>
-        <p>Для Keenetic используйте пароль Entware. Если его SSH работает на порту 222, подключитесь командой <code>ssh -p 222 root@192.168.1.1</code>.</p>
+        <div class="router-platform">
+          <h3>SSH Keenetic</h3>
+          <p>Используйте пароль Entware. Выберите команду с портом из журнала установки Entware.</p>
+          <p>Если порт 22:</p>
+          <div class="cmd-block">
+            <button type="button" class="cmd-copy" data-copy-cmd>Копировать</button>
+            <pre>ssh -p 22 root@192.168.1.1</pre>
+          </div>
+          <p>Если порт 222:</p>
+          <div class="cmd-block">
+            <button type="button" class="cmd-copy" data-copy-cmd>Копировать</button>
+            <pre>ssh -p 222 root@192.168.1.1</pre>
+          </div>
+        </div>
       </section>
 
       <section class="install-step">
         <div class="guide-section-num">02</div>
         <h2>Проверьте свободное место</h2>
-        <p>Для OpenWrt выполните на роутере:</p>
-        <div class="cmd-block">
-          <button type="button" class="cmd-copy" data-copy-cmd>Копировать</button>
-          <pre>df -h /tmp /usr; awk '/^MemAvailable:/ {printf "RAM available: %.1f MB\n", $2 / 1024}' /proc/meminfo</pre>
+        <div class="router-platform">
+          <h3>Память OpenWrt</h3>
+          <div class="cmd-block">
+            <button type="button" class="cmd-copy" data-copy-cmd>Копировать</button>
+            <pre>df -h /tmp /usr; awk '/^MemAvailable:/ {a=$2} /^MemFree:/ {f=$2} END {printf "RAM available: %.1f MB\n", (a ? a : f) / 1024}' /proc/meminfo</pre>
+          </div>
+          <p>Смотрите колонку Available: в строке /tmp нужно от 30 МБ, в строке внутренней памяти (обычно overlayfs:/overlay) — от 25 МБ. RAM available — от 30 МБ.</p>
         </div>
-        <p>Смотрите колонку Available: в строке /tmp нужно от 30 МБ, в строке внутренней памяти (обычно overlayfs:/overlay) — от 25 МБ. RAM available — от 30 МБ.</p>
-        <p>Для Keenetic проверьте накопитель Entware командой <code>df -h /opt</code>: желательно от 128 МБ свободного места. Для установки нужно от 32 МБ свободной RAM; рабочее потребление VPN зависит от устройства.</p>
+        <div class="router-platform">
+          <h3>Память Keenetic</h3>
+          <div class="cmd-block">
+            <button type="button" class="cmd-copy" data-copy-cmd>Копировать</button>
+            <pre>df -h /opt; awk '/^MemAvailable:/ {a=$2} /^MemFree:/ {f=$2} END {printf "RAM available: %.1f MB\n", (a ? a : f) / 1024}' /proc/meminfo</pre>
+          </div>
+          <p>На накопителе Entware (/opt) желательно от 128 МБ свободного места. Для установки нужно от 32 МБ свободной RAM; рабочее потребление VPN зависит от устройства.</p>
+        </div>
       </section>
 
       <section class="install-step">
         <div class="guide-section-num">03</div>
         <h2>Установка</h2>
         <p>Роутеру нужен интернет. Скрипт сам проверит память, скачает сборку для вашего процессора и удалит временные файлы. Выполните и дождитесь «Готово»:</p>
-        <div class="cmd-block">
-          <button type="button" class="cmd-copy" data-copy-cmd>Копировать</button>
-          <pre>wget -O /tmp/sv.sh https://silentvpn3.github.io/openwrt-install.sh &amp;&amp; sh /tmp/sv.sh</pre>
+        <div class="router-platform">
+          <h3>Установка OpenWrt</h3>
+          <div class="cmd-block">
+            <button type="button" class="cmd-copy" data-copy-cmd>Копировать</button>
+            <pre>wget -O /tmp/sv.sh https://silentvpn3.github.io/openwrt-install.sh &amp;&amp; sh /tmp/sv.sh</pre>
+          </div>
+          <p>Если появляется ошибка SSL/сертификата («Unable to establish SSL connection»), выполните:</p>
+          <div class="cmd-block">
+            <button type="button" class="cmd-copy" data-copy-cmd>Копировать</button>
+            <pre>wget -O /tmp/sv.sh http://silentvpn3.github.io/openwrt-install.sh &amp;&amp; sh /tmp/sv.sh</pre>
+          </div>
         </div>
-        <p>Если появляется ошибка SSL/сертификата («Unable to establish SSL connection»), выполните:</p>
-        <div class="cmd-block">
-          <button type="button" class="cmd-copy" data-copy-cmd>Копировать</button>
-          <pre>wget -O /tmp/sv.sh http://silentvpn3.github.io/openwrt-install.sh &amp;&amp; sh /tmp/sv.sh</pre>
+        <div class="router-platform">
+          <h3>Установка Keenetic</h3>
+          <div class="cmd-block">
+            <button type="button" class="cmd-copy" data-copy-cmd>Копировать</button>
+            <pre>wget -O /tmp/sv.sh https://silentvpn3.github.io/openwrt-install.sh &amp;&amp; sh /tmp/sv.sh</pre>
+          </div>
+          <p>Если появляется ошибка SSL/сертификата («Unable to establish SSL connection»), выполните:</p>
+          <div class="cmd-block">
+            <button type="button" class="cmd-copy" data-copy-cmd>Копировать</button>
+            <pre>wget -O /tmp/sv.sh http://silentvpn3.github.io/openwrt-install.sh &amp;&amp; sh /tmp/sv.sh</pre>
+          </div>
         </div>
       </section>
 
       <section class="install-step">
         <div class="guide-section-num">04</div>
         <h2>Вход</h2>
-        <p>Откройте <a href="http://192.168.1.1.silent.vpn" target="_blank" rel="noopener noreferrer"><strong>http://192.168.1.1.silent.vpn</strong></a> (Где <strong>http://192.168.1.1</strong> это адрес вашего роутера, может быть другой)</p>
-        <p>На Keenetic откройте <strong>http://IP-роутера:8787</strong>. Локальный логин — admin, случайный пароль панели покажет установщик. Затем войдите в аккаунт Silent VPN.</p>
-        <p>Войдите в аккаунт. В «Исключениях» включите «Российские сервисы мимо VPN», затем включите VPN.</p>
+        <p>Откройте адрес панели в браузере. Замените 192.168.1.1 на IP своего роутера.</p>
+        <div class="router-platform">
+          <h3>Панель OpenWrt</h3>
+          <div class="cmd-block">
+            <button type="button" class="cmd-copy" data-copy-cmd>Копировать</button>
+            <pre>http://192.168.1.1.silent.vpn</pre>
+          </div>
+        </div>
+        <div class="router-platform">
+          <h3>Панель Keenetic</h3>
+          <div class="cmd-block">
+            <button type="button" class="cmd-copy" data-copy-cmd>Копировать</button>
+            <pre>http://192.168.1.1:8787</pre>
+          </div>
+          <p>Локальный логин — admin. Случайный пароль панели покажет установщик.</p>
+        </div>
+        <p>Войдите в аккаунт Silent VPN. В «Исключениях» включите «Российские сервисы мимо VPN», затем включите VPN.</p>
       </section>
 
       <section class="install-step">
         <div class="guide-section-num">05</div>
         <h2>Удаление</h2>
-        <p>Для OpenWrt:</p>
-        <div class="cmd-block">
-          <button type="button" class="cmd-copy" data-copy-cmd>Копировать</button>
-          <pre>sh /usr/sbin/silent-vpn-uninstall</pre>
+        <div class="router-platform">
+          <h3>Удаление OpenWrt</h3>
+          <div class="cmd-block">
+            <button type="button" class="cmd-copy" data-copy-cmd>Копировать</button>
+            <pre>sh /usr/sbin/silent-vpn-uninstall</pre>
+          </div>
         </div>
-        <p>Для Keenetic: <code>sh /opt/lib/silent-keenetic/uninstall.sh</code>. Настройки сохранятся; для их удаления добавьте <code>--purge</code>.</p>
+        <div class="router-platform">
+          <h3>Удаление Keenetic</h3>
+          <div class="cmd-block">
+            <button type="button" class="cmd-copy" data-copy-cmd>Копировать</button>
+            <pre>sh /opt/lib/silent-keenetic/uninstall.sh</pre>
+          </div>
+          <p>Аккаунт и настройки сохранятся. Если хотите удалить и их, используйте команду ниже:</p>
+          <div class="cmd-block">
+            <button type="button" class="cmd-copy" data-copy-cmd>Копировать</button>
+            <pre>sh /opt/lib/silent-keenetic/uninstall.sh --purge</pre>
+          </div>
+        </div>
       </section>
 
       <section class="install-step">
         <div class="guide-section-num">06</div>
         <h2>Обновление</h2>
-        <p><strong>Способ 1 — через SSH</strong></p>
-        <p>На OpenWrt подключитесь по SSH и удалите старую версию:</p>
-        <div class="cmd-block">
-          <button type="button" class="cmd-copy" data-copy-cmd>Копировать</button>
-          <pre>sh /usr/sbin/silent-vpn-uninstall</pre>
+        <p>Способ 1 — через SSH</p>
+        <div class="router-platform">
+          <h3>Обновление OpenWrt</h3>
+          <p>Удалите старую версию:</p>
+          <div class="cmd-block">
+            <button type="button" class="cmd-copy" data-copy-cmd>Копировать</button>
+            <pre>sh /usr/sbin/silent-vpn-uninstall</pre>
+          </div>
+          <p>Установите новую версию:</p>
+          <div class="cmd-block">
+            <button type="button" class="cmd-copy" data-copy-cmd>Копировать</button>
+            <pre>wget -O /tmp/sv.sh https://silentvpn3.github.io/openwrt-install.sh &amp;&amp; sh /tmp/sv.sh</pre>
+          </div>
+          <p>После установки войдите в аккаунт и включите VPN.</p>
         </div>
-        <p>Установите новую версию:</p>
-        <div class="cmd-block">
-          <button type="button" class="cmd-copy" data-copy-cmd>Копировать</button>
-          <pre>wget -O /tmp/sv.sh https://silentvpn3.github.io/openwrt-install.sh &amp;&amp; sh /tmp/sv.sh</pre>
+        <div class="router-platform">
+          <h3>Обновление Keenetic</h3>
+          <p>Повторите установку без удаления. Аккаунт и настройки сохранятся.</p>
+          <div class="cmd-block">
+            <button type="button" class="cmd-copy" data-copy-cmd>Копировать</button>
+            <pre>wget -O /tmp/sv.sh https://silentvpn3.github.io/openwrt-install.sh &amp;&amp; sh /tmp/sv.sh</pre>
+          </div>
+          <p>Если уже установлена 1.0.171, этой же командой можно поставить исправленную сборку 1.0.171. Обновление той же версии в панели не появится.</p>
         </div>
-        <p>После установки войдите в аккаунт и включите VPN.</p>
-        <p>На Keenetic повторите общую команду установки без удаления: аккаунт и настройки сохранятся.</p>
-        <p><strong>Способ 2 — через панель</strong></p>
-        <p>На OpenWrt обновление из панели доступно начиная с 1.0.170, на Keenetic — в сборке 1.0.171. Если уже установлена 1.0.171, исправленную сборку той же версии установите повторной командой через SSH.</p>
-        <p>Когда выйдет новая версия, внизу главного экрана панели появится кнопка обновления. Нажмите её и дождитесь завершения.</p>
-        <p>Во время установки обновления VPN временно отключится, затем подключится автоматически. Настройки и вход в аккаунт сохранятся.</p>
+        <div class="router-platform">
+          <h3>Способ 2 — через панель</h3>
+          <p>OpenWrt: обновление из панели доступно начиная с 1.0.170.</p>
+          <p>Keenetic: обновление из панели доступно в сборке 1.0.171.</p>
+          <p>Когда выйдет новая версия, внизу главного экрана панели появится кнопка обновления. Нажмите её и дождитесь завершения.</p>
+          <p>Во время установки обновления VPN временно отключится, затем подключится автоматически. Настройки и вход в аккаунт сохранятся.</p>
+        </div>
       </section>
     </div>
 
@@ -2523,6 +2611,39 @@
         "Перейти к оплате": "Continue to payment",
         "Оплатите в платёжной системе и вернитесь в приложение. Дождитесь подтверждения платежа.": "Pay through the payment system and return to the app. Wait for payment confirmation.",
         "Подписка обновлена · 5 устройств": "Subscription updated · 5 devices",
+        "Если появляется ошибка SSL/сертификата («Unable to establish SSL connection»), выполните:": "If you get an SSL/certificate error (“Unable to establish SSL connection”), run:",
+        "Нужен OpenWrt 23.05 или новее и доступ к роутеру по SSH.": "You need OpenWrt 23.05 or later and SSH access to the router.",
+        "Подготовка OpenWrt": "Prepare OpenWrt",
+        "Подготовка Keenetic": "Prepare Keenetic",
+        "Для обеих систем установщик сам выбирает сборку под процессор и устанавливает нужные пакеты.": "For both systems, the installer selects the build for your CPU and installs the required packages.",
+        "Откройте PowerShell или терминал на компьютере. В командах замените 192.168.1.1 на IP своего роутера.": "Open PowerShell or Terminal on your computer. Replace 192.168.1.1 with your router IP in the commands.",
+        "Пароль — как в веб-панели роутера.": "The password is the same as your router web panel.",
+        "SSH OpenWrt": "OpenWrt SSH",
+        "Используйте пароль Entware. Выберите команду с портом из журнала установки Entware.": "Use your Entware password. Choose the command with the port shown in the Entware installation log.",
+        "Если порт 22:": "For port 22:",
+        "Если порт 222:": "For port 222:",
+        "SSH Keenetic": "Keenetic SSH",
+        "Память OpenWrt": "OpenWrt storage and RAM",
+        "На накопителе Entware (/opt) желательно от 128 МБ свободного места. Для установки нужно от 32 МБ свободной RAM; рабочее потребление VPN зависит от устройства.": "At least 128 MB of free space on the Entware drive (/opt) is recommended. Installation needs at least 32 MB of available RAM; VPN memory use depends on your device.",
+        "Память Keenetic": "Keenetic storage and RAM",
+        "Установка OpenWrt": "Install on OpenWrt",
+        "Установка Keenetic": "Install on Keenetic",
+        "Откройте адрес панели в браузере. Замените 192.168.1.1 на IP своего роутера.": "Open the panel address in your browser. Replace 192.168.1.1 with your router IP.",
+        "Панель OpenWrt": "OpenWrt panel",
+        "Локальный логин — admin. Случайный пароль панели покажет установщик.": "The local username is admin. The installer shows a random panel password.",
+        "Панель Keenetic": "Keenetic panel",
+        "Войдите в аккаунт Silent VPN. В «Исключениях» включите «Российские сервисы мимо VPN», затем включите VPN.": "Sign in to your Silent VPN account. In Exclusions, enable “Russian services bypass VPN”, then turn VPN on.",
+        "Удаление OpenWrt": "Uninstall from OpenWrt",
+        "Аккаунт и настройки сохранятся. Если хотите удалить и их, используйте команду ниже:": "Your account and settings are preserved. To remove them too, use the command below:",
+        "Удаление Keenetic": "Uninstall from Keenetic",
+        "Удалите старую версию:": "Remove the old version:",
+        "Обновление OpenWrt": "Update OpenWrt",
+        "Повторите установку без удаления. Аккаунт и настройки сохранятся.": "Repeat installation without uninstalling. Your account and settings are preserved.",
+        "Если уже установлена 1.0.171, этой же командой можно поставить исправленную сборку 1.0.171. Обновление той же версии в панели не появится.": "If 1.0.171 is already installed, use this command to install the corrected 1.0.171 build. The panel does not offer updates with the same version number.",
+        "Обновление Keenetic": "Update Keenetic",
+        "OpenWrt: обновление из панели доступно начиная с 1.0.170.": "OpenWrt: panel updates are available from version 1.0.170.",
+        "Keenetic: обновление из панели доступно в сборке 1.0.171.": "Keenetic: panel updates are available in build 1.0.171.",
+        "Подготовка": "Preparation",
         "Инструкция": "Guide",
         "Оплата": "Payment",
         "Бонусы": "Bonuses",
