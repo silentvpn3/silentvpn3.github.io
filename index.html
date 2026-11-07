@@ -749,7 +749,7 @@
                 <circle class="r-led" cx="7.2" cy="13" r="0.7"/>
               </svg>
             </div>
-            <span class="version-badge" id="openwrtVersion" data-version="1.0.171">v1.0.171</span>
+            <span class="version-badge" id="openwrtVersion" data-version="1.0.172" data-openwrt-version="1.0.172" data-keenetic-version="1.0.172">v1.0.172</span>
           </div>
           <div>
             <div class="dl-title">Роутер</div>
@@ -2241,6 +2241,12 @@
         filename: "Silent.VPN.Setup.1.0.172.deb",
         download_url: "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.172/Silent.VPN.Setup.1.0.172.deb",
       },
+      openwrt: {
+        version: "1.0.172",
+      },
+      keenetic: {
+        version: "1.0.172",
+      },
     };
 
     function githubDownloadUrl(version, filename) {
@@ -2414,6 +2420,7 @@
     }
 
     async function bootstrapDownloads() {
+      applyRouterVersions(null);
       let remote = null;
       try {
         const res = await fetchWithTimeout(`releases.json?_=${Date.now()}`, FETCH_TIMEOUT_MS);
@@ -2427,6 +2434,29 @@
         applyRelease(platform, data, els.versionEl(), els.metaEl(), els.linkEl());
       }
       applyMacDownloads(remote);
+      applyRouterVersions(remote);
+    }
+
+    function applyRouterVersions(remote) {
+      const badge = document.getElementById("openwrtVersion");
+      if (!badge) return;
+      const versions = ["openwrt", "keenetic"].map((platform) => {
+        const key = `${platform}Version`;
+        const current = badge.dataset[key] || badge.dataset.version || "";
+        const incoming = remote?.[platform]?.version || INLINE_FALLBACK[platform]?.version;
+        if (typeof incoming === "string" && /^\d+(?:\.\d+)+$/.test(incoming)
+            && (!current || compareVersions(incoming, current) >= 0)) {
+          badge.dataset[key] = incoming;
+        } else if (current) {
+          badge.dataset[key] = current;
+        }
+        return badge.dataset[key] || "";
+      });
+      if (!versions.every(Boolean)) return;
+      const [openwrt, keenetic] = versions;
+      const shared = openwrt === keenetic;
+      badge.dataset.version = shared ? openwrt : "";
+      badge.textContent = shared ? `v${openwrt}` : `OpenWrt v${openwrt} · Keenetic v${keenetic}`;
     }
 
     function applyMacDownloads(remote) {
@@ -2482,6 +2512,7 @@
         try {
           remoteFallback = await fetchRemoteFallback();
         } catch { /* ignore */ }
+        applyRouterVersions(remoteFallback);
         await Promise.all([
           refreshRelease("pc", remoteFallback),
           refreshRelease("android", remoteFallback),
