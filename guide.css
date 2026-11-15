@@ -1442,3 +1442,20 @@
   .mac-arrow { width: 52px; height: 44px; }
   .mac-ghost { top: 78px; }
 }
+
+/* iPhone installation follows the existing monochrome guide system. */
+.ios-install .guide-hero { padding-top: 56px; }
+.ios-intro { color: var(--muted); font-size: var(--type-body); line-height: var(--leading-body); max-width: 58ch; }
+.ios-text-link { color: var(--fg); text-underline-offset: 5px; justify-self: start; }
+.ios-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
+.install-button { display: inline-flex; align-items: center; justify-content: center; gap: 14px; min-height: 48px; padding: 13px 20px; border: 1px solid var(--fg); border-radius: 12px; background: var(--fg); color: var(--bg); font-size: var(--type-action); font-weight: var(--weight-emphasis); text-decoration: none; transition: background .2s ease, color .2s ease; }
+.install-button:hover { background: var(--bg); color: var(--fg); }
+.install-button svg { width: 20px; height: 20px; flex-shrink: 0; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.install-button:focus-visible, .ios-text-link:focus-visible, #iosGuide:focus-visible { outline: 2px solid var(--fg); outline-offset: 5px; }
+.ios-install .lang-switch button { min-width: 38px; min-height: 32px; border: 0; border-radius: 999px; background: transparent; color: var(--muted); cursor: pointer; font: inherit; }
+.ios-install .lang-switch button.is-active { background: var(--fg); color: var(--bg); }
+@media (max-width: 540px) { .ios-install .guide-hero { padding-top: 32px; } .ios-actions .install-button { width: 100%; } }
+@media (prefers-reduced-motion: reduce) { .install-button { transition: none; } }
+
+.ios-install .brand { flex-shrink: 0; }
+.ios-install .brand-name { white-space: nowrap; }

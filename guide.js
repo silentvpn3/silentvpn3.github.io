@@ -19,8 +19,10 @@
     pdn: pdnView,
     mac: macView,
     openwrt: openwrtView,
+    ios: document.getElementById("view-ios"),
+    testflight: document.getElementById("view-testflight"),
   };
-  const HASH_VIEWS = ["guide", "payment", "bonuses", "terms", "privacy", "pdn", "mac", "openwrt"];
+  const HASH_VIEWS = ["guide", "payment", "bonuses", "terms", "privacy", "pdn", "mac", "openwrt", "ios", "testflight"];
 
   const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   let switching = false;
@@ -158,6 +160,12 @@
     target.classList.remove("is-entering");
     switching = false;
   }
+
+  ["ios", "testflight"].forEach((name) => {
+    document.querySelectorAll(`[data-open-${name}]`).forEach((el) => {
+      el.addEventListener("click", (e) => { e.preventDefault(); showView(name); });
+    });
+  });
 
   function routeFromHash() {
     const h = (location.hash || "").replace(/^#/, "");

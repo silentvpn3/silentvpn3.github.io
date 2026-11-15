@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="typography.css?v=1">
-  <link rel="stylesheet" href="guide.css?v=25">
+  <link rel="stylesheet" href="guide.css?v=26">
   <style>
     :root {
       --bg: #ffffff;
@@ -255,10 +255,13 @@
 
     .downloads {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(6, minmax(0, 1fr));
       gap: 18px;
       animation: fadeUp 0.9s 0.42s cubic-bezier(0.16, 1, 0.3, 1) both;
     }
+
+    .downloads > .dl-card-mobile { grid-column: span 3; }
+    .downloads > .dl-card-desktop { grid-column: span 2; }
 
     .dl-card-openwrt {
       grid-column: 1 / -1;
@@ -266,6 +269,7 @@
 
     @media (max-width: 720px) {
       .downloads { grid-template-columns: 1fr; }
+      .downloads > .dl-card { grid-column: 1 / -1; }
     }
 
     .dl-card {
@@ -652,24 +656,7 @@
       </section>
 
       <section class="downloads" aria-label="Скачать приложение">
-        <a class="dl-card" id="pcDownload" href="https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.172/Silent.VPN.Setup.1.0.172.exe" download>
-          <div class="dl-top">
-            <div class="dl-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-            </div>
-            <span class="version-badge" id="pcVersion" data-version="1.0.172">v1.0.172</span>
-          </div>
-          <div>
-            <div class="dl-title">Windows</div>
-            <p class="dl-meta" id="pcMeta">80.2 MB</p>
-          </div>
-          <span class="dl-action">
-            Скачать для ПК
-            <svg viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
-          </span>
-        </a>
-
-        <a class="dl-card" id="androidDownload" href="https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.173/SilentVPN-release-1.0.173.apk" download>
+        <a class="dl-card dl-card-mobile" id="androidDownload" href="https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.173/SilentVPN-release-1.0.173.apk" download>
           <div class="dl-top">
             <div class="dl-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg>
@@ -686,7 +673,47 @@
           </span>
         </a>
 
-        <a class="dl-card dl-card-linux" id="linuxDownload" href="https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.172/Silent.VPN.Setup.1.0.172.deb" download>
+        <a class="dl-card dl-card-mobile dl-card-ios" id="iosGuide" href="#ios" data-open-ios>
+          <div class="dl-top"><div class="dl-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M17.1 12.3c0-2.1 1.7-3.1 1.8-3.2-1-1.5-2.6-1.7-3.2-1.7-1.4-.2-2.7.8-3.4.8-.7 0-1.8-.8-3-.8-1.5 0-3 .9-3.8 2.2-1.6 2.7-.4 6.8 1.1 9  .7 1.1 1.6 2.2 2.8 2.2 1.1 0 1.6-.7 3-.7s1.8.7 3 .7 2-1.1 2.7-2.1c.8-1.2 1.2-2.4 1.2-2.5-.1 0-2.2-.9-2.2-3.9ZM14.8 6c.6-.8 1.1-1.9 1-3-.9 0-2.1.6-2.8 1.4-.6.7-1.2 1.8-1 2.9 1 .1 2.1-.5 2.8-1.3Z"/></svg></div><span class="version-badge">TestFlight</span></div>
+          <div><div class="dl-title">iPhone · iOS</div><p class="dl-meta">Установка через TestFlight</p></div>
+          <span class="dl-action">Как установить <svg viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></span>
+        </a>
+
+        <a class="dl-card dl-card-desktop" id="pcDownload" href="https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.172/Silent.VPN.Setup.1.0.172.exe" download>
+          <div class="dl-top">
+            <div class="dl-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+            </div>
+            <span class="version-badge" id="pcVersion" data-version="1.0.172">v1.0.172</span>
+          </div>
+          <div>
+            <div class="dl-title">Windows</div>
+            <p class="dl-meta" id="pcMeta">80.2 MB</p>
+          </div>
+          <span class="dl-action">
+            Скачать для ПК
+            <svg viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+          </span>
+        </a>
+
+        <a class="dl-card dl-card-desktop" id="macGuide" href="#mac" data-open-mac>
+          <div class="dl-top">
+            <div class="dl-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+            </div>
+            <span class="version-badge" id="macVersion" data-version="1.0.168">v1.0.168</span>
+          </div>
+          <div>
+            <div class="dl-title">Mac</div>
+            <p class="dl-meta" id="macMeta">Intel и Apple Silicon</p>
+          </div>
+          <span class="dl-action">
+            Как установить
+            <svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+          </span>
+        </a>
+
+        <a class="dl-card dl-card-desktop dl-card-linux" id="linuxDownload" href="https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.172/Silent.VPN.Setup.1.0.172.deb" download>
           <div class="dl-top">
             <div class="dl-icon dl-icon-tux" aria-hidden="true">
               <svg viewBox="0 0 24 24">
@@ -717,23 +744,6 @@
           </span>
         </a>
 
-        <a class="dl-card" id="macGuide" href="#mac" data-open-mac>
-          <div class="dl-top">
-            <div class="dl-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-            </div>
-            <span class="version-badge" id="macVersion" data-version="1.0.168">v1.0.168</span>
-          </div>
-          <div>
-            <div class="dl-title">Mac</div>
-            <p class="dl-meta" id="macMeta">Intel и Apple Silicon</p>
-          </div>
-          <span class="dl-action">
-            Как установить
-            <svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
-          </span>
-        </a>
-
         <a class="dl-card dl-card-openwrt" id="openwrtGuide" href="#openwrt" data-open-openwrt>
           <div class="dl-top">
             <div class="dl-icon" aria-hidden="true">
@@ -760,7 +770,6 @@
             <svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
           </span>
         </a>
-
       </section>
 
       <section class="telegram-block" aria-label="Telegram-канал">
@@ -808,6 +817,8 @@
     <footer>
       <span>© 2026 Silent VPN</span>
       <div style="display:flex;gap:16px;flex-wrap:wrap">
+        <a href="#ios" data-open-ios>iPhone · iOS</a>
+        <a href="#testflight" data-open-testflight>TestFlight</a>
         <a href="#mac" data-open-mac>Mac</a>
         <a href="#openwrt" data-open-openwrt>Роутер</a>
         <a href="#guide" data-open-guide>Инструкция</a>
@@ -822,6 +833,29 @@
   </div>
 
   <!-- ========== MAC INSTALL VIEW ========== -->
+
+  <div class="guide-page view ios-install" id="view-ios" hidden>
+    <header><a class="brand" href="#" data-open-home><div class="logo" aria-hidden="true">S</div><span class="brand-name">Silent VPN</span></a><div class="header-actions"><a class="nav-link" href="#" data-open-home>← На главную</a><div class="lang-switch"><button type="button" data-global-lang="ru">RU</button><button type="button" data-global-lang="en">EN</button></div></div></header>
+    <section class="guide-hero install-doc"><h1>Silent VPN<br>на iPhone</h1><p class="ios-intro">Три шага до подключения. Установите TestFlight, скачайте Silent VPN по приглашению и войдите в аккаунт.</p><a class="ios-text-link" href="#testflight" data-open-testflight>Что такое TestFlight?</a></section>
+    <div class="install-doc">
+      <section class="install-step"><div class="guide-section-num">01</div><h2>Установите TestFlight</h2><p>Это бесплатное приложение Apple, через которое устанавливается Silent VPN для iOS. Откройте App Store на iPhone и скачайте TestFlight.</p><div class="ios-actions"><a class="install-button" href="https://apps.apple.com/app/testflight/id899247664" target="_blank" rel="noopener noreferrer">Скачать TestFlight<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a></div></section>
+      <section class="install-step"><div class="guide-section-num">02</div><h2>Скачайте Silent VPN</h2><p>Откройте приглашение на том же iPhone. В TestFlight примите приглашение и нажмите «Установить». Если клиент уже установлен, нажмите «Обновить».</p><div class="ios-actions"><a class="install-button" href="https://testflight.apple.com/join/FVCNuq38" target="_blank" rel="noopener noreferrer">Установить Silent VPN<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a></div></section>
+      <section class="install-step"><div class="guide-section-num">03</div><h2>Войдите или зарегистрируйтесь</h2><p>Откройте Silent VPN. Если аккаунт уже есть, войдите с вашей почтой и паролем — он общий для всех устройств. Для нового аккаунта выберите регистрацию и подтвердите почту. Затем включите VPN и разрешите добавление VPN-конфигурации, когда iPhone предложит это сделать.</p><div class="ios-actions"><a class="install-button" href="#guide" data-open-guide>Как войти или зарегистрироваться<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a></div></section>
+    </div>
+    <footer><a href="#" data-open-home>На главную</a><a href="#ios" data-open-ios>Установка на iPhone</a></footer>
+  </div>
+  <div class="guide-page view ios-install" id="view-testflight" hidden>
+    <header><a class="brand" href="#" data-open-home><div class="logo" aria-hidden="true">S</div><span class="brand-name">Silent VPN</span></a><div class="header-actions"><a class="nav-link" href="#" data-open-home>← На главную</a><div class="lang-switch"><button type="button" data-global-lang="ru">RU</button><button type="button" data-global-lang="en">EN</button></div></div></header>
+    <section class="guide-hero install-doc"><h1>Что такое<br>TestFlight</h1><p class="ios-intro">Приложение Apple для установки и обновления тестовых версий приложений. Silent VPN для iPhone распространяется через него по приглашению.</p></section>
+    <div class="install-doc">
+      <section class="install-step"><h2>Как это работает</h2><p>Сначала вы скачиваете TestFlight из App Store, затем открываете наше приглашение и устанавливаете Silent VPN. После установки запускайте Silent VPN как обычное приложение с главного экрана iPhone.</p><div class="ios-actions"><a class="install-button" href="#ios" data-open-ios >К установке на iPhone<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a></div></section>
+      <section class="install-step"><h2>Обновления и срок сборки</h2><p>Каждая сборка доступна до 90 дней с момента загрузки разработчиком. Оставшийся срок виден в TestFlight. Устанавливайте новые версии по мере выхода; в TestFlight можно включить автоматические обновления.</p></section>
+      <section class="install-step"><h2>Если приглашение не открывается</h2><p>Убедитесь, что TestFlight установлен, и откройте приглашение на iPhone ещё раз. Если Apple сообщает, что новые тестировщики не принимаются, повторите позже или напишите нам в Telegram.</p><div class="ios-actions"><a class="install-button" href="https://testflight.apple.com/join/FVCNuq38" target="_blank" rel="noopener noreferrer">Открыть приглашение<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a><a class="install-button" href="https://telegram.me/silentvpn3" target="_blank" rel="noopener noreferrer">Написать в Telegram<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a></div></section>
+      <section class="install-step"><h2>Подробнее у Apple</h2><p>Официальная инструкция Apple объясняет установку, обновления и отправку отзывов через TestFlight.</p><div class="ios-actions"><a class="install-button" href="https://testflight.apple.com/" target="_blank" rel="noopener noreferrer">Инструкция Apple<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a></div></section>
+    </div>
+    <footer><a href="#" data-open-home>На главную</a><a href="#ios" data-open-ios>Установка на iPhone</a></footer>
+  </div>
+
   <div class="guide-page view" id="view-mac" hidden>
     <header style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:8px">
       <a class="brand" href="#" data-open-home>
@@ -2193,7 +2227,7 @@
     </footer>
   </div>
 
-  <script src="guide.js?v=24"></script>
+  <script src="guide.js?v=25"></script>
   <script>
     const API_BASE = "https://132-243-234-162.nip.io";
     const GITHUB_REPO = "silentvpn3/silentvpn3.github.io";
@@ -2610,6 +2644,35 @@
     (() => {
       const LANG_KEY = "silent_site_lang";
       const DICT = {
+        "Установка через TestFlight": "Install with TestFlight",
+        "Установка на iPhone": "Install on iPhone",
+        "Silent VPN": "Silent VPN",
+        "на iPhone": "on iPhone",
+        "Три шага до подключения. Установите TestFlight, скачайте Silent VPN по приглашению и войдите в аккаунт.": "Three steps to connect. Install TestFlight, download Silent VPN using the invitation, and sign in.",
+        "Что такое TestFlight?": "What is TestFlight?",
+        "Установите TestFlight": "Install TestFlight",
+        "Это бесплатное приложение Apple, через которое устанавливается Silent VPN для iOS. Откройте App Store на iPhone и скачайте TestFlight.": "This free Apple app installs Silent VPN for iOS. Open the App Store on your iPhone and download TestFlight.",
+        "Скачать TestFlight": "Download TestFlight",
+        "Скачайте Silent VPN": "Download Silent VPN",
+        "Откройте приглашение на том же iPhone. В TestFlight примите приглашение и нажмите «Установить». Если клиент уже установлен, нажмите «Обновить».": "Open the invitation on the same iPhone. Accept it in TestFlight and tap Install. If the app is already installed, tap Update.",
+        "Установить Silent VPN": "Install Silent VPN",
+        "Войдите или зарегистрируйтесь": "Sign in or register",
+        "Откройте Silent VPN. Если аккаунт уже есть, войдите с вашей почтой и паролем — он общий для всех устройств. Для нового аккаунта выберите регистрацию и подтвердите почту. Затем включите VPN и разрешите добавление VPN-конфигурации, когда iPhone предложит это сделать.": "Open Silent VPN. Sign in with your email and password — your account works across all devices. To create an account, register and confirm your email. Turn VPN on and allow the VPN configuration when your iPhone asks.",
+        "Как войти или зарегистрироваться": "How to sign in or register",
+        "Что такое": "What is",
+        "Приложение Apple для установки и обновления тестовых версий приложений. Silent VPN для iPhone распространяется через него по приглашению.": "An Apple app for installing and updating beta apps. Silent VPN for iPhone is available through a TestFlight invitation.",
+        "Как это работает": "How it works",
+        "Сначала вы скачиваете TestFlight из App Store, затем открываете наше приглашение и устанавливаете Silent VPN. После установки запускайте Silent VPN как обычное приложение с главного экрана iPhone.": "Download TestFlight from the App Store, open our invitation and install Silent VPN. Then launch Silent VPN from your iPhone Home Screen like any other app.",
+        "К установке на iPhone": "Install on iPhone",
+        "Обновления и срок сборки": "Updates and build expiration",
+        "Каждая сборка доступна до 90 дней с момента загрузки разработчиком. Оставшийся срок виден в TestFlight. Устанавливайте новые версии по мере выхода; в TestFlight можно включить автоматические обновления.": "Each build is available for up to 90 days after the developer uploads it. TestFlight shows the remaining time. Install new versions as they become available; automatic updates can be enabled in TestFlight.",
+        "Если приглашение не открывается": "If the invitation does not open",
+        "Убедитесь, что TestFlight установлен, и откройте приглашение на iPhone ещё раз. Если Apple сообщает, что новые тестировщики не принимаются, повторите позже или напишите нам в Telegram.": "Make sure TestFlight is installed and reopen the invitation on your iPhone. If Apple says new testers are not being accepted, try again later or contact us on Telegram.",
+        "Открыть приглашение": "Open invitation",
+        "Написать в Telegram": "Contact us on Telegram",
+        "Подробнее у Apple": "Learn more from Apple",
+        "Официальная инструкция Apple объясняет установку, обновления и отправку отзывов через TestFlight.": "Apple’s official guide explains installation, updates and TestFlight feedback.",
+        "Инструкция Apple": "Apple guide",
         "Реферальная ссылка": "Referral link",
         "3 или 5 устройств": "3 or 5 devices",
         "Выберите лимит устройств в тарифе. Одна подписка действует на всех устройствах аккаунта.": "Choose a device limit for your plan. One subscription covers all devices on your account.",
