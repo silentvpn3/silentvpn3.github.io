@@ -1,12 +1,13 @@
 {
   "api_base": "https://89-125-188-100.nip.io",
   "github_repo": "silentvpn3/silentvpn3.github.io",
-  "updated_at": "2026-11-17T10:28:51Z",
+  "updated_at": "2026-11-19T09:39:01Z",
   "pc": {
-    "version": "1.0.172",
-    "filename": "Silent.VPN.Setup.1.0.172.exe",
-    "size": 84075129,
-    "download_url": "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.172/Silent.VPN.Setup.1.0.172.exe"
+    "version": "1.0.175",
+    "filename": "Silent.VPN.Setup.1.0.175.exe",
+    "size": 84083816,
+    "download_url": "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.175/Silent.VPN.Setup.1.0.175.exe",
+    "sha256": "b325083fa4b2abaaf47497cb6a9602f4a8aa830fb2668bcb85269ce0a88db619"
   },
   "android": {
     "version": "1.0.174",
@@ -15,28 +16,32 @@
     "download_url": "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.174/SilentVPN-release-1.0.174.apk"
   },
   "linux": {
-    "version": "1.0.172",
-    "filename": "Silent.VPN.Setup.1.0.172.deb",
-    "size": 119512800,
-    "download_url": "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.172/Silent.VPN.Setup.1.0.172.deb"
+    "version": "1.0.175",
+    "filename": "Silent.VPN.Setup.1.0.175.deb",
+    "size": 119516408,
+    "download_url": "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.175/Silent.VPN.Setup.1.0.175.deb",
+    "sha256": "49ce836af0f78c9fcfaa2c342fca8203707cfdfff62d7020c5f7197bccee76ff"
   },
   "mac": {
-    "version": "1.0.170",
-    "filename": "Silent.VPN.Setup.1.0.170-x64.dmg",
-    "size": 140934226,
-    "download_url": "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.170/Silent.VPN.Setup.1.0.170-x64.dmg",
+    "version": "1.0.175",
+    "filename": "Silent.VPN.Setup.1.0.175-x64.dmg",
+    "size": 140736016,
+    "download_url": "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.175/Silent.VPN.Setup.1.0.175-x64.dmg",
+    "sha256": "e684818cc1302d63db853503efeac29b4543f2c54f12561a21c998ba08503ca6",
     "arches": {
       "x64": {
-        "version": "1.0.170",
-        "filename": "Silent.VPN.Setup.1.0.170-x64.dmg",
-        "size": 140934226,
-        "download_url": "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.170/Silent.VPN.Setup.1.0.170-x64.dmg"
+        "version": "1.0.175",
+        "filename": "Silent.VPN.Setup.1.0.175-x64.dmg",
+        "size": 140736016,
+        "download_url": "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.175/Silent.VPN.Setup.1.0.175-x64.dmg",
+        "sha256": "e684818cc1302d63db853503efeac29b4543f2c54f12561a21c998ba08503ca6"
       },
       "arm64": {
-        "version": "1.0.170",
-        "filename": "Silent.VPN.Setup.1.0.170-arm64.dmg",
-        "size": 134743587,
-        "download_url": "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.170/Silent.VPN.Setup.1.0.170-arm64.dmg"
+        "version": "1.0.175",
+        "filename": "Silent.VPN.Setup.1.0.175-arm64.dmg",
+        "size": 134543780,
+        "download_url": "https://github.com/silentvpn3/silentvpn3.github.io/releases/download/v1.0.175/Silent.VPN.Setup.1.0.175-arm64.dmg",
+        "sha256": "22ad8c4756c79e1ba02308fd18da993956d2de81a981cfa163d78fbd23282851"
       }
     }
   },
